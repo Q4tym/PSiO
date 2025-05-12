@@ -8,12 +8,14 @@
 
 
 
-class Sortwonia
+class Sortownia
 {
-	bool przyjmijPaczke();
+public:
+
+	bool przyjmijPaczke()
 	{
 		bool przyjmijPaczke = false;
-		System::WindowsForms::Forms::MessageBox("Czy chcesz przyjac paczke?");
+		System::Windows::Forms::MessageBox::Show("Czy chcesz przyjac paczke ? ");
 		int wybor;
 		std::cin >> wybor;
 		if (wybor == 1)
@@ -26,10 +28,11 @@ class Sortwonia
 			przyjmijPaczke = false;
 			std::cout << "Paczka nie zostala przyjeta." << std::endl;
 		}
-	}
-	void sortujPaczki();
+		return przyjmijPaczke;
+	};
+	void sortujPaczki()
 	{
-
-	}
+		System::Windows::Forms::MessageBox::Show("Sortuje paczki...");
+	};
 };
 
