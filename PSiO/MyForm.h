@@ -96,6 +96,7 @@ namespace PSiO {
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 		MyForm1^ aboutform = gcnew MyForm1();
 		aboutform->ShowDialog();
+		//this->Hide();
 	}
 
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
