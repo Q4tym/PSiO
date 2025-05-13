@@ -10,7 +10,7 @@ int Main()
 	System::Windows::Forms::Application::SetCompatibleTextRenderingDefault(false);
 
 	// Tworzenie i uruchamianie g³ównego formularza
-	PSiO::MyForm^ form = gcnew PSiO::MyForm();
+	PSiO::MyForm ^ form = gcnew PSiO::MyForm();
 	System::Windows::Forms::Application::Run(form);
 	
 
