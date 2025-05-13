@@ -1,4 +1,5 @@
 #pragma once
+#include "logowanie.h"
 
 namespace PSiO {
 
@@ -93,7 +94,10 @@ namespace PSiO {
 	private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
 	}
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+		MyForm1^ aboutform = gcnew MyForm1();
+		aboutform->ShowDialog();
 	}
+
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (MessageBox::Show("Napewno chcesz zamkn¹æ aplikacjê", "Wyjscie podpowiedz", MessageBoxButtons::YesNo, MessageBoxIcon::Warning) == System::Windows::Forms::DialogResult::Yes)
 
