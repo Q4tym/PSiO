@@ -94,10 +94,16 @@ namespace PSiO {
 	private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
 	}
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-		MyForm1^ aboutform = gcnew MyForm1();
-		aboutform->ShowDialog();
-		//this->Hide();
+		try {
+			MyForm1^ aboutform = gcnew MyForm1();
+			aboutform->ShowDialog(); 
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show("Wyst¹pi³ b³¹d: " + ex->Message, "B³¹d", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
 	}
+
+
 
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (MessageBox::Show("Napewno chcesz zamkn¹æ aplikacjê", "Wyjscie podpowiedz", MessageBoxButtons::YesNo, MessageBoxIcon::Warning) == System::Windows::Forms::DialogResult::Yes)
