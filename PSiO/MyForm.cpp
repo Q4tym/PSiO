@@ -1,6 +1,6 @@
 ﻿#include "MyForm.h"
 #include "Klasy.h"
-#include "Klasy.cpp"
+#include "Formularz_paczki.h"
 
 [System::STAThread]
 int Main()
@@ -14,9 +14,7 @@ int Main()
 	System::Windows::Forms::Application::Run(form);
 	
 
-	// Testowanie klasy sortownia i ich metod
-	Sortownia sortownia;
-	sortownia.przyjmijPaczke();
+	//Sortownia sortownia;
 
 	return 0;
 }

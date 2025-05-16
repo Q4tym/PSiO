@@ -120,11 +120,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Formularz_paczki.cpp" />
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="Klasy.cpp" />
     <ClCompile Include="MyForm1.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Formularz_paczki.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -134,6 +138,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Formularz_paczki.resx">
+      <DependentUpon>Formularz_paczki.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MyForm.resx">
       <DependentUpon>MyForm.h</DependentUpon>
     </EmbeddedResource>

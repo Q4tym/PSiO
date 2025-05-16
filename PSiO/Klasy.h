@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <string>
 #include <vector>
@@ -6,11 +7,11 @@
 #include <algorithm>
 
 
-class Sortwonia
+class Sortownia
 {
 private:
-	std::string idSortowni;
-	std::string adres;
+	//std::string idSortowni;
+	//std::string adres;
 public:
 	bool przyjmijPaczke();
 	void sortujPaczki();
@@ -22,7 +23,7 @@ public:
 	std::string ulica;
 	std::string miasto;
 	std::string wojewodztwo;
-	int kodPocztowy;
+	std::string kodPocztowy;
 	std::string kraj;
 private:
 	virtual void klasaWirtualnaAdres() = 0;
@@ -33,7 +34,7 @@ class Osoba
 public:  
    std::string imie;  
    std::string nazwisko;  
-   int telefon;  
+   std::string telefon;  
    std::string email;  
 private:
    virtual void klasaWirtualnaOsoba() = 0; 
@@ -44,22 +45,24 @@ class Nadawca : public Osoba, public Adres
 private:
 	std::string idNadawcy;
 	std::string nazwaNadawcy;
+	void klasaWirtualnaOsoba() override {};
+	void klasaWirtualnaAdres() override {};
 public:
-	Nadawca(std::string id, std::string nazwa, std::string imie, std::string nazwisko, int telefon,
-		std::string email, std::string ulica, std::string miasto, std::string wojewodztwo, int kodPocztowy, std::string kraj)
+	Nadawca () {};
+	Nadawca (const Osoba& osoba, const Adres& adres, const std::string& idNadawcy, const std::string& nazwaNadawcy)
 	{
-		idNadawcy = id;
-		nazwaNadawcy = nazwa;
-		this->imie = imie;
-		this->nazwisko = nazwisko;
-		this->telefon = telefon;
-		this->email = email;
-		this->ulica = ulica;
-		this->miasto = miasto;
-		this->wojewodztwo = wojewodztwo;
-		this->kodPocztowy = kodPocztowy;
-		this->kraj = kraj;
-	};
+		this->idNadawcy = idNadawcy;
+		this->nazwaNadawcy = nazwaNadawcy;
+		this->imie = osoba.imie;
+		this->nazwisko = osoba.nazwisko;
+		this->telefon = osoba.telefon;
+		this->email = osoba.email;
+		this->ulica = adres.ulica;
+		this->miasto = adres.miasto;
+		this->wojewodztwo = adres.wojewodztwo;
+		this->kodPocztowy = adres.kodPocztowy;
+		this->kraj = adres.kraj;
+	}
 };
 
 class Odbiorca : public Osoba, public Adres
@@ -67,30 +70,55 @@ class Odbiorca : public Osoba, public Adres
 private:
 	std::string idOdbiorcy;
 	std::string nazwaOdbiorcy;
+	void klasaWirtualnaOsoba() override {};
+	void klasaWirtualnaAdres() override {};
 public:
-	Odbiorca(std::string id, std::string nazwa, std::string imie, std::string nazwisko, int telefon,
-		std::string email, std::string ulica, std::string miasto, std::string wojewodztwo, int kodPocztowy, std::string kraj)
+	Odbiorca() {};
+	Odbiorca(const Osoba& osoba, const Adres& adres, const std::string& idOdbiorcy, const std::string& nazwaOdbiorcy)
 	{
-		idOdbiorcy = id;
-		nazwaOdbiorcy = nazwa;
-		this->imie = imie;
-		this->nazwisko = nazwisko;
-		this->telefon = telefon;
-		this->email = email;
-		this->ulica = ulica;
-		this->miasto = miasto;
-		this->wojewodztwo = wojewodztwo;
-		this->kodPocztowy = kodPocztowy;
-		this->kraj = kraj;
-	};
+		this->idOdbiorcy = idOdbiorcy;
+		this->nazwaOdbiorcy = nazwaOdbiorcy;
+		this->imie = osoba.imie;
+		this->nazwisko = osoba.nazwisko;
+		this->telefon = osoba.telefon;
+		this->email = osoba.email;
+		this->ulica = adres.ulica;
+		this->miasto = adres.miasto;
+		this->wojewodztwo = adres.wojewodztwo;
+		this->kodPocztowy = adres.kodPocztowy;
+		this->kraj = adres.kraj;
+	}
+};
+enum class TypPaczki
+{
+	List = 0,
+	Paczka,
+	Paleta
 };
 
 class Paczka
 {
 private:
 	std::string numerPaczki;
-	
+	Nadawca* nadawca;
+	Odbiorca* odbiorca;
+public:
+	// Konstruktor z parametrami
+	Paczka(Nadawca& nadawca, Odbiorca& odbiorca)
+		: nadawca(&nadawca), odbiorca(&odbiorca)
+	{
+		numerPaczki = "123456789";
+	}
+
+	std::string getNumerPaczki() const
+	{
+		return numerPaczki;
+	}
+
+	void paczkaPrzyjeta();
 };
+
+
 
 class Magazyn
 {
