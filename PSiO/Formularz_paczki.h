@@ -185,7 +185,7 @@ namespace PSiO {
             this->textBox3->Name = L"textBox3";
             this->textBox3->Size = System::Drawing::Size(100, 20);
             this->textBox3->TabIndex = 3;
-            // Removed previous TextChanged handler if any. Now it's not present at all.
+            // Removed TextChanged handler
             this->textBox3->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox3_Enter);
             this->textBox3->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox3_Leave);
             //
@@ -196,7 +196,7 @@ namespace PSiO {
             this->textBox4->Name = L"textBox4";
             this->textBox4->Size = System::Drawing::Size(100, 20);
             this->textBox4->TabIndex = 4;
-            // Removed previous TextChanged handler if any.
+            // Removed TextChanged handler
             this->textBox4->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox4_Enter);
             this->textBox4->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox4_Leave);
             //
@@ -207,7 +207,7 @@ namespace PSiO {
             this->textBox5->Name = L"textBox5";
             this->textBox5->Size = System::Drawing::Size(100, 20);
             this->textBox5->TabIndex = 5;
-            // Removed previous TextChanged handler if any.
+            // Removed TextChanged handler
             this->textBox5->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox5_Enter);
             this->textBox5->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox5_Leave);
             //
@@ -218,7 +218,7 @@ namespace PSiO {
             this->textBox6->Name = L"textBox6";
             this->textBox6->Size = System::Drawing::Size(100, 20);
             this->textBox6->TabIndex = 6;
-            // Removed previous TextChanged handler if any.
+            // Removed TextChanged handler
             this->textBox6->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox6_Enter);
             this->textBox6->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox6_Leave);
             //
@@ -232,7 +232,7 @@ namespace PSiO {
             this->textBox7->Name = L"textBox7";
             this->textBox7->Size = System::Drawing::Size(100, 20);
             this->textBox7->TabIndex = 7;
-            // Removed previous TextChanged handler if any.
+            // Removed TextChanged handler
             this->textBox7->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox7_Enter);
             this->textBox7->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox7_Leave);
             //
@@ -246,7 +246,7 @@ namespace PSiO {
             this->textBox8->Name = L"textBox8";
             this->textBox8->Size = System::Drawing::Size(100, 20);
             this->textBox8->TabIndex = 8;
-            // Removed previous TextChanged handler if any.
+            // Removed TextChanged handler
             this->textBox8->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox8_Enter);
             this->textBox8->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox8_Leave);
             //
@@ -273,7 +273,7 @@ namespace PSiO {
             this->textBox10->Name = L"textBox10";
             this->textBox10->Size = System::Drawing::Size(100, 20);
             this->textBox10->TabIndex = 19;
-            // REMOVED TextChanged handler
+            // Removed TextChanged handler
             this->textBox10->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox10_Enter);
             this->textBox10->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox10_Leave);
             //
@@ -287,7 +287,7 @@ namespace PSiO {
             this->textBox11->Name = L"textBox11";
             this->textBox11->Size = System::Drawing::Size(100, 20);
             this->textBox11->TabIndex = 18;
-            // REMOVED TextChanged handler
+            // Removed TextChanged handler
             this->textBox11->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox11_Enter);
             this->textBox11->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox11_Leave);
             //
@@ -301,7 +301,7 @@ namespace PSiO {
             this->textBox12->Name = L"textBox12";
             this->textBox12->Size = System::Drawing::Size(100, 20);
             this->textBox12->TabIndex = 17;
-            // REMOVED TextChanged handler
+            // Removed TextChanged handler
             this->textBox12->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox12_Enter);
             this->textBox12->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox12_Leave);
             //
@@ -312,7 +312,7 @@ namespace PSiO {
             this->textBox13->Name = L"textBox13";
             this->textBox13->Size = System::Drawing::Size(100, 20);
             this->textBox13->TabIndex = 16;
-            // REMOVED TextChanged handler
+            // Removed TextChanged handler
             this->textBox13->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox13_Enter);
             this->textBox13->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox13_Leave);
             //
@@ -323,7 +323,7 @@ namespace PSiO {
             this->textBox14->Name = L"textBox14";
             this->textBox14->Size = System::Drawing::Size(100, 20);
             this->textBox14->TabIndex = 15;
-            // REMOVED TextChanged handler
+            // Removed TextChanged handler
             this->textBox14->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox14_Enter);
             this->textBox14->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox14_Leave);
             //
@@ -334,7 +334,7 @@ namespace PSiO {
             this->textBox15->Name = L"textBox15";
             this->textBox15->Size = System::Drawing::Size(100, 20);
             this->textBox15->TabIndex = 14;
-            // REMOVED TextChanged handler
+            // Removed TextChanged handler
             this->textBox15->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox15_Enter);
             this->textBox15->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox15_Leave);
             //
@@ -345,7 +345,7 @@ namespace PSiO {
             this->textBox16->Name = L"textBox16";
             this->textBox16->Size = System::Drawing::Size(100, 20);
             this->textBox16->TabIndex = 13;
-            // REMOVED TextChanged handler
+            // Removed TextChanged handler
             this->textBox16->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox16_Enter);
             this->textBox16->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox16_Leave);
             //
@@ -356,7 +356,7 @@ namespace PSiO {
             this->textBox17->Name = L"textBox17";
             this->textBox17->Size = System::Drawing::Size(100, 20);
             this->textBox17->TabIndex = 12;
-            // REMOVED TextChanged handler
+            // Removed TextChanged handler
             this->textBox17->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox17_Enter);
             this->textBox17->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox17_Leave);
             //
@@ -367,7 +367,7 @@ namespace PSiO {
             this->textBox18->Name = L"textBox18";
             this->textBox18->Size = System::Drawing::Size(100, 20);
             this->textBox18->TabIndex = 11;
-            // REMOVED TextChanged handler
+            // Removed TextChanged handler
             this->textBox18->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox18_Enter);
             this->textBox18->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox18_Leave);
             //
@@ -735,11 +735,41 @@ namespace PSiO {
         paczka.paczkaPrzyjeta();
     }
 
-           // Keeping only label2_Click as it was the only one explicitly defined previously and not removed by me.
-           // All the other TextChanged methods (textBox3_TextChanged to textBox18_TextChanged) were commented out
-           // or removed because they were not explicitly defined with functionality and caused errors.
+           // Removed all these TextChanged methods as they are not used and cause compilation errors.
+           // If you intended to have TextChanged logic for these textboxes, you would need to implement them.
+           /*
+           private: System::Void textBox3_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+           }
+           private: System::Void textBox4_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+           }
+           private: System::Void textBox5_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+           }
+           private: System::Void textBox6_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+           }
+           private: System::Void textBox7_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+           }
+           private: System::Void textBox8_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+           }
+           */
     private: System::Void label2_Click(System::Object^ sender, System::EventArgs^ e) {
     }
-           // Removed all the previously problematic textBoxX_TextChanged methods to prevent further errors.
+           /*
+           private: System::Void textBox11_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+           }
+           private: System::Void textBox12_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+           }
+           private: System::Void textBox13_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+           }
+           private: System::Void textBox14_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+           }
+           private: System::Void textBox15_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+           }
+           private: System::Void textBox16_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+           }
+           private: System::Void textBox17_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+           }
+           private: System::Void textBox18_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+           }
+           */
     };
 }
