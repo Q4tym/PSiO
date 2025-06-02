@@ -41,6 +41,9 @@ void Paczka::paczkaPrzyjeta()
 	ss << "Adres nadawcy: " << nadawca->ulica << ", " << nadawca->miasto << ", " << nadawca->wojewodztwo << ", " << nadawca->kodPocztowy << ", " << nadawca->kraj << "\n";
 	ss << "Odbiorca: " << odbiorca->imie << " " << odbiorca->nazwisko << ", tel: " << odbiorca->telefon << ", email: " << odbiorca->email << "\n";
 	ss << "Adres odbiorcy: " << odbiorca->ulica << ", " << odbiorca->miasto << ", " << odbiorca->wojewodztwo << ", " << odbiorca->kodPocztowy << ", " << odbiorca->kraj << "\n";
+	ss << "Typ paczki: " <<
+		(*typPaczki == TypPaczki::List ? "List" :
+			(*typPaczki == TypPaczki::Paczka ? "Paczka" : "Paleta")) << "\n";
 	System::Windows::Forms::MessageBox::Show(gcnew System::String(ss.str().c_str()));
 }
 
