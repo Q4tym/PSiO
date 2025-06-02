@@ -11,6 +11,12 @@ namespace PSiO {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace ZXing;
+	using namespace ZXing::Common;
+	using namespace ZXing::Qrcode;
+	using namespace ZXing::Rendering;
+	using namespace System::Drawing;
+
 
 	/// <summary>
 	/// Podsumowanie informacji o Formularz_paczki
