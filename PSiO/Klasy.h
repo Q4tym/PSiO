@@ -7,6 +7,8 @@
 #include <algorithm>
 #include <random> // Added for random number generation
 #include <iomanip> // Added for std::setw (good practice for JSON output)
+#include <msclr/marshal.h>         // Dodane
+#include <msclr/marshal_cppstd.h>
 
 // Forward declarations to avoid circular includes if Klasy.h and Formularz_paczki.h were strictly dependent
 // Though not strictly necessary here, it's good practice.

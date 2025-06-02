@@ -6,6 +6,8 @@
 #include <algorithm>
 #include <Windows.h> // Keep if used for MessageBox, otherwise consider removing
 #include "Klasy.h"
+#include <msclr/marshal.h>         // Dodane
+#include <msclr/marshal_cppstd.h>
 // #include "Formularz_paczki.h" // Removed, as Klasy.cpp doesn't directly need Formularz_paczki's internals for Paczka methods.
                                // Formularz_paczki.h includes Klasy.h.
 

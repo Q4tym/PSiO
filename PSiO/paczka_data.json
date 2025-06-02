@@ -1,29 +1,89 @@
-{
-    "nadawca": {
-        "adres": {
-            "kodPocztowy": "Wpisz kodPocztowy",
-            "kraj": "Wpisz kraj",
-            "miasto": "k",
-            "ulica": "k",
-            "wojewodztwo": "Wpisz wojewodztwo"
+[
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "Wpisz kodPocztowy",
+                "kraj": "Wpisz kraj",
+                "miasto": "Wpisz miasto",
+                "ulica": "Wpisz ulice",
+                "wojewodztwo": "Wpisz wojewodztwo"
+            },
+            "email": "Wpisz email",
+            "imie": "Wpisz imie",
+            "nazwisko": "Wpisz nazwisko",
+            "telefon": "Wpisz telefon"
         },
-        "email": "kk",
-        "imie": "Wpisz imie",
-        "nazwisko": "k",
-        "telefon": "k"
+        "numerPaczki": "PKZ678803",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "Wpisz kodPocztowy",
+                "kraj": "Wpisz kraj",
+                "miasto": "Wpisz miasto",
+                "ulica": "Wpisz ulice",
+                "wojewodztwo": "Wpisz wojewodztwo"
+            },
+            "email": "Wpisz email",
+            "imie": "Wpisz imie",
+            "nazwisko": "Wpisz nazwisko",
+            "telefon": "Wpisz telefon"
+        }
     },
-    "numerPaczki": "PKZ204069",
-    "odbiorca": {
-        "adres": {
-            "kodPocztowy": "Wpisz kodPocztowy",
-            "kraj": "Wpisz kraj",
-            "miasto": "Wpisz miasto",
-            "ulica": "Wpisz ulice",
-            "wojewodztwo": "Wpisz wojewodztwo"
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "ss",
+                "kraj": "Wpisz kraj",
+                "miasto": "s",
+                "ulica": "s",
+                "wojewodztwo": "s"
+            },
+            "email": "Wpisz email",
+            "imie": "Ss",
+            "nazwisko": "ss",
+            "telefon": "s"
         },
-        "email": "Wpisz email",
-        "imie": "Wpisz imie",
-        "nazwisko": "Wpisz nazwisko",
-        "telefon": "Wpisz telefon"
+        "numerPaczki": "PKZ411037",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "Wpisz kodPocztowy",
+                "kraj": "Wpisz kraj",
+                "miasto": "Wpisz miasto",
+                "ulica": "s",
+                "wojewodztwo": "Wpisz wojewodztwo"
+            },
+            "email": "s",
+            "imie": "s",
+            "nazwisko": "s",
+            "telefon": "s"
+        }
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "Wpisz kodPocztowy",
+                "kraj": "s",
+                "miasto": "s",
+                "ulica": "s",
+                "wojewodztwo": "s"
+            },
+            "email": "s",
+            "imie": "Wpisz imie",
+            "nazwisko": "ss",
+            "telefon": "s"
+        },
+        "numerPaczki": "PKZ868956",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "s",
+                "kraj": "s",
+                "miasto": "Wpisz miasto",
+                "ulica": "ss",
+                "wojewodztwo": "s"
+            },
+            "email": "Wpisz email",
+            "imie": "ss",
+            "nazwisko": "s",
+            "telefon": "s"
+        }
     }
-}
+]

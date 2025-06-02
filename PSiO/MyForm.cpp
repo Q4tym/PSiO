@@ -1,6 +1,8 @@
 ﻿#include "MyForm.h"
 #include "Klasy.h"
 #include "Formularz_paczki.h"
+#include <msclr/marshal.h>         // Dodane
+#include <msclr/marshal_cppstd.h>
 
 [System::STAThread]
 int Main()

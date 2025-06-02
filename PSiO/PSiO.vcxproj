@@ -124,6 +124,7 @@
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="Klasy.cpp" />
     <ClCompile Include="MyForm1.cpp" />
+    <ClCompile Include="StringUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Formularz_paczki.h">
@@ -140,6 +141,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Formularz_paczki.resx">
       <DependentUpon>Formularz_paczki.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="logowanie.resx">
+      <DependentUpon>logowanie.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MyForm.resx">
       <DependentUpon>MyForm.h</DependentUpon>
