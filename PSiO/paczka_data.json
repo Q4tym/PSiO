@@ -1,29 +1,29 @@
 {
     "nadawca": {
         "adres": {
-            "kodPocztowy": "K",
-            "kraj": "KK",
-            "miasto": "K",
-            "ulica": "K",
-            "wojewodztwo": "K"
+            "kodPocztowy": "Wpisz kodPocztowy",
+            "kraj": "Wpisz kraj",
+            "miasto": "k",
+            "ulica": "k",
+            "wojewodztwo": "Wpisz wojewodztwo"
         },
-        "email": "K",
+        "email": "kk",
         "imie": "Wpisz imie",
-        "nazwisko": "KK",
-        "telefon": "K"
+        "nazwisko": "k",
+        "telefon": "k"
     },
-    "numerPaczki": "123456789",
+    "numerPaczki": "PKZ204069",
     "odbiorca": {
         "adres": {
             "kodPocztowy": "Wpisz kodPocztowy",
             "kraj": "Wpisz kraj",
-            "miasto": "K",
-            "ulica": "K",
-            "wojewodztwo": "KK"
+            "miasto": "Wpisz miasto",
+            "ulica": "Wpisz ulice",
+            "wojewodztwo": "Wpisz wojewodztwo"
         },
-        "email": "K",
-        "imie": "K",
-        "nazwisko": "K",
-        "telefon": "K"
+        "email": "Wpisz email",
+        "imie": "Wpisz imie",
+        "nazwisko": "Wpisz nazwisko",
+        "telefon": "Wpisz telefon"
     }
 }

@@ -3,7 +3,8 @@
 #include <msclr/marshal_cppstd.h>
 #include "Klasy.h"
 #include <fstream> // Required for file operations
-#include "json.hpp" // Include the nlohmann/json header
+#include "json.hpp" // Include the nlohmann/json header (assuming it's in your project)
+#include <iomanip> // For std::setw
 
 namespace PSiO {
 
@@ -135,9 +136,9 @@ namespace PSiO {
             this->textBox18 = (gcnew System::Windows::Forms::TextBox());
             this->label2 = (gcnew System::Windows::Forms::Label());
             this->SuspendLayout();
-            // 
+            //
             // label1
-            // 
+            //
             this->label1->AutoSize = true;
             this->label1->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
             this->label1->Location = System::Drawing::Point(27, 64);
@@ -146,9 +147,9 @@ namespace PSiO {
             this->label1->TabIndex = 0;
             this->label1->Text = L"NADAWCA";
             this->label1->Click += gcnew System::EventHandler(this, &Formularz_paczki::label1_Click);
-            // 
+            //
             // textBox1
-            // 
+            //
             this->textBox1->AccessibleName = L"";
             this->textBox1->Location = System::Drawing::Point(27, 96);
             this->textBox1->Name = L"textBox1";
@@ -156,9 +157,9 @@ namespace PSiO {
             this->textBox1->TabIndex = 1;
             this->textBox1->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox1_Enter);
             this->textBox1->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox1_Leave);
-            // 
+            //
             // textBox2
-            // 
+            //
             this->textBox2->AccessibleName = L"";
             this->textBox2->Location = System::Drawing::Point(27, 122);
             this->textBox2->Name = L"textBox2";
@@ -166,9 +167,9 @@ namespace PSiO {
             this->textBox2->TabIndex = 2;
             this->textBox2->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox2_Enter);
             this->textBox2->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox2_Leave);
-            // 
+            //
             // button1
-            // 
+            //
             this->button1->Location = System::Drawing::Point(496, 647);
             this->button1->Name = L"button1";
             this->button1->Size = System::Drawing::Size(75, 23);
@@ -176,53 +177,53 @@ namespace PSiO {
             this->button1->Text = L"Zakoñcz";
             this->button1->UseVisualStyleBackColor = true;
             this->button1->Click += gcnew System::EventHandler(this, &Formularz_paczki::button1_Click);
-            // 
+            //
             // textBox3
-            // 
+            //
             this->textBox3->AccessibleName = L"";
             this->textBox3->Location = System::Drawing::Point(27, 148);
             this->textBox3->Name = L"textBox3";
             this->textBox3->Size = System::Drawing::Size(100, 20);
             this->textBox3->TabIndex = 3;
-            this->textBox3->TextChanged += gcnew System::EventHandler(this, &Formularz_paczki::textBox3_TextChanged);
+            // Removed previous TextChanged handler if any. Now it's not present at all.
             this->textBox3->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox3_Enter);
             this->textBox3->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox3_Leave);
-            // 
+            //
             // textBox4
-            // 
+            //
             this->textBox4->AccessibleName = L"";
             this->textBox4->Location = System::Drawing::Point(27, 174);
             this->textBox4->Name = L"textBox4";
             this->textBox4->Size = System::Drawing::Size(100, 20);
             this->textBox4->TabIndex = 4;
-            this->textBox4->TextChanged += gcnew System::EventHandler(this, &Formularz_paczki::textBox4_TextChanged);
+            // Removed previous TextChanged handler if any.
             this->textBox4->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox4_Enter);
             this->textBox4->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox4_Leave);
-            // 
+            //
             // textBox5
-            // 
+            //
             this->textBox5->AccessibleName = L"";
             this->textBox5->Location = System::Drawing::Point(27, 200);
             this->textBox5->Name = L"textBox5";
             this->textBox5->Size = System::Drawing::Size(100, 20);
             this->textBox5->TabIndex = 5;
-            this->textBox5->TextChanged += gcnew System::EventHandler(this, &Formularz_paczki::textBox5_TextChanged);
+            // Removed previous TextChanged handler if any.
             this->textBox5->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox5_Enter);
             this->textBox5->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox5_Leave);
-            // 
+            //
             // textBox6
-            // 
+            //
             this->textBox6->AccessibleName = L"";
             this->textBox6->Location = System::Drawing::Point(27, 226);
             this->textBox6->Name = L"textBox6";
             this->textBox6->Size = System::Drawing::Size(100, 20);
             this->textBox6->TabIndex = 6;
-            this->textBox6->TextChanged += gcnew System::EventHandler(this, &Formularz_paczki::textBox6_TextChanged);
+            // Removed previous TextChanged handler if any.
             this->textBox6->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox6_Enter);
             this->textBox6->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox6_Leave);
-            // 
+            //
             // textBox7
-            // 
+            //
             this->textBox7->AccessibleName = L"";
             this->textBox7->AutoCompleteCustomSource->AddRange(gcnew cli::array< System::String^  >(1) { resources->GetString(L"textBox7.AutoCompleteCustomSource") });
             this->textBox7->AutoCompleteMode = System::Windows::Forms::AutoCompleteMode::Suggest;
@@ -231,12 +232,12 @@ namespace PSiO {
             this->textBox7->Name = L"textBox7";
             this->textBox7->Size = System::Drawing::Size(100, 20);
             this->textBox7->TabIndex = 7;
-            this->textBox7->TextChanged += gcnew System::EventHandler(this, &Formularz_paczki::textBox7_TextChanged);
+            // Removed previous TextChanged handler if any.
             this->textBox7->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox7_Enter);
             this->textBox7->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox7_Leave);
-            // 
+            //
             // textBox8
-            // 
+            //
             this->textBox8->AccessibleName = L"";
             this->textBox8->AutoCompleteCustomSource->AddRange(gcnew cli::array< System::String^  >(1) { resources->GetString(L"textBox8.AutoCompleteCustomSource") });
             this->textBox8->AutoCompleteMode = System::Windows::Forms::AutoCompleteMode::Suggest;
@@ -245,12 +246,12 @@ namespace PSiO {
             this->textBox8->Name = L"textBox8";
             this->textBox8->Size = System::Drawing::Size(100, 20);
             this->textBox8->TabIndex = 8;
-            this->textBox8->TextChanged += gcnew System::EventHandler(this, &Formularz_paczki::textBox8_TextChanged);
+            // Removed previous TextChanged handler if any.
             this->textBox8->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox8_Enter);
             this->textBox8->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox8_Leave);
-            // 
+            //
             // textBox9
-            // 
+            //
             this->textBox9->AccessibleName = L"";
             this->textBox9->AutoCompleteCustomSource->AddRange(gcnew cli::array< System::String^  >(1) { resources->GetString(L"textBox9.AutoCompleteCustomSource") });
             this->textBox9->AutoCompleteMode = System::Windows::Forms::AutoCompleteMode::Suggest;
@@ -261,9 +262,9 @@ namespace PSiO {
             this->textBox9->TabIndex = 9;
             this->textBox9->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox9_Enter);
             this->textBox9->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox9_Leave);
-            // 
+            //
             // textBox10
-            // 
+            //
             this->textBox10->AccessibleName = L"";
             this->textBox10->AutoCompleteCustomSource->AddRange(gcnew cli::array< System::String^  >(1) { resources->GetString(L"textBox10.AutoCompleteCustomSource") });
             this->textBox10->AutoCompleteMode = System::Windows::Forms::AutoCompleteMode::Suggest;
@@ -272,12 +273,12 @@ namespace PSiO {
             this->textBox10->Name = L"textBox10";
             this->textBox10->Size = System::Drawing::Size(100, 20);
             this->textBox10->TabIndex = 19;
-            this->textBox10->TextChanged += gcnew System::EventHandler(this, &Formularz_paczki::textBox10_TextChanged);
+            // REMOVED TextChanged handler
             this->textBox10->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox10_Enter);
             this->textBox10->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox10_Leave);
-            // 
+            //
             // textBox11
-            // 
+            //
             this->textBox11->AccessibleName = L"";
             this->textBox11->AutoCompleteCustomSource->AddRange(gcnew cli::array< System::String^  >(1) { resources->GetString(L"textBox11.AutoCompleteCustomSource") });
             this->textBox11->AutoCompleteMode = System::Windows::Forms::AutoCompleteMode::Suggest;
@@ -286,12 +287,12 @@ namespace PSiO {
             this->textBox11->Name = L"textBox11";
             this->textBox11->Size = System::Drawing::Size(100, 20);
             this->textBox11->TabIndex = 18;
-            this->textBox11->TextChanged += gcnew System::EventHandler(this, &Formularz_paczki::textBox11_TextChanged);
+            // REMOVED TextChanged handler
             this->textBox11->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox11_Enter);
             this->textBox11->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox11_Leave);
-            // 
+            //
             // textBox12
-            // 
+            //
             this->textBox12->AccessibleName = L"";
             this->textBox12->AutoCompleteCustomSource->AddRange(gcnew cli::array< System::String^  >(1) { resources->GetString(L"textBox12.AutoCompleteCustomSource") });
             this->textBox12->AutoCompleteMode = System::Windows::Forms::AutoCompleteMode::Suggest;
@@ -300,78 +301,78 @@ namespace PSiO {
             this->textBox12->Name = L"textBox12";
             this->textBox12->Size = System::Drawing::Size(100, 20);
             this->textBox12->TabIndex = 17;
-            this->textBox12->TextChanged += gcnew System::EventHandler(this, &Formularz_paczki::textBox12_TextChanged);
+            // REMOVED TextChanged handler
             this->textBox12->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox12_Enter);
             this->textBox12->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox12_Leave);
-            // 
+            //
             // textBox13
-            // 
+            //
             this->textBox13->AccessibleName = L"";
             this->textBox13->Location = System::Drawing::Point(414, 226);
             this->textBox13->Name = L"textBox13";
             this->textBox13->Size = System::Drawing::Size(100, 20);
             this->textBox13->TabIndex = 16;
-            this->textBox13->TextChanged += gcnew System::EventHandler(this, &Formularz_paczki::textBox13_TextChanged);
+            // REMOVED TextChanged handler
             this->textBox13->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox13_Enter);
             this->textBox13->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox13_Leave);
-            // 
+            //
             // textBox14
-            // 
+            //
             this->textBox14->AccessibleName = L"";
             this->textBox14->Location = System::Drawing::Point(414, 200);
             this->textBox14->Name = L"textBox14";
             this->textBox14->Size = System::Drawing::Size(100, 20);
             this->textBox14->TabIndex = 15;
-            this->textBox14->TextChanged += gcnew System::EventHandler(this, &Formularz_paczki::textBox14_TextChanged);
+            // REMOVED TextChanged handler
             this->textBox14->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox14_Enter);
             this->textBox14->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox14_Leave);
-            // 
+            //
             // textBox15
-            // 
+            //
             this->textBox15->AccessibleName = L"";
             this->textBox15->Location = System::Drawing::Point(414, 174);
             this->textBox15->Name = L"textBox15";
             this->textBox15->Size = System::Drawing::Size(100, 20);
             this->textBox15->TabIndex = 14;
-            this->textBox15->TextChanged += gcnew System::EventHandler(this, &Formularz_paczki::textBox15_TextChanged);
+            // REMOVED TextChanged handler
             this->textBox15->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox15_Enter);
             this->textBox15->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox15_Leave);
-            // 
+            //
             // textBox16
-            // 
+            //
             this->textBox16->AccessibleName = L"";
             this->textBox16->Location = System::Drawing::Point(414, 148);
             this->textBox16->Name = L"textBox16";
             this->textBox16->Size = System::Drawing::Size(100, 20);
             this->textBox16->TabIndex = 13;
-            this->textBox16->TextChanged += gcnew System::EventHandler(this, &Formularz_paczki::textBox16_TextChanged);
+            // REMOVED TextChanged handler
             this->textBox16->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox16_Enter);
             this->textBox16->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox16_Leave);
-            // 
+            //
             // textBox17
-            // 
+            //
             this->textBox17->AccessibleName = L"";
             this->textBox17->Location = System::Drawing::Point(414, 122);
             this->textBox17->Name = L"textBox17";
             this->textBox17->Size = System::Drawing::Size(100, 20);
             this->textBox17->TabIndex = 12;
-            this->textBox17->TextChanged += gcnew System::EventHandler(this, &Formularz_paczki::textBox17_TextChanged);
+            // REMOVED TextChanged handler
             this->textBox17->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox17_Enter);
             this->textBox17->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox17_Leave);
-            // 
+            //
             // textBox18
-            // 
+            //
             this->textBox18->AccessibleName = L"";
             this->textBox18->Location = System::Drawing::Point(414, 96);
             this->textBox18->Name = L"textBox18";
             this->textBox18->Size = System::Drawing::Size(100, 20);
             this->textBox18->TabIndex = 11;
-            this->textBox18->TextChanged += gcnew System::EventHandler(this, &Formularz_paczki::textBox18_TextChanged);
+            // REMOVED TextChanged handler
             this->textBox18->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox18_Enter);
             this->textBox18->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox18_Leave);
-            // 
+            //
             // label2
-            // 
+            //
             this->label2->AutoSize = true;
             this->label2->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
             this->label2->Location = System::Drawing::Point(414, 64);
@@ -380,9 +381,9 @@ namespace PSiO {
             this->label2->TabIndex = 10;
             this->label2->Text = L"ODBIORCA";
             this->label2->Click += gcnew System::EventHandler(this, &Formularz_paczki::label2_Click);
-            // 
+            //
             // Formularz_paczki
-            // 
+            //
             this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
             this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
             this->ClientSize = System::Drawing::Size(583, 682);
@@ -641,85 +642,87 @@ namespace PSiO {
     }
 
     private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-        std::string imie = msclr::interop::marshal_as<std::string>(textBox1->Text);
-        std::string nazwisko = msclr::interop::marshal_as<std::string>(textBox2->Text);
-        std::string telefon = msclr::interop::marshal_as<std::string>(textBox3->Text);
-        std::string email = msclr::interop::marshal_as<std::string>(textBox4->Text);
-        std::string ulica = msclr::interop::marshal_as<std::string>(textBox5->Text);
-        std::string miasto = msclr::interop::marshal_as<std::string>(textBox6->Text);
-        std::string wojewodztwo = msclr::interop::marshal_as<std::string>(textBox7->Text);
-        std::string kodPocztowy = msclr::interop::marshal_as<std::string>(textBox8->Text);
-        std::string kraj = msclr::interop::marshal_as<std::string>(textBox9->Text);
-        std::string imieOdbiorcy = msclr::interop::marshal_as<std::string>(textBox18->Text);
-        std::string nazwiskoOdbiorcy = msclr::interop::marshal_as<std::string>(textBox17->Text);
-        std::string telefonOdbiorcy = msclr::interop::marshal_as<std::string>(textBox16->Text);
-        std::string emailOdbiorcy = msclr::interop::marshal_as<std::string>(textBox15->Text);
-        std::string ulicaOdbiorcy = msclr::interop::marshal_as<std::string>(textBox14->Text);
-        std::string miastoOdbiorcy = msclr::interop::marshal_as<std::string>(textBox13->Text);
-        std::string wojewodztwoOdbiorcy = msclr::interop::marshal_as<std::string>(textBox12->Text);
-        std::string kodPocztowyOdbiorcy = msclr::interop::marshal_as<std::string>(textBox11->Text);
-        std::string krajOdbiorcy = msclr::interop::marshal_as<std::string>(textBox10->Text);
+        // Convert System::String to std::string
+        std::string nadawcaImie = msclr::interop::marshal_as<std::string>(textBox1->Text);
+        std::string nadawcaNazwisko = msclr::interop::marshal_as<std::string>(textBox2->Text);
+        std::string nadawcaTelefon = msclr::interop::marshal_as<std::string>(textBox3->Text);
+        std::string nadawcaEmail = msclr::interop::marshal_as<std::string>(textBox4->Text);
+        std::string nadawcaUlica = msclr::interop::marshal_as<std::string>(textBox5->Text);
+        std::string nadawcaMiasto = msclr::interop::marshal_as<std::string>(textBox6->Text);
+        std::string nadawcaWojewodztwo = msclr::interop::marshal_as<std::string>(textBox7->Text);
+        std::string nadawcaKodPocztowy = msclr::interop::marshal_as<std::string>(textBox8->Text);
+        std::string nadawcaKraj = msclr::interop::marshal_as<std::string>(textBox9->Text);
 
-        // Tworzenie obiektu Nadawca i ustawianie imienia
-        Nadawca nadawca;
-        nadawca.imie = imie;
-        nadawca.nazwisko = nazwisko;
-        nadawca.telefon = telefon;
-        nadawca.email = email;
-        nadawca.ulica = ulica;
-        nadawca.miasto = miasto;
-        nadawca.wojewodztwo = wojewodztwo;
-        nadawca.kodPocztowy = kodPocztowy;
-        nadawca.kraj = kraj;
+        std::string odbiorcaImie = msclr::interop::marshal_as<std::string>(textBox18->Text);
+        std::string odbiorcaNazwisko = msclr::interop::marshal_as<std::string>(textBox17->Text);
+        std::string odbiorcaTelefon = msclr::interop::marshal_as<std::string>(textBox16->Text);
+        std::string odbiorcaEmail = msclr::interop::marshal_as<std::string>(textBox15->Text);
+        std::string odbiorcaUlica = msclr::interop::marshal_as<std::string>(textBox14->Text);
+        std::string odbiorcaMiasto = msclr::interop::marshal_as<std::string>(textBox13->Text);
+        std::string odbiorcaWojewodztwo = msclr::interop::marshal_as<std::string>(textBox12->Text);
+        std::string odbiorcaKodPocztowy = msclr::interop::marshal_as<std::string>(textBox11->Text);
+        std::string odbiorcaKraj = msclr::interop::marshal_as<std::string>(textBox10->Text);
 
-        // Tworzenie obiektu Odbiorca
-        Odbiorca odbiorca;
-        odbiorca.imie = imieOdbiorcy;
-        odbiorca.nazwisko = nazwiskoOdbiorcy;
-        odbiorca.telefon = telefonOdbiorcy;
-        odbiorca.email = emailOdbiorcy;
-        odbiorca.ulica = ulicaOdbiorcy;
-        odbiorca.miasto = miastoOdbiorcy;
-        odbiorca.wojewodztwo = wojewodztwoOdbiorcy;
-        odbiorca.kodPocztowy = kodPocztowyOdbiorcy;
-        odbiorca.kraj = krajOdbiorcy;
+        // Create Nadawca object
+        Nadawca nadawcaObj;
+        nadawcaObj.imie = nadawcaImie;
+        nadawcaObj.nazwisko = nadawcaNazwisko;
+        nadawcaObj.telefon = nadawcaTelefon;
+        nadawcaObj.email = nadawcaEmail;
+        nadawcaObj.ulica = nadawcaUlica;
+        nadawcaObj.miasto = nadawcaMiasto;
+        nadawcaObj.wojewodztwo = nadawcaWojewodztwo;
+        nadawcaObj.kodPocztowy = nadawcaKodPocztowy;
+        nadawcaObj.kraj = nadawcaKraj;
 
-        // Tworzenie obiektu Paczka z referencjami do nadawcy i odbiorcy
-        Paczka paczka(nadawca, odbiorca);
+        // Create Odbiorca object
+        Odbiorca odbiorcaObj;
+        odbiorcaObj.imie = odbiorcaImie;
+        odbiorcaObj.nazwisko = odbiorcaNazwisko;
+        odbiorcaObj.telefon = odbiorcaTelefon;
+        odbiorcaObj.email = odbiorcaEmail;
+        odbiorcaObj.ulica = odbiorcaUlica;
+        odbiorcaObj.miasto = odbiorcaMiasto;
+        odbiorcaObj.wojewodztwo = odbiorcaWojewodztwo;
+        odbiorcaObj.kodPocztowy = odbiorcaKodPocztowy;
+        odbiorcaObj.kraj = odbiorcaKraj;
+
+        // Tworzenie obiektu Paczka z przekazaniem obiektów Nadawca i Odbiorca
+        Paczka paczka(nadawcaObj, odbiorcaObj); // This line now calls the correct constructor
 
         // *** JSON Serialization and File Save ***
         nlohmann::json j;
         j["numerPaczki"] = paczka.getNumerPaczki();
         j["nadawca"] = {
-            {"imie", nadawca.imie},
-            {"nazwisko", nadawca.nazwisko},
-            {"telefon", nadawca.telefon},
-            {"email", nadawca.email},
+            {"imie", paczka.getNadawca().imie}, // Accessing Nadawca data via getter
+            {"nazwisko", paczka.getNadawca().nazwisko},
+            {"telefon", paczka.getNadawca().telefon},
+            {"email", paczka.getNadawca().email},
             {"adres", {
-                {"ulica", nadawca.ulica},
-                {"miasto", nadawca.miasto},
-                {"wojewodztwo", nadawca.wojewodztwo},
-                {"kodPocztowy", nadawca.kodPocztowy},
-                {"kraj", nadawca.kraj}
+                {"ulica", paczka.getNadawca().ulica},
+                {"miasto", paczka.getNadawca().miasto},
+                {"wojewodztwo", paczka.getNadawca().wojewodztwo},
+                {"kodPocztowy", paczka.getNadawca().kodPocztowy},
+                {"kraj", paczka.getNadawca().kraj}
             }}
         };
         j["odbiorca"] = {
-            {"imie", odbiorca.imie},
-            {"nazwisko", odbiorca.nazwisko},
-            {"telefon", odbiorca.telefon},
-            {"email", odbiorca.email},
+            {"imie", paczka.getOdbiorca().imie}, // Accessing Odbiorca data via getter
+            {"nazwisko", paczka.getOdbiorca().nazwisko},
+            {"telefon", paczka.getOdbiorca().telefon},
+            {"email", paczka.getOdbiorca().email},
             {"adres", {
-                {"ulica", odbiorca.ulica},
-                {"miasto", odbiorca.miasto},
-                {"wojewodztwo", odbiorca.wojewodztwo},
-                {"kodPocztowy", odbiorca.kodPocztowy},
-                {"kraj", odbiorca.kraj}
+                {"ulica", paczka.getOdbiorca().ulica},
+                {"miasto", paczka.getOdbiorca().miasto},
+                {"wojewodztwo", paczka.getOdbiorca().wojewodztwo},
+                {"kodPocztowy", paczka.getOdbiorca().kodPocztowy},
+                {"kraj", paczka.getOdbiorca().kraj}
             }}
         };
 
         std::ofstream o("paczka_data.json");
         if (o.is_open()) {
-            o << std::setw(4) << j << std::endl;
+            o << std::setw(4) << j << std::endl; // Pretty print with 4 space indent
             o.close();
             System::Windows::Forms::MessageBox::Show("Dane paczki zosta³y zapisane do paczka_data.json");
         }
@@ -732,37 +735,11 @@ namespace PSiO {
         paczka.paczkaPrzyjeta();
     }
 
-    private: System::Void textBox3_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-    }
-    private: System::Void textBox4_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-    }
-    private: System::Void textBox5_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-    }
-    private: System::Void textBox6_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-    }
-    private: System::Void textBox7_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-    }
-    private: System::Void textBox8_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-    }
+           // Keeping only label2_Click as it was the only one explicitly defined previously and not removed by me.
+           // All the other TextChanged methods (textBox3_TextChanged to textBox18_TextChanged) were commented out
+           // or removed because they were not explicitly defined with functionality and caused errors.
     private: System::Void label2_Click(System::Object^ sender, System::EventArgs^ e) {
     }
-    private: System::Void textBox11_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-    }
-    private: System::Void textBox12_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-    }
-    private: System::Void textBox13_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-    }
-    private: System::Void textBox14_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-    }
-    private: System::Void textBox15_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-    }
-    private: System::Void textBox16_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-    }
-    private: System::Void textBox17_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-    }
-    private: System::Void textBox18_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-    }
-    private: System::Void textBox10_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-    }
+           // Removed all the previously problematic textBoxX_TextChanged methods to prevent further errors.
     };
 }
