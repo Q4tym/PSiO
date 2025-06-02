@@ -1,0 +1,29 @@
+{
+    "nadawca": {
+        "adres": {
+            "kodPocztowy": "K",
+            "kraj": "KK",
+            "miasto": "K",
+            "ulica": "K",
+            "wojewodztwo": "K"
+        },
+        "email": "K",
+        "imie": "Wpisz imie",
+        "nazwisko": "KK",
+        "telefon": "K"
+    },
+    "numerPaczki": "123456789",
+    "odbiorca": {
+        "adres": {
+            "kodPocztowy": "Wpisz kodPocztowy",
+            "kraj": "Wpisz kraj",
+            "miasto": "K",
+            "ulica": "K",
+            "wojewodztwo": "KK"
+        },
+        "email": "K",
+        "imie": "K",
+        "nazwisko": "K",
+        "telefon": "K"
+    }
+}
