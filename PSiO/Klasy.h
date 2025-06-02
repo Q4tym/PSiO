@@ -102,12 +102,14 @@ private:
 	std::string numerPaczki;
 	Nadawca* nadawca;
 	Odbiorca* odbiorca;
+	TypPaczki* typPaczki;
 public:
 	// Konstruktor z parametrami
-	Paczka(Nadawca& nadawca, Odbiorca& odbiorca)
-		: nadawca(&nadawca), odbiorca(&odbiorca)
+	Paczka(Nadawca& nadawca, Odbiorca& odbiorca, TypPaczki& typPaczki)
+		: nadawca(&nadawca), odbiorca(&odbiorca), typPaczki(&typPaczki)
 	{
 		numerPaczki = "123456789";
+
 	}
 
 	std::string getNumerPaczki() const

@@ -13,7 +13,7 @@ namespace PSiO {
     using namespace System::Windows::Forms;
     using namespace System::Data;
     using namespace System::Drawing;
-
+	using namespace ZXing;
     /// <summary>
     /// Podsumowanie informacji o Formularz_paczki
     /// </summary>
@@ -64,7 +64,7 @@ namespace PSiO {
             this->textBox18->Text = "Wpisz imie";
             this->textBox18->ForeColor = System::Drawing::Color::Gray;
         }
-
+			this->textBox16->ForeColor = System::Drawing::Color::Gray;
     protected:
         /// <summary>
         /// Wyczyœæ wszystkie u¿ywane zasoby.
@@ -98,14 +98,14 @@ namespace PSiO {
     private: System::Windows::Forms::TextBox^ textBox18;
     private: System::Windows::Forms::Label^ label2;
     protected:
+	private: System::Windows::Forms::TextBox^ textBox15;
+	private: System::Windows::Forms::TextBox^ textBox16;
+	private: System::Windows::Forms::TextBox^ textBox17;
+	private: System::Windows::Forms::TextBox^ textBox18;
+	private: System::Windows::Forms::Label^ label2;
+	protected:
 
     private:
-        /// <summary>
-        /// Wymagana zmienna projektanta.
-        /// </summary>
-        System::ComponentModel::Container^ components;
-
-#pragma region Windows Form Designer generated code
         /// <summary>
         /// Metoda wymagana do obs³ugi projektanta — nie nale¿y modyfikowaæ
         /// jej zawartoœci w edytorze kodu.
@@ -412,6 +412,12 @@ namespace PSiO {
             this->Load += gcnew System::EventHandler(this, &Formularz_paczki::Formularz_paczki_Load);
             this->ResumeLayout(false);
             this->PerformLayout();
+			this->Controls->Add(this->label1);
+			this->Name = L"Formularz_paczki";
+			this->Text = L"Formularz_paczki";
+			this->Load += gcnew System::EventHandler(this, &Formularz_paczki::Formularz_paczki_Load);
+			this->ResumeLayout(false);
+			this->PerformLayout();
 
         }
 #pragma endregion
@@ -678,14 +684,14 @@ namespace PSiO {
         odbiorca.nazwisko = nazwiskoOdbiorcy;
         odbiorca.telefon = telefonOdbiorcy;
         odbiorca.email = emailOdbiorcy;
-        odbiorca.ulica = ulicaOdbiorcy;
-        odbiorca.miasto = miastoOdbiorcy;
+        // Tworzenie obiektu Paczka z referencjami do nadawcy i odbiorcy
+        Paczka paczka(nadawca, odbiorca);
         odbiorca.wojewodztwo = wojewodztwoOdbiorcy;
         odbiorca.kodPocztowy = kodPocztowyOdbiorcy;
         odbiorca.kraj = krajOdbiorcy;
 
-        // Tworzenie obiektu Paczka z referencjami do nadawcy i odbiorcy
-        Paczka paczka(nadawca, odbiorca);
+		// Tworzenie obiektu Paczka z referencjami do nadawcy i odbiorcy
+		Paczka paczka(nadawca, odbiorca);
 
         // *** JSON Serialization and File Save ***
         nlohmann::json j;
@@ -726,12 +732,6 @@ namespace PSiO {
         else {
             System::Windows::Forms::MessageBox::Show("B³¹d: Nie mo¿na zapisaæ pliku paczka_data.json");
         }
-        // *** END JSON Serialization and File Save ***
-
-        this->Close();
-        paczka.paczkaPrzyjeta();
-    }
-
     private: System::Void textBox3_TextChanged(System::Object^ sender, System::EventArgs^ e) {
     }
     private: System::Void textBox4_TextChanged(System::Object^ sender, System::EventArgs^ e) {
@@ -765,4 +765,9 @@ namespace PSiO {
     private: System::Void textBox10_TextChanged(System::Object^ sender, System::EventArgs^ e) {
     }
     };
+}private: System::Void textBox18_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void textBox10_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+}
+};
 }
