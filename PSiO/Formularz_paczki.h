@@ -359,6 +359,15 @@ namespace PSiO {
             this->Load += gcnew System::EventHandler(this, &Formularz_paczki::Formularz_paczki_Load); // Metoda Formularz_paczki_Load musi istnieæ
             this->ResumeLayout(false);
             this->PerformLayout();
+<<<<<<<<< Temporary merge branch 1
+			this->Controls->Add(this->label1);
+			this->Name = L"Formularz_paczki";
+			this->Text = L"Formularz_paczki";
+			this->Load += gcnew System::EventHandler(this, &Formularz_paczki::Formularz_paczki_Load);
+			this->ResumeLayout(false);
+			this->PerformLayout();
+=========
+>>>>>>>>> Temporary merge branch 2
 
         }
 #pragma endregion
@@ -651,6 +660,40 @@ namespace PSiO {
         std::string odbiorcaKodPocztowy = msclr::interop::marshal_as<std::string>(textBox11->Text);
         std::string odbiorcaKraj = msclr::interop::marshal_as<std::string>(textBox10->Text);
 
+<<<<<<<<< Temporary merge branch 1
+        // Tworzenie obiektu Odbiorca
+        Odbiorca odbiorca;
+        odbiorca.imie = imieOdbiorcy;
+        odbiorca.nazwisko = nazwiskoOdbiorcy;
+        odbiorca.telefon = telefonOdbiorcy;
+        odbiorca.email = emailOdbiorcy;
+        odbiorca.ulica = ulicaOdbiorcy;
+        odbiorca.miasto = miastoOdbiorcy;
+        odbiorca.wojewodztwo = wojewodztwoOdbiorcy;
+        odbiorca.kodPocztowy = kodPocztowyOdbiorcy;
+        odbiorca.kraj = krajOdbiorcy;
+
+<<<<<<<<< Temporary merge branch 1
+		// Typ Paczki
+		TypPaczki typPaczki;
+		if (comboBox1->SelectedIndex == 0) {
+			typPaczki = TypPaczki::List;
+		}
+		else if (comboBox1->SelectedIndex == 1) {
+			typPaczki = TypPaczki::Paczka;
+		}
+		else if (comboBox1->SelectedIndex == 2) {
+			typPaczki = TypPaczki::Paleta;
+		}
+
+		// Tworzenie obiektu Paczka z referencjami do nadawcy i odbiorcy
+		Paczka paczka(nadawca, odbiorca, typPaczki);
+=========
+        // Tworzenie obiektu Paczka z referencjami do nadawcy i odbiorcy
+        Paczka paczka(nadawca, odbiorca);
+>>>>>>>>> Temporary merge branch 2
+=========
+        // Create Nadawca object
         Nadawca nadawcaObj;
         nadawcaObj.imie = nadawcaImie;
         nadawcaObj.nazwisko = nadawcaNazwisko;
@@ -704,45 +747,76 @@ namespace PSiO {
             }}
         };
 
-        std::string filename = "paczka_data.json";
-        nlohmann::json existing_data_array = nlohmann::json::array();
-
-        std::ifstream ifs(filename);
-        if (ifs.is_open()) {
-            try {
-                ifs >> existing_data_array;
-                if (!existing_data_array.is_array()) {
-                    existing_data_array = nlohmann::json::array();
-                    System::Windows::Forms::MessageBox::Show("Istniej¹cy plik paczka_data.json nie zawiera³ tablicy. Dane zostan¹ nadpisane now¹ tablic¹ paczek.", "Ostrze¿enie", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-                }
-            }
-            catch (nlohmann::json::parse_error& e) {
-                ifs.clear();
-                ifs.seekg(0, std::ios::beg);
-                if (ifs.peek() != std::ifstream::traits_type::eof()) {
-                    System::Windows::Forms::MessageBox::Show(System::String::Format("B³¹d parsowania pliku paczka_data.json: {0}. Tworzê now¹ listê paczek.", msclr::interop::marshal_as<System::String^>(e.what())));
-                }
-                existing_data_array = nlohmann::json::array();
-            }
-            ifs.close();
-        }
-
-        existing_data_array.push_back(new_package_json);
-
-        std::ofstream ofs(filename);
-        if (ofs.is_open()) {
-            ofs << std::setw(4) << existing_data_array << std::endl;
-            ofs.close();
-            System::Windows::Forms::MessageBox::Show("Dane paczki zosta³y dodane do paczka_data.json");
+        std::ofstream o("paczka_data.json");
+        if (o.is_open()) {
+            o << std::setw(4) << j << std::endl; // Pretty print with 4 space indent
+            o.close();
+            System::Windows::Forms::MessageBox::Show("Dane paczki zosta³y zapisane do paczka_data.json");
         }
         else {
             System::Windows::Forms::MessageBox::Show("B³¹d: Nie mo¿na zapisaæ pliku paczka_data.json");
         }
+        // *** END JSON Serialization and File Save ***
 
         this->Close();
-        paczka.paczkaPrzyjeta(); //
+        paczka.paczkaPrzyjeta();
     }
-           // --- KONIEC DEFINICJI METOD OBS£UGI ZDARZEÑ ---
 
-    }; // Koniec klasy Formularz_paczki
-} // Koniec namespace PSiO
+<<<<<<<<< Temporary merge branch 1
+    private: System::Void textBox3_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+    }
+    private: System::Void textBox4_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+    }
+    private: System::Void textBox5_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+    }
+    private: System::Void textBox6_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+    }
+    private: System::Void textBox7_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+    }
+    private: System::Void textBox8_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+    }
+=========
+           // Removed all these TextChanged methods as they are not used and cause compilation errors.
+           // If you intended to have TextChanged logic for these textboxes, you would need to implement them.
+           /*
+           private: System::Void textBox3_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+           }
+           private: System::Void textBox4_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+           }
+           private: System::Void textBox5_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+           }
+           private: System::Void textBox6_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+           }
+           private: System::Void textBox7_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+           }
+           private: System::Void textBox8_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+           }
+           */
+>>>>>>>>> Temporary merge branch 2
+    private: System::Void label2_Click(System::Object^ sender, System::EventArgs^ e) {
+    }
+           /*
+           private: System::Void textBox11_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+           }
+           private: System::Void textBox12_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+           }
+           private: System::Void textBox13_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+           }
+           private: System::Void textBox14_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+           }
+           private: System::Void textBox15_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+           }
+           private: System::Void textBox16_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+           }
+           private: System::Void textBox17_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+           }
+           private: System::Void textBox18_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+           }
+           */
+    };
+<<<<<<<<< Temporary merge branch 1
+}
+>>>>>>>>> Temporary merge branch 2
+=========
+}
+>>>>>>>>> Temporary merge branch 2
