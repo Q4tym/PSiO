@@ -124,7 +124,6 @@
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="Klasy.cpp" />
     <ClCompile Include="MyForm1.cpp" />
-    <ClCompile Include="StringUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Formularz_paczki.h">

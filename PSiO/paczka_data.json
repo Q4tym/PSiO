@@ -85,5 +85,34 @@
             "nazwisko": "s",
             "telefon": "s"
         }
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "",
+                "kraj": "",
+                "miasto": "",
+                "ulica": "",
+                "wojewodztwo": ""
+            },
+            "email": "",
+            "imie": "",
+            "nazwisko": "",
+            "telefon": ""
+        },
+        "numerPaczki": "PKZ568843",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "",
+                "kraj": "",
+                "miasto": "",
+                "ulica": "",
+                "wojewodztwo": ""
+            },
+            "email": "",
+            "imie": "",
+            "nazwisko": "",
+            "telefon": ""
+        }
     }
 ]

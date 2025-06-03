@@ -4,56 +4,81 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
-#include <Windows.h> // Keep if used for MessageBox, otherwise consider removing
+// #include <Windows.h> // Usuniêto, jeœli MessageBox nie jest tu u¿ywany; System::String jest z .NET
 #include "Klasy.h"
-#include <msclr/marshal.h>         // Dodane
+#include <msclr/marshal.h>
 #include <msclr/marshal_cppstd.h>
-// #include "Formularz_paczki.h" // Removed, as Klasy.cpp doesn't directly need Formularz_paczki's internals for Paczka methods.
-                               // Formularz_paczki.h includes Klasy.h.
 
+// Definicja metody przyjmijPaczke dla klasy Sortownia
 bool Sortownia::przyjmijPaczke()
 {
-    bool przyjmijPaczke = false;
-    // System::Windows::Forms::MessageBox::Show("Czy chcesz przyjac paczke ? "); // This is C++/CLI, not pure C++
-    std::cout << "Czy chcesz przyjac paczke ? (1-tak, 0-nie): ";
-    int wybor;
-    std::cin >> wybor;
-    if (wybor == 1)
-    {
-        przyjmijPaczke = true;
-        std::cout << "Paczka przyjeta." << std::endl;
-    }
-    else
-    {
-        przyjmijPaczke = false;
-        std::cout << "Paczka nie zostala przyjeta." << std::endl;
-    }
-    return przyjmijPaczke;
+    bool przyjmijPaczkeFlag = false; // Zmieniono nazwê zmiennej, aby unikn¹æ konfliktu z nazw¹ metody
+    // Poni¿szy kod jest zakomentowany, bo interfejs u¿ytkownika powinien byæ w klasach Form
+    // std::cout << "Czy chcesz przyjac paczke ? (1-tak, 0-nie): ";
+    // int wybor;
+    // std::cin >> wybor;
+    // if (wybor == 1)
+    // {
+    //     przyjmijPaczkeFlag = true;
+    //     std::cout << "Paczka przyjeta." << std::endl;
+    // }
+    // else
+    // {
+    //     przyjmijPaczkeFlag = false;
+    //     std::cout << "Paczka nie zostala przyjeta." << std::endl;
+    // }
+    // Ta metoda w obecnej formie nie ma sensu bez interakcji,
+    // mo¿na j¹ zostawiæ pust¹ lub z prostym logowaniem, jeœli jest wywo³ywana.
+    std::cout << "Logika Sortownia::przyjmijPaczke() wymaga implementacji lub usuniêcia, jeœli nie jest u¿ywana." << std::endl;
+    return przyjmijPaczkeFlag;
 }
 
-void Sortownia::sortujPaczki() // Corrected to be a member of Sortownia
+// Definicja metody sortujPaczki dla klasy Sortownia
+void Sortownia::sortujPaczki()
 {
-    // System::Windows::Forms::MessageBox::Show("Sortuje paczki..."); // C++/CLI
-    std::cout << "Sortuje paczki..." << std::endl;
+    // Poni¿szy kod jest zakomentowany, bo interfejs u¿ytkownika powinien byæ w klasach Form
+    // std::cout << "Sortuje paczki..." << std::endl;
+    // Ta metoda w obecnej formie nie ma sensu bez interakcji,
+    // mo¿na j¹ zostawiæ pust¹ lub z prostym logowaniem, jeœli jest wywo³ywana.
+    std::cout << "Logika Sortownia::sortujPaczki() zosta³a wywo³ana." << std::endl;
 }
 
+
+// Definicja metody paczkaPrzyjeta dla klasy Paczka
 void Paczka::paczkaPrzyjeta()
 {
     std::stringstream ss;
-    ss << "Numer paczki: " << getNumerPaczki() << "\n";
-    // Access members through the stored objects (not pointers anymore)
-    ss << "Nadawca: " << nadawca.imie << " " << nadawca.nazwisko
-        << ", tel: " << nadawca.telefon << ", email: " << nadawca.email << "\n";
-    ss << "Adres nadawcy: " << nadawca.ulica << ", " << nadawca.miasto
-        << ", " << nadawca.wojewodztwo << ", " << nadawca.kodPocztowy
-        << ", " << nadawca.kraj << "\n";
+    ss << "--- Potwierdzenie Nadania Paczki ---\n";
+    ss << "Numer paczki: " << getNumerPaczki() << "\n\n";
 
-    ss << "Odbiorca: " << odbiorca.imie << " " << odbiorca.nazwisko
-        << ", tel: " << odbiorca.telefon << ", email: " << odbiorca.email << "\n";
-    ss << "Adres odbiorcy: " << odbiorca.ulica << ", " << odbiorca.miasto
-        << ", " << odbiorca.wojewodztwo << ", " << odbiorca.kodPocztowy
-        << ", " << odbiorca.kraj << "\n";
+    ss << "Nadawca:\n";
+    ss << "  Imiê: " << nadawca.imie << "\n";
+    ss << "  Nazwisko: " << nadawca.nazwisko << "\n";
+    ss << "  Telefon: " << nadawca.telefon << "\n";
+    ss << "  Email: " << nadawca.email << "\n";
+    ss << "  Adres: " << nadawca.ulica << ", " << nadawca.kodPocztowy << " " << nadawca.miasto
+        << ", " << nadawca.wojewodztwo << ", " << nadawca.kraj << "\n\n";
 
-    // System::Windows::Forms::MessageBox::Show(msclr::interop::marshal_as<System::String^>(ss.str())); // C++/CLI
-    std::cout << ss.str() << std::endl; // Pure C++ console output
+    ss << "Odbiorca:\n";
+    ss << "  Imiê: " << odbiorca.imie << "\n";
+    ss << "  Nazwisko: " << odbiorca.nazwisko << "\n";
+    ss << "  Telefon: " << odbiorca.telefon << "\n";
+    ss << "  Email: " << odbiorca.email << "\n";
+    ss << "  Adres: " << odbiorca.ulica << ", " << odbiorca.kodPocztowy << " " << odbiorca.miasto
+        << ", " << odbiorca.wojewodztwo << ", " << odbiorca.kraj << "\n";
+    ss << "-------------------------------------\n";
+
+    // Wypisanie na konsolê standardow¹ (mo¿na te¿ zapisaæ do pliku logu)
+    std::cout << ss.str() << std::endl;
+
+    // Jeœli chcesz wyœwietliæ to w oknie dialogowym (MessageBox), musisz to zrobiæ
+    // z poziomu kodu formularza (C++/CLI), poniewa¿ Klasy.cpp jest standardowym C++.
+    // Bezpoœrednie wywo³anie System::Windows::Forms::MessageBox z tego miejsca
+    // bez odpowiedniej konfiguracji projektu dla C++/CLI mo¿e byæ problematyczne.
+    // Przekazanie stringstream do formularza lub u¿ycie delegatów by³oby czystszym rozwi¹zaniem.
+
+    // Przyk³ad, jak mo¿na by to zrobiæ, gdyby ta metoda by³a czêœci¹ formularza
+    // lub mia³a dostêp do System::String i MessageBox:
+    // System::String^ message = msclr::interop::marshal_as<System::String^>(ss.str());
+    // System::Windows::Forms::MessageBox::Show(message, "Paczka Przyjêta", System::Windows::Forms::MessageBoxButtons::OK);
 }

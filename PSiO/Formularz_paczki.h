@@ -3,10 +3,10 @@
 #include <msclr/marshal_cppstd.h>
 #include "Klasy.h" //
 #include <fstream>
-#include "json.hpp"
+#include "json.hpp" // Upewnij się, że ten plik nagłówkowy (biblioteka nlohmann/json) jest dostępny w ścieżkach include projektu
 #include <iomanip>
-#include <msclr/marshal.h>
-#include <msclr/marshal_cppstd.h>
+#include <msclr/marshal.h> // Dla starszych metod marshal, jeśli używane
+// #include <msclr/marshal_cppstd.h> // Już załączone wyżej
 
 namespace PSiO {
 
@@ -16,6 +16,7 @@ namespace PSiO {
     using namespace System::Windows::Forms;
     using namespace System::Data;
     using namespace System::Drawing;
+    using namespace System::Runtime::InteropServices; // Potrzebne dla Marshal::StringToHGlobalAnsi jeśli by było używane tutaj
 
     public ref class Formularz_paczki : public System::Windows::Forms::Form
     {
@@ -23,46 +24,46 @@ namespace PSiO {
         Formularz_paczki(void)
         {
             InitializeComponent();
-            // Inicjalizacja placeholder�w (jak w poprzednich odpowiedziach)
+            // Inicjalizacja placeholderów
             // Nadawca
-            this->textBox1->Text = "Wpisz imie"; //
-            this->textBox1->ForeColor = System::Drawing::Color::Gray; //
-            this->textBox2->Text = "Wpisz nazwisko"; //
-            this->textBox2->ForeColor = System::Drawing::Color::Gray; //
-            this->textBox3->Text = "Wpisz telefon"; //
-            this->textBox3->ForeColor = System::Drawing::Color::Gray; //
-            this->textBox4->Text = "Wpisz email"; //
-            this->textBox4->ForeColor = System::Drawing::Color::Gray; //
-            this->textBox5->Text = "Wpisz ulice"; //
-            this->textBox5->ForeColor = System::Drawing::Color::Gray; //
-            this->textBox6->Text = "Wpisz miasto"; //
-            this->textBox6->ForeColor = System::Drawing::Color::Gray; //
-            this->textBox7->Text = "Wpisz wojewodztwo"; //
-            this->textBox7->ForeColor = System::Drawing::Color::Gray; //
-            this->textBox8->Text = "Wpisz kodPocztowy"; //
-            this->textBox8->ForeColor = System::Drawing::Color::Gray; //
-            this->textBox9->Text = "Wpisz kraj"; //
-            this->textBox9->ForeColor = System::Drawing::Color::Gray; //
+            this->textBox1->Text = "Wpisz imie";
+            this->textBox1->ForeColor = System::Drawing::Color::Gray;
+            this->textBox2->Text = "Wpisz nazwisko";
+            this->textBox2->ForeColor = System::Drawing::Color::Gray;
+            this->textBox3->Text = "Wpisz telefon";
+            this->textBox3->ForeColor = System::Drawing::Color::Gray;
+            this->textBox4->Text = "Wpisz email";
+            this->textBox4->ForeColor = System::Drawing::Color::Gray;
+            this->textBox5->Text = "Wpisz ulice";
+            this->textBox5->ForeColor = System::Drawing::Color::Gray;
+            this->textBox6->Text = "Wpisz miasto";
+            this->textBox6->ForeColor = System::Drawing::Color::Gray;
+            this->textBox7->Text = "Wpisz wojewodztwo";
+            this->textBox7->ForeColor = System::Drawing::Color::Gray;
+            this->textBox8->Text = "Wpisz kodPocztowy";
+            this->textBox8->ForeColor = System::Drawing::Color::Gray;
+            this->textBox9->Text = "Wpisz kraj";
+            this->textBox9->ForeColor = System::Drawing::Color::Gray;
 
             // Odbiorca
-            this->textBox10->Text = "Wpisz kraj"; //
-            this->textBox10->ForeColor = System::Drawing::Color::Gray; //
-            this->textBox11->Text = "Wpisz kodPocztowy"; //
-            this->textBox11->ForeColor = System::Drawing::Color::Gray; //
-            this->textBox12->Text = "Wpisz wojewodztwo"; //
-            this->textBox12->ForeColor = System::Drawing::Color::Gray; //
-            this->textBox13->Text = "Wpisz miasto"; //
-            this->textBox13->ForeColor = System::Drawing::Color::Gray; //
-            this->textBox14->Text = "Wpisz ulice"; //
-            this->textBox14->ForeColor = System::Drawing::Color::Gray; //
-            this->textBox15->Text = "Wpisz email"; //
-            this->textBox15->ForeColor = System::Drawing::Color::Gray; //
-            this->textBox16->Text = "Wpisz telefon"; //
-            this->textBox16->ForeColor = System::Drawing::Color::Gray; //
-            this->textBox17->Text = "Wpisz nazwisko"; //
-            this->textBox17->ForeColor = System::Drawing::Color::Gray; //
-            this->textBox18->Text = "Wpisz imie"; //
-            this->textBox18->ForeColor = System::Drawing::Color::Gray; //
+            this->textBox10->Text = "Wpisz kraj";
+            this->textBox10->ForeColor = System::Drawing::Color::Gray;
+            this->textBox11->Text = "Wpisz kodPocztowy";
+            this->textBox11->ForeColor = System::Drawing::Color::Gray;
+            this->textBox12->Text = "Wpisz wojewodztwo";
+            this->textBox12->ForeColor = System::Drawing::Color::Gray;
+            this->textBox13->Text = "Wpisz miasto";
+            this->textBox13->ForeColor = System::Drawing::Color::Gray;
+            this->textBox14->Text = "Wpisz ulice";
+            this->textBox14->ForeColor = System::Drawing::Color::Gray;
+            this->textBox15->Text = "Wpisz email";
+            this->textBox15->ForeColor = System::Drawing::Color::Gray;
+            this->textBox16->Text = "Wpisz telefon";
+            this->textBox16->ForeColor = System::Drawing::Color::Gray;
+            this->textBox17->Text = "Wpisz nazwisko";
+            this->textBox17->ForeColor = System::Drawing::Color::Gray;
+            this->textBox18->Text = "Wpisz imie";
+            this->textBox18->ForeColor = System::Drawing::Color::Gray;
         }
 
     protected:
@@ -74,7 +75,6 @@ namespace PSiO {
             }
         }
 
-        // Deklaracje kontrolek (p�l klasy) - upewnij si�, �e s� tutaj
     private: System::Windows::Forms::Label^ label1;
     private: System::Windows::Forms::TextBox^ textBox1;
     private: System::Windows::Forms::TextBox^ textBox2;
@@ -103,13 +103,6 @@ namespace PSiO {
 #pragma region Windows Form Designer generated code
         void InitializeComponent(void)
         {
-            // Ca�a Twoja oryginalna metoda InitializeComponent powinna by� tutaj.
-            // To ona zawiera np. this->textBox8->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox8_Leave);
-            // Upewnij si�, �e jest kompletna i poprawna.
-            // Poni�ej jest tylko przyk�ad struktury, skopiuj swoj� metod�.
-            // (Je�li u�ywasz projektanta, ten kod jest zarz�dzany przez niego,
-            // ale metody obs�ugi zdarze� musz� by� zdefiniowane w klasie)
-
             System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Formularz_paczki::typeid));
             this->label1 = (gcnew System::Windows::Forms::Label());
             this->textBox1 = (gcnew System::Windows::Forms::TextBox());
@@ -143,7 +136,7 @@ namespace PSiO {
             this->label1->Size = System::Drawing::Size(64, 15);
             this->label1->TabIndex = 0;
             this->label1->Text = L"NADAWCA";
-            this->label1->Click += gcnew System::EventHandler(this, &Formularz_paczki::label1_Click); // Metoda label1_Click musi istnie�
+            this->label1->Click += gcnew System::EventHandler(this, &Formularz_paczki::label1_Click);
             //
             // textBox1
             //
@@ -151,8 +144,8 @@ namespace PSiO {
             this->textBox1->Name = L"textBox1";
             this->textBox1->Size = System::Drawing::Size(100, 20);
             this->textBox1->TabIndex = 1;
-            this->textBox1->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox1_Enter); // Metoda textBox1_Enter musi istnie�
-            this->textBox1->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox1_Leave); // Metoda textBox1_Leave musi istnie�
+            this->textBox1->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox1_Enter);
+            this->textBox1->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox1_Leave);
             //
             // textBox2
             //
@@ -160,18 +153,18 @@ namespace PSiO {
             this->textBox2->Name = L"textBox2";
             this->textBox2->Size = System::Drawing::Size(100, 20);
             this->textBox2->TabIndex = 2;
-            this->textBox2->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox2_Enter); // ... i tak dalej dla wszystkich
-            this->textBox2->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox2_Leave); //
+            this->textBox2->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox2_Enter);
+            this->textBox2->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox2_Leave);
             //
             // button1
             //
             this->button1->Location = System::Drawing::Point(496, 647);
             this->button1->Name = L"button1";
             this->button1->Size = System::Drawing::Size(75, 23);
-            this->button1->TabIndex = 20; // Upewnij si�, �e TabIndex jest unikalny i poprawny
-            this->button1->Text = L"Zako�cz";
+            this->button1->TabIndex = 20;
+            this->button1->Text = L"Zakończ"; // Zmieniono z "Zakoñcz"
             this->button1->UseVisualStyleBackColor = true;
-            this->button1->Click += gcnew System::EventHandler(this, &Formularz_paczki::button1_Click); // Metoda button1_Click musi istnie�
+            this->button1->Click += gcnew System::EventHandler(this, &Formularz_paczki::button1_Click);
             //
             // textBox3
             //
@@ -225,7 +218,7 @@ namespace PSiO {
             this->textBox8->Size = System::Drawing::Size(100, 20);
             this->textBox8->TabIndex = 8;
             this->textBox8->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox8_Enter);
-            this->textBox8->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox8_Leave); // B��d dotyczy� tej metody
+            this->textBox8->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox8_Leave);
             //
             // textBox9
             //
@@ -241,7 +234,7 @@ namespace PSiO {
             this->textBox10->Location = System::Drawing::Point(414, 304);
             this->textBox10->Name = L"textBox10";
             this->textBox10->Size = System::Drawing::Size(100, 20);
-            this->textBox10->TabIndex = 19;
+            this->textBox10->TabIndex = 19; // Poprawiony TabIndex, aby był unikalny
             this->textBox10->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox10_Enter);
             this->textBox10->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox10_Leave);
             //
@@ -326,7 +319,7 @@ namespace PSiO {
             this->label2->Size = System::Drawing::Size(65, 15);
             this->label2->TabIndex = 10;
             this->label2->Text = L"ODBIORCA";
-            this->label2->Click += gcnew System::EventHandler(this, &Formularz_paczki::label2_Click); // Metoda label2_Click musi istnie�
+            this->label2->Click += gcnew System::EventHandler(this, &Formularz_paczki::label2_Click);
             //
             // Formularz_paczki
             //
@@ -356,27 +349,23 @@ namespace PSiO {
             this->Controls->Add(this->label1);
             this->Name = L"Formularz_paczki";
             this->Text = L"Formularz_paczki";
-            this->Load += gcnew System::EventHandler(this, &Formularz_paczki::Formularz_paczki_Load); // Metoda Formularz_paczki_Load musi istnie�
+            this->Load += gcnew System::EventHandler(this, &Formularz_paczki::Formularz_paczki_Load);
             this->ResumeLayout(false);
             this->PerformLayout();
-
         }
 #pragma endregion
 
-        // --- POCZ�TEK DEFINICJI METOD OBS�UGI ZDARZE� ---
-        // Upewnij si�, �e wszystkie te metody s� tutaj, WEWN�TRZ klasy Formularz_paczki
-
     private: System::Void Formularz_paczki_Load(System::Object^ sender, System::EventArgs^ e) {
-        this->label1->Focus();
+        this->label1->Focus(); // Ustawienie focusu na elemencie, który nie jest textboxem, aby placeholdery były widoczne
     }
     private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
-        // Pusta, je�li nie ma logiki
+        // Logika kliknięcia dla label1, jeśli potrzebna
     }
     private: System::Void label2_Click(System::Object^ sender, System::EventArgs^ e) {
-        // Pusta, je�li nie ma logiki
+        // Logika kliknięcia dla label2, jeśli potrzebna
     }
 
-           // Metody Enter/Leave dla textBox1
+           // --- Metody Enter/Leave dla textBox1 (Nadawca - Imię) ---
     private: System::Void textBox1_Enter(System::Object^ sender, System::EventArgs^ e) {
         if (this->textBox1->Text == "Wpisz imie") {
             this->textBox1->Text = "";
@@ -390,7 +379,7 @@ namespace PSiO {
         }
     }
 
-           // Metody Enter/Leave dla textBox2
+           // --- Metody Enter/Leave dla textBox2 (Nadawca - Nazwisko) ---
     private: System::Void textBox2_Enter(System::Object^ sender, System::EventArgs^ e) {
         if (this->textBox2->Text == "Wpisz nazwisko") {
             this->textBox2->Text = "";
@@ -404,7 +393,7 @@ namespace PSiO {
         }
     }
 
-           // Metody Enter/Leave dla textBox3
+           // --- Metody Enter/Leave dla textBox3 (Nadawca - Telefon) ---
     private: System::Void textBox3_Enter(System::Object^ sender, System::EventArgs^ e) {
         if (this->textBox3->Text == "Wpisz telefon") {
             this->textBox3->Text = "";
@@ -418,7 +407,7 @@ namespace PSiO {
         }
     }
 
-           // Metody Enter/Leave dla textBox4
+           // --- Metody Enter/Leave dla textBox4 (Nadawca - Email) ---
     private: System::Void textBox4_Enter(System::Object^ sender, System::EventArgs^ e) {
         if (this->textBox4->Text == "Wpisz email") {
             this->textBox4->Text = "";
@@ -432,7 +421,7 @@ namespace PSiO {
         }
     }
 
-           // Metody Enter/Leave dla textBox5
+           // --- Metody Enter/Leave dla textBox5 (Nadawca - Ulica) ---
     private: System::Void textBox5_Enter(System::Object^ sender, System::EventArgs^ e) {
         if (this->textBox5->Text == "Wpisz ulice") {
             this->textBox5->Text = "";
@@ -446,7 +435,7 @@ namespace PSiO {
         }
     }
 
-           // Metody Enter/Leave dla textBox6
+           // --- Metody Enter/Leave dla textBox6 (Nadawca - Miasto) ---
     private: System::Void textBox6_Enter(System::Object^ sender, System::EventArgs^ e) {
         if (this->textBox6->Text == "Wpisz miasto") {
             this->textBox6->Text = "";
@@ -460,7 +449,7 @@ namespace PSiO {
         }
     }
 
-           // Metody Enter/Leave dla textBox7
+           // --- Metody Enter/Leave dla textBox7 (Nadawca - Województwo) ---
     private: System::Void textBox7_Enter(System::Object^ sender, System::EventArgs^ e) {
         if (this->textBox7->Text == "Wpisz wojewodztwo") {
             this->textBox7->Text = "";
@@ -474,7 +463,7 @@ namespace PSiO {
         }
     }
 
-           // Metody Enter/Leave dla textBox8 (Tw�j b��d dotyczy� textBox8_Leave)
+           // --- Metody Enter/Leave dla textBox8 (Nadawca - Kod Pocztowy) ---
     private: System::Void textBox8_Enter(System::Object^ sender, System::EventArgs^ e) {
         if (this->textBox8->Text == "Wpisz kodPocztowy") {
             this->textBox8->Text = "";
@@ -488,7 +477,7 @@ namespace PSiO {
         }
     }
 
-           // Metody Enter/Leave dla textBox9
+           // --- Metody Enter/Leave dla textBox9 (Nadawca - Kraj) ---
     private: System::Void textBox9_Enter(System::Object^ sender, System::EventArgs^ e) {
         if (this->textBox9->Text == "Wpisz kraj") {
             this->textBox9->Text = "";
@@ -502,119 +491,7 @@ namespace PSiO {
         }
     }
 
-           // Metody Enter/Leave dla textBox10 (Odbiorca)
-    private: System::Void textBox10_Enter(System::Object^ sender, System::EventArgs^ e) {
-        if (this->textBox10->Text == "Wpisz kraj") {
-            this->textBox10->Text = "";
-            this->textBox10->ForeColor = System::Drawing::Color::Black;
-        }
-    }
-    private: System::Void textBox10_Leave(System::Object^ sender, System::EventArgs^ e) {
-        if (String::IsNullOrWhiteSpace(this->textBox10->Text)) {
-            this->textBox10->Text = "Wpisz kraj";
-            this->textBox10->ForeColor = System::Drawing::Color::Gray;
-        }
-    }
-
-           // Metody Enter/Leave dla textBox11
-    private: System::Void textBox11_Enter(System::Object^ sender, System::EventArgs^ e) {
-        if (this->textBox11->Text == "Wpisz kodPocztowy") {
-            this->textBox11->Text = "";
-            this->textBox11->ForeColor = System::Drawing::Color::Black;
-        }
-    }
-    private: System::Void textBox11_Leave(System::Object^ sender, System::EventArgs^ e) {
-        if (String::IsNullOrWhiteSpace(this->textBox11->Text)) {
-            this->textBox11->Text = "Wpisz kodPocztowy";
-            this->textBox11->ForeColor = System::Drawing::Color::Gray;
-        }
-    }
-
-           // Metody Enter/Leave dla textBox12
-    private: System::Void textBox12_Enter(System::Object^ sender, System::EventArgs^ e) {
-        if (this->textBox12->Text == "Wpisz wojewodztwo") {
-            this->textBox12->Text = "";
-            this->textBox12->ForeColor = System::Drawing::Color::Black;
-        }
-    }
-    private: System::Void textBox12_Leave(System::Object^ sender, System::EventArgs^ e) {
-        if (String::IsNullOrWhiteSpace(this->textBox12->Text)) {
-            this->textBox12->Text = "Wpisz wojewodztwo";
-            this->textBox12->ForeColor = System::Drawing::Color::Gray;
-        }
-    }
-
-           // Metody Enter/Leave dla textBox13
-    private: System::Void textBox13_Enter(System::Object^ sender, System::EventArgs^ e) {
-        if (this->textBox13->Text == "Wpisz miasto") {
-            this->textBox13->Text = "";
-            this->textBox13->ForeColor = System::Drawing::Color::Black;
-        }
-    }
-    private: System::Void textBox13_Leave(System::Object^ sender, System::EventArgs^ e) {
-        if (String::IsNullOrWhiteSpace(this->textBox13->Text)) {
-            this->textBox13->Text = "Wpisz miasto";
-            this->textBox13->ForeColor = System::Drawing::Color::Gray;
-        }
-    }
-
-           // Metody Enter/Leave dla textBox14
-    private: System::Void textBox14_Enter(System::Object^ sender, System::EventArgs^ e) {
-        if (this->textBox14->Text == "Wpisz ulice") {
-            this->textBox14->Text = "";
-            this->textBox14->ForeColor = System::Drawing::Color::Black;
-        }
-    }
-    private: System::Void textBox14_Leave(System::Object^ sender, System::EventArgs^ e) {
-        if (String::IsNullOrWhiteSpace(this->textBox14->Text)) {
-            this->textBox14->Text = "Wpisz ulice";
-            this->textBox14->ForeColor = System::Drawing::Color::Gray;
-        }
-    }
-
-           // Metody Enter/Leave dla textBox15
-    private: System::Void textBox15_Enter(System::Object^ sender, System::EventArgs^ e) {
-        if (this->textBox15->Text == "Wpisz email") {
-            this->textBox15->Text = "";
-            this->textBox15->ForeColor = System::Drawing::Color::Black;
-        }
-    }
-    private: System::Void textBox15_Leave(System::Object^ sender, System::EventArgs^ e) {
-        if (String::IsNullOrWhiteSpace(this->textBox15->Text)) {
-            this->textBox15->Text = "Wpisz email";
-            this->textBox15->ForeColor = System::Drawing::Color::Gray;
-        }
-    }
-
-           // Metody Enter/Leave dla textBox16
-    private: System::Void textBox16_Enter(System::Object^ sender, System::EventArgs^ e) {
-        if (this->textBox16->Text == "Wpisz telefon") {
-            this->textBox16->Text = "";
-            this->textBox16->ForeColor = System::Drawing::Color::Black;
-        }
-    }
-    private: System::Void textBox16_Leave(System::Object^ sender, System::EventArgs^ e) {
-        if (String::IsNullOrWhiteSpace(this->textBox16->Text)) {
-            this->textBox16->Text = "Wpisz telefon";
-            this->textBox16->ForeColor = System::Drawing::Color::Gray;
-        }
-    }
-
-           // Metody Enter/Leave dla textBox17
-    private: System::Void textBox17_Enter(System::Object^ sender, System::EventArgs^ e) {
-        if (this->textBox17->Text == "Wpisz nazwisko") {
-            this->textBox17->Text = "";
-            this->textBox17->ForeColor = System::Drawing::Color::Black;
-        }
-    }
-    private: System::Void textBox17_Leave(System::Object^ sender, System::EventArgs^ e) {
-        if (String::IsNullOrWhiteSpace(this->textBox17->Text)) {
-            this->textBox17->Text = "Wpisz nazwisko";
-            this->textBox17->ForeColor = System::Drawing::Color::Gray;
-        }
-    }
-
-           // Metody Enter/Leave dla textBox18
+           // --- Metody Enter/Leave dla textBox18 (Odbiorca - Imię) ---
     private: System::Void textBox18_Enter(System::Object^ sender, System::EventArgs^ e) {
         if (this->textBox18->Text == "Wpisz imie") {
             this->textBox18->Text = "";
@@ -628,28 +505,140 @@ namespace PSiO {
         }
     }
 
-           // Metoda button1_Click (z poprzedniej odpowiedzi, z logik� JSON)
-    private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-        // Konwersja System::String na std::string
-        std::string nadawcaImie = msclr::interop::marshal_as<std::string>(textBox1->Text);
-        std::string nadawcaNazwisko = msclr::interop::marshal_as<std::string>(textBox2->Text);
-        std::string nadawcaTelefon = msclr::interop::marshal_as<std::string>(textBox3->Text);
-        std::string nadawcaEmail = msclr::interop::marshal_as<std::string>(textBox4->Text);
-        std::string nadawcaUlica = msclr::interop::marshal_as<std::string>(textBox5->Text);
-        std::string nadawcaMiasto = msclr::interop::marshal_as<std::string>(textBox6->Text);
-        std::string nadawcaWojewodztwo = msclr::interop::marshal_as<std::string>(textBox7->Text);
-        std::string nadawcaKodPocztowy = msclr::interop::marshal_as<std::string>(textBox8->Text);
-        std::string nadawcaKraj = msclr::interop::marshal_as<std::string>(textBox9->Text);
+           // --- Metody Enter/Leave dla textBox17 (Odbiorca - Nazwisko) ---
+    private: System::Void textBox17_Enter(System::Object^ sender, System::EventArgs^ e) {
+        if (this->textBox17->Text == "Wpisz nazwisko") {
+            this->textBox17->Text = "";
+            this->textBox17->ForeColor = System::Drawing::Color::Black;
+        }
+    }
+    private: System::Void textBox17_Leave(System::Object^ sender, System::EventArgs^ e) {
+        if (String::IsNullOrWhiteSpace(this->textBox17->Text)) {
+            this->textBox17->Text = "Wpisz nazwisko";
+            this->textBox17->ForeColor = System::Drawing::Color::Gray;
+        }
+    }
 
-        std::string odbiorcaImie = msclr::interop::marshal_as<std::string>(textBox18->Text);
-        std::string odbiorcaNazwisko = msclr::interop::marshal_as<std::string>(textBox17->Text);
-        std::string odbiorcaTelefon = msclr::interop::marshal_as<std::string>(textBox16->Text);
-        std::string odbiorcaEmail = msclr::interop::marshal_as<std::string>(textBox15->Text);
-        std::string odbiorcaUlica = msclr::interop::marshal_as<std::string>(textBox14->Text);
-        std::string odbiorcaMiasto = msclr::interop::marshal_as<std::string>(textBox13->Text);
-        std::string odbiorcaWojewodztwo = msclr::interop::marshal_as<std::string>(textBox12->Text);
-        std::string odbiorcaKodPocztowy = msclr::interop::marshal_as<std::string>(textBox11->Text);
-        std::string odbiorcaKraj = msclr::interop::marshal_as<std::string>(textBox10->Text);
+           // --- Metody Enter/Leave dla textBox16 (Odbiorca - Telefon) ---
+    private: System::Void textBox16_Enter(System::Object^ sender, System::EventArgs^ e) {
+        if (this->textBox16->Text == "Wpisz telefon") {
+            this->textBox16->Text = "";
+            this->textBox16->ForeColor = System::Drawing::Color::Black;
+        }
+    }
+    private: System::Void textBox16_Leave(System::Object^ sender, System::EventArgs^ e) {
+        if (String::IsNullOrWhiteSpace(this->textBox16->Text)) {
+            this->textBox16->Text = "Wpisz telefon";
+            this->textBox16->ForeColor = System::Drawing::Color::Gray;
+        }
+    }
+
+           // --- Metody Enter/Leave dla textBox15 (Odbiorca - Email) ---
+    private: System::Void textBox15_Enter(System::Object^ sender, System::EventArgs^ e) {
+        if (this->textBox15->Text == "Wpisz email") {
+            this->textBox15->Text = "";
+            this->textBox15->ForeColor = System::Drawing::Color::Black;
+        }
+    }
+    private: System::Void textBox15_Leave(System::Object^ sender, System::EventArgs^ e) {
+        if (String::IsNullOrWhiteSpace(this->textBox15->Text)) {
+            this->textBox15->Text = "Wpisz email";
+            this->textBox15->ForeColor = System::Drawing::Color::Gray;
+        }
+    }
+
+           // --- Metody Enter/Leave dla textBox14 (Odbiorca - Ulica) ---
+    private: System::Void textBox14_Enter(System::Object^ sender, System::EventArgs^ e) {
+        if (this->textBox14->Text == "Wpisz ulice") {
+            this->textBox14->Text = "";
+            this->textBox14->ForeColor = System::Drawing::Color::Black;
+        }
+    }
+    private: System::Void textBox14_Leave(System::Object^ sender, System::EventArgs^ e) {
+        if (String::IsNullOrWhiteSpace(this->textBox14->Text)) {
+            this->textBox14->Text = "Wpisz ulice";
+            this->textBox14->ForeColor = System::Drawing::Color::Gray;
+        }
+    }
+
+           // --- Metody Enter/Leave dla textBox13 (Odbiorca - Miasto) ---
+    private: System::Void textBox13_Enter(System::Object^ sender, System::EventArgs^ e) {
+        if (this->textBox13->Text == "Wpisz miasto") {
+            this->textBox13->Text = "";
+            this->textBox13->ForeColor = System::Drawing::Color::Black;
+        }
+    }
+    private: System::Void textBox13_Leave(System::Object^ sender, System::EventArgs^ e) {
+        if (String::IsNullOrWhiteSpace(this->textBox13->Text)) {
+            this->textBox13->Text = "Wpisz miasto";
+            this->textBox13->ForeColor = System::Drawing::Color::Gray;
+        }
+    }
+
+           // --- Metody Enter/Leave dla textBox12 (Odbiorca - Województwo) ---
+    private: System::Void textBox12_Enter(System::Object^ sender, System::EventArgs^ e) {
+        if (this->textBox12->Text == "Wpisz wojewodztwo") {
+            this->textBox12->Text = "";
+            this->textBox12->ForeColor = System::Drawing::Color::Black;
+        }
+    }
+    private: System::Void textBox12_Leave(System::Object^ sender, System::EventArgs^ e) {
+        if (String::IsNullOrWhiteSpace(this->textBox12->Text)) {
+            this->textBox12->Text = "Wpisz wojewodztwo";
+            this->textBox12->ForeColor = System::Drawing::Color::Gray;
+        }
+    }
+
+           // --- Metody Enter/Leave dla textBox11 (Odbiorca - Kod Pocztowy) ---
+    private: System::Void textBox11_Enter(System::Object^ sender, System::EventArgs^ e) {
+        if (this->textBox11->Text == "Wpisz kodPocztowy") {
+            this->textBox11->Text = "";
+            this->textBox11->ForeColor = System::Drawing::Color::Black;
+        }
+    }
+    private: System::Void textBox11_Leave(System::Object^ sender, System::EventArgs^ e) {
+        if (String::IsNullOrWhiteSpace(this->textBox11->Text)) {
+            this->textBox11->Text = "Wpisz kodPocztowy";
+            this->textBox11->ForeColor = System::Drawing::Color::Gray;
+        }
+    }
+
+           // --- Metody Enter/Leave dla textBox10 (Odbiorca - Kraj) ---
+    private: System::Void textBox10_Enter(System::Object^ sender, System::EventArgs^ e) {
+        if (this->textBox10->Text == "Wpisz kraj") {
+            this->textBox10->Text = "";
+            this->textBox10->ForeColor = System::Drawing::Color::Black;
+        }
+    }
+    private: System::Void textBox10_Leave(System::Object^ sender, System::EventArgs^ e) {
+        if (String::IsNullOrWhiteSpace(this->textBox10->Text)) {
+            this->textBox10->Text = "Wpisz kraj";
+            this->textBox10->ForeColor = System::Drawing::Color::Gray;
+        }
+    }
+
+
+    private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+        // Konwersja System::String na std::string za pomocą msclr::interop::marshal_as
+        std::string nadawcaImie = msclr::interop::marshal_as<std::string>(textBox1->Text == "Wpisz imie" ? "" : textBox1->Text);
+        std::string nadawcaNazwisko = msclr::interop::marshal_as<std::string>(textBox2->Text == "Wpisz nazwisko" ? "" : textBox2->Text);
+        std::string nadawcaTelefon = msclr::interop::marshal_as<std::string>(textBox3->Text == "Wpisz telefon" ? "" : textBox3->Text);
+        std::string nadawcaEmail = msclr::interop::marshal_as<std::string>(textBox4->Text == "Wpisz email" ? "" : textBox4->Text);
+        std::string nadawcaUlica = msclr::interop::marshal_as<std::string>(textBox5->Text == "Wpisz ulice" ? "" : textBox5->Text);
+        std::string nadawcaMiasto = msclr::interop::marshal_as<std::string>(textBox6->Text == "Wpisz miasto" ? "" : textBox6->Text);
+        std::string nadawcaWojewodztwo = msclr::interop::marshal_as<std::string>(textBox7->Text == "Wpisz wojewodztwo" ? "" : textBox7->Text);
+        std::string nadawcaKodPocztowy = msclr::interop::marshal_as<std::string>(textBox8->Text == "Wpisz kodPocztowy" ? "" : textBox8->Text);
+        std::string nadawcaKraj = msclr::interop::marshal_as<std::string>(textBox9->Text == "Wpisz kraj" ? "" : textBox9->Text);
+
+        std::string odbiorcaImie = msclr::interop::marshal_as<std::string>(textBox18->Text == "Wpisz imie" ? "" : textBox18->Text);
+        std::string odbiorcaNazwisko = msclr::interop::marshal_as<std::string>(textBox17->Text == "Wpisz nazwisko" ? "" : textBox17->Text);
+        std::string odbiorcaTelefon = msclr::interop::marshal_as<std::string>(textBox16->Text == "Wpisz telefon" ? "" : textBox16->Text);
+        std::string odbiorcaEmail = msclr::interop::marshal_as<std::string>(textBox15->Text == "Wpisz email" ? "" : textBox15->Text);
+        std::string odbiorcaUlica = msclr::interop::marshal_as<std::string>(textBox14->Text == "Wpisz ulice" ? "" : textBox14->Text);
+        std::string odbiorcaMiasto = msclr::interop::marshal_as<std::string>(textBox13->Text == "Wpisz miasto" ? "" : textBox13->Text);
+        std::string odbiorcaWojewodztwo = msclr::interop::marshal_as<std::string>(textBox12->Text == "Wpisz wojewodztwo" ? "" : textBox12->Text);
+        std::string odbiorcaKodPocztowy = msclr::interop::marshal_as<std::string>(textBox11->Text == "Wpisz kodPocztowy" ? "" : textBox11->Text);
+        std::string odbiorcaKraj = msclr::interop::marshal_as<std::string>(textBox10->Text == "Wpisz kraj" ? "" : textBox10->Text);
 
         Nadawca nadawcaObj;
         nadawcaObj.imie = nadawcaImie;
@@ -673,34 +662,34 @@ namespace PSiO {
         odbiorcaObj.kodPocztowy = odbiorcaKodPocztowy;
         odbiorcaObj.kraj = odbiorcaKraj;
 
-        Paczka paczka(nadawcaObj, odbiorcaObj); //
+        Paczka paczka(nadawcaObj, odbiorcaObj);
 
         nlohmann::json new_package_json;
-        new_package_json["numerPaczki"] = paczka.getNumerPaczki(); //
-        new_package_json["nadawca"] = { //
-            {"imie", paczka.getNadawca().imie}, //
-            {"nazwisko", paczka.getNadawca().nazwisko}, //
-            {"telefon", paczka.getNadawca().telefon}, //
-            {"email", paczka.getNadawca().email}, //
-            {"adres", { //
-                {"ulica", paczka.getNadawca().ulica}, //
-                {"miasto", paczka.getNadawca().miasto}, //
-                {"wojewodztwo", paczka.getNadawca().wojewodztwo}, //
-                {"kodPocztowy", paczka.getNadawca().kodPocztowy}, //
-                {"kraj", paczka.getNadawca().kraj} //
+        new_package_json["numerPaczki"] = paczka.getNumerPaczki();
+        new_package_json["nadawca"] = {
+            {"imie", paczka.getNadawca().imie},
+            {"nazwisko", paczka.getNadawca().nazwisko},
+            {"telefon", paczka.getNadawca().telefon},
+            {"email", paczka.getNadawca().email},
+            {"adres", {
+                {"ulica", paczka.getNadawca().ulica},
+                {"miasto", paczka.getNadawca().miasto},
+                {"wojewodztwo", paczka.getNadawca().wojewodztwo},
+                {"kodPocztowy", paczka.getNadawca().kodPocztowy},
+                {"kraj", paczka.getNadawca().kraj}
             }}
         };
-        new_package_json["odbiorca"] = { //
-            {"imie", paczka.getOdbiorca().imie}, //
-            {"nazwisko", paczka.getOdbiorca().nazwisko}, //
-            {"telefon", paczka.getOdbiorca().telefon}, //
-            {"email", paczka.getOdbiorca().email}, //
-            {"adres", { //
-                {"ulica", paczka.getOdbiorca().ulica}, //
-                {"miasto", paczka.getOdbiorca().miasto}, //
-                {"wojewodztwo", paczka.getOdbiorca().wojewodztwo}, //
-                {"kodPocztowy", paczka.getOdbiorca().kodPocztowy}, //
-                {"kraj", paczka.getOdbiorca().kraj} //
+        new_package_json["odbiorca"] = {
+            {"imie", paczka.getOdbiorca().imie},
+            {"nazwisko", paczka.getOdbiorca().nazwisko},
+            {"telefon", paczka.getOdbiorca().telefon},
+            {"email", paczka.getOdbiorca().email},
+            {"adres", {
+                {"ulica", paczka.getOdbiorca().ulica},
+                {"miasto", paczka.getOdbiorca().miasto},
+                {"wojewodztwo", paczka.getOdbiorca().wojewodztwo},
+                {"kodPocztowy", paczka.getOdbiorca().kodPocztowy},
+                {"kraj", paczka.getOdbiorca().kraj}
             }}
         };
 
@@ -711,18 +700,21 @@ namespace PSiO {
         if (ifs.is_open()) {
             try {
                 ifs >> existing_data_array;
-                if (!existing_data_array.is_array()) {
-                    existing_data_array = nlohmann::json::array();
-                    System::Windows::Forms::MessageBox::Show("Istniej�cy plik paczka_data.json nie zawiera� tablicy. Dane zostan� nadpisane now� tablic� paczek.", "Ostrze�enie", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+                if (!existing_data_array.is_array()) { // Sprawdzenie, czy wczytane dane są tablicą
+                    existing_data_array = nlohmann::json::array(); // Jeśli nie, utwórz nową pustą tablicę
+                    System::Windows::Forms::MessageBox::Show("Istniejący plik paczka_data.json nie zawierał tablicy. Dane zostaną nadpisane nową tablicą paczek.", "Ostrzeżenie", MessageBoxButtons::OK, MessageBoxIcon::Warning);
                 }
             }
             catch (nlohmann::json::parse_error& e) {
-                ifs.clear();
-                ifs.seekg(0, std::ios::beg);
-                if (ifs.peek() != std::ifstream::traits_type::eof()) {
-                    System::Windows::Forms::MessageBox::Show(System::String::Format("B��d parsowania pliku paczka_data.json: {0}. Tworz� now� list� paczek.", msclr::interop::marshal_as<System::String^>(e.what())));
+                // Jeśli plik jest pusty lub niepoprawny JSON, zacznij od nowej tablicy.
+                // Można by też sprawdzić, czy plik jest po prostu pusty.
+                ifs.clear(); // Wyczyść flagi błędów strumienia
+                ifs.seekg(0, std::ios::beg); // Przewiń na początek pliku
+                if (ifs.peek() != std::ifstream::traits_type::eof() || ifs.fail()) { // Sprawdź, czy plik nie jest pusty, a błąd parsowania wystąpił z innego powodu
+                    System::String^ errorMessage = msclr::interop::marshal_as<System::String^>(e.what());
+                    System::Windows::Forms::MessageBox::Show(System::String::Format("Błąd parsowania pliku paczka_data.json: {0}. Tworzę nową listę paczek.", errorMessage), "Błąd Pliku", MessageBoxButtons::OK, MessageBoxIcon::Error);
                 }
-                existing_data_array = nlohmann::json::array();
+                existing_data_array = nlohmann::json::array(); // W razie błędu, zacznij od nowej tablicy
             }
             ifs.close();
         }
@@ -733,16 +725,14 @@ namespace PSiO {
         if (ofs.is_open()) {
             ofs << std::setw(4) << existing_data_array << std::endl;
             ofs.close();
-            System::Windows::Forms::MessageBox::Show("Dane paczki zosta�y dodane do paczka_data.json");
+            System::Windows::Forms::MessageBox::Show("Dane paczki zostały dodane do paczka_data.json", "Sukces", MessageBoxButtons::OK, MessageBoxIcon::Information);
         }
         else {
-            System::Windows::Forms::MessageBox::Show("B��d: Nie mo�na zapisa� pliku paczka_data.json");
+            System::Windows::Forms::MessageBox::Show("Błąd: Nie można zapisać pliku paczka_data.json", "Błąd Zapisu", MessageBoxButtons::OK, MessageBoxIcon::Error);
         }
 
         this->Close();
-        paczka.paczkaPrzyjeta(); //
+        paczka.paczkaPrzyjeta(); // Wywołanie metody informującej o przyjęciu paczki (np. do konsoli)
     }
-           // --- KONIEC DEFINICJI METOD OBS�UGI ZDARZE� ---
-
     }; // Koniec klasy Formularz_paczki
 } // Koniec namespace PSiO

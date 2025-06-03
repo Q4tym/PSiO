@@ -1,8 +1,10 @@
 #pragma once
-#include "logowanie.h" // To jest MyForm1, czyli formularz logowania/rejestracji
-#include "Formularz_paczki.h"
-#include <msclr/marshal.h>         // Dodane
-#include <msclr/marshal_cppstd.h>
+#include "logowanie.h"        // Zawiera MyForm1 (formularz logowania/rejestracji)
+#include "Formularz_paczki.h" // Zawiera Formularz_paczki
+// Poni¿sze nag³ówki marshal s¹ czêsto potrzebne w nag³ówkach C++/CLI,
+// ale nie s¹ bezpoœrednio u¿ywane w tej klasie.
+// #include <msclr/marshal.h>
+// #include <msclr/marshal_cppstd.h>
 
 namespace PSiO {
 
@@ -20,7 +22,7 @@ namespace PSiO {
         {
             InitializeComponent();
             //
-            //TODO: W tym miejscu dodaj kod konstruktora
+            // TODO: W tym miejscu dodaj kod konstruktora, jeœli jest potrzebny
             //
         }
 
@@ -32,9 +34,9 @@ namespace PSiO {
                 delete components;
             }
         }
-    private: System::Windows::Forms::Button^ button1; // Przycisk "zaloguj"
-    private: System::Windows::Forms::Button^ button2; // Przycisk "wyjscie"
-    private: System::Windows::Forms::Button^ button3; // Przycisk "Nadaj paczke"
+    private: System::Windows::Forms::Button^ buttonLogin;    // Zmieniona nazwa na buttonLogin dla jasnoœci
+    private: System::Windows::Forms::Button^ buttonExit;     // Zmieniona nazwa na buttonExit
+    private: System::Windows::Forms::Button^ buttonNewPackage; // Zmieniona nazwa na buttonNewPackage
 
     private:
         System::ComponentModel::Container^ components;
@@ -42,80 +44,80 @@ namespace PSiO {
 #pragma region Windows Form Designer generated code
         void InitializeComponent(void)
         {
-            // ... (Twoja istniej¹ca metoda InitializeComponent bez zmian) ...
-            // Upewnij siê, ¿e button1, button2, button3 s¹ poprawnie zainicjalizowane
-            // PONI¯EJ JEST TYLKO PRZYK£AD STRUKTURY
-            this->button1 = (gcnew System::Windows::Forms::Button());
-            this->button2 = (gcnew System::Windows::Forms::Button());
-            this->button3 = (gcnew System::Windows::Forms::Button());
+            this->buttonLogin = (gcnew System::Windows::Forms::Button());
+            this->buttonExit = (gcnew System::Windows::Forms::Button());
+            this->buttonNewPackage = (gcnew System::Windows::Forms::Button());
             this->SuspendLayout();
-            //
-            // button1
-            //
-            this->button1->Location = System::Drawing::Point(355, 236);
-            this->button1->Margin = System::Windows::Forms::Padding(2);
-            this->button1->Name = L"button1";
-            this->button1->Size = System::Drawing::Size(59, 26);
-            this->button1->TabIndex = 0;
-            this->button1->Text = L"Zaloguj"; // Zmieniony tekst dla jasnoœci
-            this->button1->UseVisualStyleBackColor = true;
-            this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
-            //
-            // button2
-            //
-            this->button2->Location = System::Drawing::Point(8, 236);
-            this->button2->Margin = System::Windows::Forms::Padding(2);
-            this->button2->Name = L"button2";
-            this->button2->Size = System::Drawing::Size(59, 26);
-            this->button2->TabIndex = 1;
-            this->button2->Text = L"Wyjœcie";
-            this->button2->UseVisualStyleBackColor = true;
-            this->button2->Click += gcnew System::EventHandler(this, &MyForm::button2_Click);
-            //
-            // button3
-            //
-            this->button3->Location = System::Drawing::Point(159, 103);
-            this->button3->Margin = System::Windows::Forms::Padding(2);
-            this->button3->Name = L"button3";
-            this->button3->Size = System::Drawing::Size(100, 35); // Trochê szerszy dla czytelnoœci
-            this->button3->TabIndex = 2;
-            this->button3->Text = L"Nadaj Paczkê";
-            this->button3->UseVisualStyleBackColor = true;
-            this->button3->Click += gcnew System::EventHandler(this, &MyForm::button3_Click);
-            //
+            // 
+            // buttonLogin
+            // 
+            this->buttonLogin->Location = System::Drawing::Point(150, 180); // Przyk³adowa pozycja
+            this->buttonLogin->Margin = System::Windows::Forms::Padding(2);
+            this->buttonLogin->Name = L"buttonLogin";
+            this->buttonLogin->Size = System::Drawing::Size(120, 30);
+            this->buttonLogin->TabIndex = 0;
+            this->buttonLogin->Text = L"Zaloguj Kuriera"; // Zmieniony tekst dla jasnoœci
+            this->buttonLogin->UseVisualStyleBackColor = true;
+            this->buttonLogin->Click += gcnew System::EventHandler(this, &MyForm::buttonLogin_Click);
+            // 
+            // buttonExit
+            // 
+            this->buttonExit->Location = System::Drawing::Point(12, 226); // Przyk³adowa pozycja
+            this->buttonExit->Margin = System::Windows::Forms::Padding(2);
+            this->buttonExit->Name = L"buttonExit";
+            this->buttonExit->Size = System::Drawing::Size(100, 26);
+            this->buttonExit->TabIndex = 1;
+            this->buttonExit->Text = L"Wyjœcie";
+            this->buttonExit->UseVisualStyleBackColor = true;
+            this->buttonExit->Click += gcnew System::EventHandler(this, &MyForm::buttonExit_Click);
+            // 
+            // buttonNewPackage
+            // 
+            this->buttonNewPackage->Location = System::Drawing::Point(150, 80); // Przyk³adowa pozycja
+            this->buttonNewPackage->Margin = System::Windows::Forms::Padding(2);
+            this->buttonNewPackage->Name = L"buttonNewPackage";
+            this->buttonNewPackage->Size = System::Drawing::Size(120, 45); // Trochê wiêkszy
+            this->buttonNewPackage->TabIndex = 2;
+            this->buttonNewPackage->Text = L"Nadaj Paczkê";
+            this->buttonNewPackage->UseVisualStyleBackColor = true;
+            this->buttonNewPackage->Click += gcnew System::EventHandler(this, &MyForm::buttonNewPackage_Click);
+            // 
             // MyForm
-            //
+            // 
             this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
             this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-            this->ClientSize = System::Drawing::Size(423, 270);
-            this->Controls->Add(this->button3);
-            this->Controls->Add(this->button2);
-            this->Controls->Add(this->button1);
+            this->ClientSize = System::Drawing::Size(423, 270); // Rozmiar okna g³ównego
+            this->Controls->Add(this->buttonNewPackage);
+            this->Controls->Add(this->buttonExit);
+            this->Controls->Add(this->buttonLogin);
             this->Margin = System::Windows::Forms::Padding(2, 3, 2, 3);
             this->Name = L"MyForm";
-            this->Text = L"System Przesy³ek"; // Zmieniony tytu³
+            this->Text = L"System Zarz¹dzania Przesy³kami"; // Zmieniony tytu³ okna
             this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
+            this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen; // Wyœrodkowanie na ekranie
             this->ResumeLayout(false);
+
         }
 #pragma endregion
     private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
+        // Kod wykonywany podczas ³adowania formularza, jeœli potrzebny
     }
 
-    private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) { // Przycisk "Zaloguj"
+    private: System::Void buttonLogin_Click(System::Object^ sender, System::EventArgs^ e) {
+        // Otwiera formularz logowania/rejestracji (MyForm1 z logowanie.h)
         try {
-            MyForm1^ loginRegForm = gcnew MyForm1(); // MyForm1 to teraz formularz logowania/rejestracji
-            // loginRegForm->ShowDialog(); // Poprzednie wywo³anie
-
+            MyForm1^ loginRegForm = gcnew MyForm1();
             if (loginRegForm->ShowDialog(this) == System::Windows::Forms::DialogResult::OK) {
-                // Logowanie zakoñczy³o siê sukcesem (DialogResult ustawiony w MyForm1)
-                MessageBox::Show("Zalogowano kuriera pomyœlnie!", "Logowanie Kuriera", MessageBoxButtons::OK, MessageBoxIcon::Information);
-                // Tutaj mo¿esz dodaæ logikê po udanym logowaniu,
-                // np. odblokowaæ inne funkcje, zmieniæ widok itp.
+                // Logowanie zakoñczy³o siê sukcesem (DialogResult ustawiony w MyForm1).
+                // MyForm1 sam otwiera Formularz_paczki.
+                // Tutaj mo¿na ewentualnie zaktualizowaæ UI MyForm, jeœli jest taka potrzeba,
+                // np. zmieniæ status na "Zalogowany" lub odblokowaæ inne opcje.
+                MessageBox::Show("Kurier zosta³ pomyœlnie zalogowany.", "Logowanie Kuriera", MessageBoxButtons::OK, MessageBoxIcon::Information);
             }
             else {
                 // Logowanie zosta³o anulowane lub nie powiod³o siê.
-                // Komunikat o b³êdzie powinien byæ ju¿ wyœwietlony przez MyForm1.
-                // Mo¿esz dodaæ dodatkowy komunikat tutaj, jeœli jest potrzebny.
+                // MyForm1 powinien wyœwietliæ odpowiednie komunikaty o b³êdach.
+                // Mo¿na dodaæ dodatkowy komunikat tutaj, jeœli jest potrzebny, np. o anulowaniu.
                 // MessageBox::Show("Logowanie anulowane lub nieudane.", "Logowanie Kuriera", MessageBoxButtons::OK, MessageBoxIcon::Warning);
             }
         }
@@ -124,21 +126,26 @@ namespace PSiO {
         }
     }
 
-    private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) { // Przycisk "Wyjœcie"
-        if (MessageBox::Show("Napewno chcesz zamkn¹æ aplikacjê?", "Potwierdzenie Wyjœcia", MessageBoxButtons::YesNo, MessageBoxIcon::Warning) == System::Windows::Forms::DialogResult::Yes)
+    private: System::Void buttonExit_Click(System::Object^ sender, System::EventArgs^ e) {
+        // Zamyka aplikacjê po potwierdzeniu
+        if (MessageBox::Show("Czy na pewno chcesz zamkn¹æ aplikacjê?", "Potwierdzenie Wyjœcia", MessageBoxButtons::YesNo, MessageBoxIcon::Question) == System::Windows::Forms::DialogResult::Yes)
         {
             Application::Exit();
         }
     }
 
-    private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) { // Przycisk "Nadaj Paczkê"
+    private: System::Void buttonNewPackage_Click(System::Object^ sender, System::EventArgs^ e) {
+        // Otwiera formularz nadawania paczki
+        // Ta opcja mo¿e byæ dostêpna niezale¿nie od statusu logowania kuriera,
+        // lub mo¿na j¹ uzale¿niæ od logowania (np. ukryæ/zablokowaæ przycisk do czasu zalogowania).
+        // W obecnej formie otwiera Formularz_paczki bezpoœrednio.
         try {
             Formularz_paczki^ formularz = gcnew Formularz_paczki();
-            formularz->ShowDialog();
+            formularz->ShowDialog(this); // Poka¿ jako modalny wzglêdem MyForm
         }
         catch (Exception^ ex) {
             MessageBox::Show("Wyst¹pi³ b³¹d podczas otwierania formularza paczki: " + ex->Message, "B³¹d Krytyczny", MessageBoxButtons::OK, MessageBoxIcon::Error);
         }
     }
-    };
-}
+    }; // Koniec klasy MyForm
+} // Koniec namespace PSiO
