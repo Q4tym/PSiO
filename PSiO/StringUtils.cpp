@@ -1,4 +1,4 @@
-// StringUtils.cpp
+
 #include "logowanie.h"
 
 namespace PSiO {

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <iostream>
 #include <msclr/marshal_cppstd.h>
 #include "Klasy.h" //
@@ -23,7 +23,7 @@ namespace PSiO {
         Formularz_paczki(void)
         {
             InitializeComponent();
-            // Inicjalizacja placeholderów (jak w poprzednich odpowiedziach)
+            // Inicjalizacja placeholderï¿½w (jak w poprzednich odpowiedziach)
             // Nadawca
             this->textBox1->Text = "Wpisz imie"; //
             this->textBox1->ForeColor = System::Drawing::Color::Gray; //
@@ -74,7 +74,7 @@ namespace PSiO {
             }
         }
 
-        // Deklaracje kontrolek (pól klasy) - upewnij siê, ¿e s¹ tutaj
+        // Deklaracje kontrolek (pï¿½l klasy) - upewnij siï¿½, ï¿½e sï¿½ tutaj
     private: System::Windows::Forms::Label^ label1;
     private: System::Windows::Forms::TextBox^ textBox1;
     private: System::Windows::Forms::TextBox^ textBox2;
@@ -103,12 +103,12 @@ namespace PSiO {
 #pragma region Windows Form Designer generated code
         void InitializeComponent(void)
         {
-            // Ca³a Twoja oryginalna metoda InitializeComponent powinna byæ tutaj.
+            // Caï¿½a Twoja oryginalna metoda InitializeComponent powinna byï¿½ tutaj.
             // To ona zawiera np. this->textBox8->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox8_Leave);
-            // Upewnij siê, ¿e jest kompletna i poprawna.
-            // Poni¿ej jest tylko przyk³ad struktury, skopiuj swoj¹ metodê.
-            // (Jeœli u¿ywasz projektanta, ten kod jest zarz¹dzany przez niego,
-            // ale metody obs³ugi zdarzeñ musz¹ byæ zdefiniowane w klasie)
+            // Upewnij siï¿½, ï¿½e jest kompletna i poprawna.
+            // Poniï¿½ej jest tylko przykï¿½ad struktury, skopiuj swojï¿½ metodï¿½.
+            // (Jeï¿½li uï¿½ywasz projektanta, ten kod jest zarzï¿½dzany przez niego,
+            // ale metody obsï¿½ugi zdarzeï¿½ muszï¿½ byï¿½ zdefiniowane w klasie)
 
             System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Formularz_paczki::typeid));
             this->label1 = (gcnew System::Windows::Forms::Label());
@@ -143,7 +143,7 @@ namespace PSiO {
             this->label1->Size = System::Drawing::Size(64, 15);
             this->label1->TabIndex = 0;
             this->label1->Text = L"NADAWCA";
-            this->label1->Click += gcnew System::EventHandler(this, &Formularz_paczki::label1_Click); // Metoda label1_Click musi istnieæ
+            this->label1->Click += gcnew System::EventHandler(this, &Formularz_paczki::label1_Click); // Metoda label1_Click musi istnieï¿½
             //
             // textBox1
             //
@@ -151,8 +151,8 @@ namespace PSiO {
             this->textBox1->Name = L"textBox1";
             this->textBox1->Size = System::Drawing::Size(100, 20);
             this->textBox1->TabIndex = 1;
-            this->textBox1->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox1_Enter); // Metoda textBox1_Enter musi istnieæ
-            this->textBox1->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox1_Leave); // Metoda textBox1_Leave musi istnieæ
+            this->textBox1->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox1_Enter); // Metoda textBox1_Enter musi istnieï¿½
+            this->textBox1->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox1_Leave); // Metoda textBox1_Leave musi istnieï¿½
             //
             // textBox2
             //
@@ -168,10 +168,10 @@ namespace PSiO {
             this->button1->Location = System::Drawing::Point(496, 647);
             this->button1->Name = L"button1";
             this->button1->Size = System::Drawing::Size(75, 23);
-            this->button1->TabIndex = 20; // Upewnij siê, ¿e TabIndex jest unikalny i poprawny
-            this->button1->Text = L"Zakoñcz";
+            this->button1->TabIndex = 20; // Upewnij siï¿½, ï¿½e TabIndex jest unikalny i poprawny
+            this->button1->Text = L"Zakoï¿½cz";
             this->button1->UseVisualStyleBackColor = true;
-            this->button1->Click += gcnew System::EventHandler(this, &Formularz_paczki::button1_Click); // Metoda button1_Click musi istnieæ
+            this->button1->Click += gcnew System::EventHandler(this, &Formularz_paczki::button1_Click); // Metoda button1_Click musi istnieï¿½
             //
             // textBox3
             //
@@ -225,7 +225,7 @@ namespace PSiO {
             this->textBox8->Size = System::Drawing::Size(100, 20);
             this->textBox8->TabIndex = 8;
             this->textBox8->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox8_Enter);
-            this->textBox8->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox8_Leave); // B³¹d dotyczy³ tej metody
+            this->textBox8->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox8_Leave); // Bï¿½ï¿½d dotyczyï¿½ tej metody
             //
             // textBox9
             //
@@ -326,7 +326,7 @@ namespace PSiO {
             this->label2->Size = System::Drawing::Size(65, 15);
             this->label2->TabIndex = 10;
             this->label2->Text = L"ODBIORCA";
-            this->label2->Click += gcnew System::EventHandler(this, &Formularz_paczki::label2_Click); // Metoda label2_Click musi istnieæ
+            this->label2->Click += gcnew System::EventHandler(this, &Formularz_paczki::label2_Click); // Metoda label2_Click musi istnieï¿½
             //
             // Formularz_paczki
             //
@@ -356,24 +356,24 @@ namespace PSiO {
             this->Controls->Add(this->label1);
             this->Name = L"Formularz_paczki";
             this->Text = L"Formularz_paczki";
-            this->Load += gcnew System::EventHandler(this, &Formularz_paczki::Formularz_paczki_Load); // Metoda Formularz_paczki_Load musi istnieæ
+            this->Load += gcnew System::EventHandler(this, &Formularz_paczki::Formularz_paczki_Load); // Metoda Formularz_paczki_Load musi istnieï¿½
             this->ResumeLayout(false);
             this->PerformLayout();
 
         }
 #pragma endregion
 
-        // --- POCZ¥TEK DEFINICJI METOD OBS£UGI ZDARZEÑ ---
-        // Upewnij siê, ¿e wszystkie te metody s¹ tutaj, WEWN¥TRZ klasy Formularz_paczki
+        // --- POCZï¿½TEK DEFINICJI METOD OBSï¿½UGI ZDARZEï¿½ ---
+        // Upewnij siï¿½, ï¿½e wszystkie te metody sï¿½ tutaj, WEWNï¿½TRZ klasy Formularz_paczki
 
     private: System::Void Formularz_paczki_Load(System::Object^ sender, System::EventArgs^ e) {
         this->label1->Focus();
     }
     private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
-        // Pusta, jeœli nie ma logiki
+        // Pusta, jeï¿½li nie ma logiki
     }
     private: System::Void label2_Click(System::Object^ sender, System::EventArgs^ e) {
-        // Pusta, jeœli nie ma logiki
+        // Pusta, jeï¿½li nie ma logiki
     }
 
            // Metody Enter/Leave dla textBox1
@@ -474,7 +474,7 @@ namespace PSiO {
         }
     }
 
-           // Metody Enter/Leave dla textBox8 (Twój b³¹d dotyczy³ textBox8_Leave)
+           // Metody Enter/Leave dla textBox8 (Twï¿½j bï¿½ï¿½d dotyczyï¿½ textBox8_Leave)
     private: System::Void textBox8_Enter(System::Object^ sender, System::EventArgs^ e) {
         if (this->textBox8->Text == "Wpisz kodPocztowy") {
             this->textBox8->Text = "";
@@ -628,7 +628,7 @@ namespace PSiO {
         }
     }
 
-           // Metoda button1_Click (z poprzedniej odpowiedzi, z logik¹ JSON)
+           // Metoda button1_Click (z poprzedniej odpowiedzi, z logikï¿½ JSON)
     private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
         // Konwersja System::String na std::string
         std::string nadawcaImie = msclr::interop::marshal_as<std::string>(textBox1->Text);
@@ -713,14 +713,14 @@ namespace PSiO {
                 ifs >> existing_data_array;
                 if (!existing_data_array.is_array()) {
                     existing_data_array = nlohmann::json::array();
-                    System::Windows::Forms::MessageBox::Show("Istniej¹cy plik paczka_data.json nie zawiera³ tablicy. Dane zostan¹ nadpisane now¹ tablic¹ paczek.", "Ostrze¿enie", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+                    System::Windows::Forms::MessageBox::Show("Istniejï¿½cy plik paczka_data.json nie zawieraï¿½ tablicy. Dane zostanï¿½ nadpisane nowï¿½ tablicï¿½ paczek.", "Ostrzeï¿½enie", MessageBoxButtons::OK, MessageBoxIcon::Warning);
                 }
             }
             catch (nlohmann::json::parse_error& e) {
                 ifs.clear();
                 ifs.seekg(0, std::ios::beg);
                 if (ifs.peek() != std::ifstream::traits_type::eof()) {
-                    System::Windows::Forms::MessageBox::Show(System::String::Format("B³¹d parsowania pliku paczka_data.json: {0}. Tworzê now¹ listê paczek.", msclr::interop::marshal_as<System::String^>(e.what())));
+                    System::Windows::Forms::MessageBox::Show(System::String::Format("Bï¿½ï¿½d parsowania pliku paczka_data.json: {0}. Tworzï¿½ nowï¿½ listï¿½ paczek.", msclr::interop::marshal_as<System::String^>(e.what())));
                 }
                 existing_data_array = nlohmann::json::array();
             }
@@ -733,16 +733,16 @@ namespace PSiO {
         if (ofs.is_open()) {
             ofs << std::setw(4) << existing_data_array << std::endl;
             ofs.close();
-            System::Windows::Forms::MessageBox::Show("Dane paczki zosta³y dodane do paczka_data.json");
+            System::Windows::Forms::MessageBox::Show("Dane paczki zostaï¿½y dodane do paczka_data.json");
         }
         else {
-            System::Windows::Forms::MessageBox::Show("B³¹d: Nie mo¿na zapisaæ pliku paczka_data.json");
+            System::Windows::Forms::MessageBox::Show("Bï¿½ï¿½d: Nie moï¿½na zapisaï¿½ pliku paczka_data.json");
         }
 
         this->Close();
         paczka.paczkaPrzyjeta(); //
     }
-           // --- KONIEC DEFINICJI METOD OBS£UGI ZDARZEÑ ---
+           // --- KONIEC DEFINICJI METOD OBSï¿½UGI ZDARZEï¿½ ---
 
     }; // Koniec klasy Formularz_paczki
 } // Koniec namespace PSiO

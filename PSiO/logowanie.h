@@ -18,7 +18,6 @@ namespace PSiO {
     using namespace System::Drawing;
     using namespace System::Runtime::InteropServices;
 
-    
     std::string toStdString(System::String^ str);
 
     public ref class MyForm1 : public System::Windows::Forms::Form
