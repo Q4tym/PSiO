@@ -1,50 +1,74 @@
-#include <iostream>
-#include <string>
-#include <vector>
-#include <fstream>
-#include <sstream>
-#include <algorithm>
-// #include <Windows.h> // Usuniêto, jeœli MessageBox nie jest tu u¿ywany; System::String jest z .NET
 #include "Klasy.h"
-#include <msclr/marshal.h>
 #include <msclr/marshal_cppstd.h>
 
-// Definicja metody przyjmijPaczke dla klasy Sortownia
-bool Sortownia::przyjmijPaczke()
-{
-    bool przyjmijPaczkeFlag = false; // Zmieniono nazwê zmiennej, aby unikn¹æ konfliktu z nazw¹ metody
-    // Poni¿szy kod jest zakomentowany, bo interfejs u¿ytkownika powinien byæ w klasach Form
-    // std::cout << "Czy chcesz przyjac paczke ? (1-tak, 0-nie): ";
-    // int wybor;
-    // std::cin >> wybor;
-    // if (wybor == 1)
-    // {
-    //     przyjmijPaczkeFlag = true;
-    //     std::cout << "Paczka przyjeta." << std::endl;
-    // }
-    // else
-    // {
-    //     przyjmijPaczkeFlag = false;
-    //     std::cout << "Paczka nie zostala przyjeta." << std::endl;
-    // }
-    // Ta metoda w obecnej formie nie ma sensu bez interakcji,
-    // mo¿na j¹ zostawiæ pust¹ lub z prostym logowaniem, jeœli jest wywo³ywana.
-    std::cout << "Logika Sortownia::przyjmijPaczke() wymaga implementacji lub usuniêcia, jeœli nie jest u¿ywana." << std::endl;
-    return przyjmijPaczkeFlag;
+// --- Implementacja metod dla klasy Sortownia ---
+
+void Sortownia::wczytajPaczkiZPliku(const std::string& nazwaPliku) {
+    paczki.clear(); // Wyczyœæ wektor przed wczytaniem nowych danych
+    std::ifstream ifs(nazwaPliku);
+    if (!ifs.is_open()) {
+        // Jeœli plik nie istnieje, po prostu nic nie rób.
+        // W prawdziwej aplikacji mo¿na by rzuciæ wyj¹tek lub zalogowaæ b³¹d.
+        // std::cerr << "Nie uda³o siê otworzyæ pliku: " << nazwaPliku << std::endl;
+        return;
+    }
+
+    nlohmann::json dane;
+    try {
+        ifs >> dane;
+    }
+    catch (nlohmann::json::parse_error& e) {
+        // Jeœli plik jest pusty lub uszkodzony
+        // std::cerr << "B³¹d parsowania JSON: " << e.what() << std::endl;
+        return;
+    }
+
+    if (!dane.is_array()) {
+        return; // Oczekujemy tablicy paczek
+    }
+
+    for (const auto& jPaczka : dane) {
+        Nadawca nadawca;
+        nadawca.imie = jPaczka["nadawca"]["imie"];
+        nadawca.nazwisko = jPaczka["nadawca"]["nazwisko"];
+        nadawca.ulica = jPaczka["nadawca"]["adres"]["ulica"];
+        nadawca.miasto = jPaczka["nadawca"]["adres"]["miasto"];
+        nadawca.kodPocztowy = jPaczka["nadawca"]["adres"]["kodPocztowy"];
+
+        Odbiorca odbiorca;
+        odbiorca.imie = jPaczka["odbiorca"]["imie"];
+        odbiorca.nazwisko = jPaczka["odbiorca"]["nazwisko"];
+        odbiorca.ulica = jPaczka["odbiorca"]["adres"]["ulica"];
+        odbiorca.miasto = jPaczka["odbiorca"]["adres"]["miasto"];
+        odbiorca.kodPocztowy = jPaczka["odbiorca"]["adres"]["kodPocztowy"];
+
+        std::string numerPaczki = jPaczka["numerPaczki"];
+
+        paczki.emplace_back(numerPaczki, nadawca, odbiorca);
+    }
 }
 
-// Definicja metody sortujPaczki dla klasy Sortownia
-void Sortownia::sortujPaczki()
-{
-    // Poni¿szy kod jest zakomentowany, bo interfejs u¿ytkownika powinien byæ w klasach Form
-    // std::cout << "Sortuje paczki..." << std::endl;
-    // Ta metoda w obecnej formie nie ma sensu bez interakcji,
-    // mo¿na j¹ zostawiæ pust¹ lub z prostym logowaniem, jeœli jest wywo³ywana.
-    std::cout << "Logika Sortownia::sortujPaczki() zosta³a wywo³ana." << std::endl;
+void Sortownia::sortujPaczki(KryteriumSortowania kryterium) {
+    // U¿ycie algorytmu STL std::sort z w³asnym komparatorem (lambda)
+    if (kryterium == KryteriumSortowania::WG_MIASTA) {
+        std::sort(paczki.begin(), paczki.end(), [](const Paczka& a, const Paczka& b) {
+            return a.getOdbiorca().miasto < b.getOdbiorca().miasto;
+            });
+    }
+    else if (kryterium == KryteriumSortowania::WG_KODU_POCZTOWEGO) {
+        std::sort(paczki.begin(), paczki.end(), [](const Paczka& a, const Paczka& b) {
+            return a.getOdbiorca().kodPocztowy < b.getOdbiorca().kodPocztowy;
+            });
+    }
+}
+
+const std::vector<Paczka>& Sortownia::getPaczki() const {
+    return paczki;
 }
 
 
-// Definicja metody paczkaPrzyjeta dla klasy Paczka
+// --- Implementacja metody dla klasy Paczka ---
+
 void Paczka::paczkaPrzyjeta()
 {
     std::stringstream ss;
@@ -52,33 +76,13 @@ void Paczka::paczkaPrzyjeta()
     ss << "Numer paczki: " << getNumerPaczki() << "\n\n";
 
     ss << "Nadawca:\n";
-    ss << "  Imiê: " << nadawca.imie << "\n";
-    ss << "  Nazwisko: " << nadawca.nazwisko << "\n";
-    ss << "  Telefon: " << nadawca.telefon << "\n";
-    ss << "  Email: " << nadawca.email << "\n";
-    ss << "  Adres: " << nadawca.ulica << ", " << nadawca.kodPocztowy << " " << nadawca.miasto
-        << ", " << nadawca.wojewodztwo << ", " << nadawca.kraj << "\n\n";
+    ss << "  Imiê i nazwisko: " << nadawca.imie << " " << nadawca.nazwisko << "\n";
+    ss << "  Adres: " << nadawca.ulica << ", " << nadawca.kodPocztowy << " " << nadawca.miasto << "\n\n";
 
     ss << "Odbiorca:\n";
-    ss << "  Imiê: " << odbiorca.imie << "\n";
-    ss << "  Nazwisko: " << odbiorca.nazwisko << "\n";
-    ss << "  Telefon: " << odbiorca.telefon << "\n";
-    ss << "  Email: " << odbiorca.email << "\n";
-    ss << "  Adres: " << odbiorca.ulica << ", " << odbiorca.kodPocztowy << " " << odbiorca.miasto
-        << ", " << odbiorca.wojewodztwo << ", " << odbiorca.kraj << "\n";
+    ss << "  Imiê i nazwisko: " << odbiorca.imie << " " << odbiorca.nazwisko << "\n";
+    ss << "  Adres: " << odbiorca.ulica << ", " << odbiorca.kodPocztowy << " " << odbiorca.miasto << "\n";
     ss << "-------------------------------------\n";
 
-    // Wypisanie na konsolê standardow¹ (mo¿na te¿ zapisaæ do pliku logu)
     std::cout << ss.str() << std::endl;
-
-    // Jeœli chcesz wyœwietliæ to w oknie dialogowym (MessageBox), musisz to zrobiæ
-    // z poziomu kodu formularza (C++/CLI), poniewa¿ Klasy.cpp jest standardowym C++.
-    // Bezpoœrednie wywo³anie System::Windows::Forms::MessageBox z tego miejsca
-    // bez odpowiedniej konfiguracji projektu dla C++/CLI mo¿e byæ problematyczne.
-    // Przekazanie stringstream do formularza lub u¿ycie delegatów by³oby czystszym rozwi¹zaniem.
-
-    // Przyk³ad, jak mo¿na by to zrobiæ, gdyby ta metoda by³a czêœci¹ formularza
-    // lub mia³a dostêp do System::String i MessageBox:
-    // System::String^ message = msclr::interop::marshal_as<System::String^>(ss.str());
-    // System::Windows::Forms::MessageBox::Show(message, "Paczka Przyjêta", System::Windows::Forms::MessageBoxButtons::OK);
 }

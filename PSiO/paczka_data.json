@@ -114,5 +114,43 @@
             "nazwisko": "",
             "telefon": ""
         }
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "s",
+                "miasto": "s",
+                "ulica": "ss"
+            },
+            "imie": "sss",
+            "nazwisko": "sss"
+        },
+        "numerPaczki": "PKZ126819",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "",
+                "miasto": "s",
+                "ulica": "s"
+            },
+            "imie": "sss",
+            "nazwisko": "ssssss"
+        }
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "miasto": "s"
+            },
+            "imie": "k",
+            "nazwisko": "s"
+        },
+        "numerPaczki": "PKZ580636",
+        "odbiorca": {
+            "adres": {
+                "miasto": "s"
+            },
+            "imie": "s",
+            "nazwisko": "s"
+        }
     }
 ]

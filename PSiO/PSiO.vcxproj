@@ -126,6 +126,7 @@
     <ClCompile Include="MyForm1.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Formularz_Kuriera.h" />
     <ClInclude Include="Formularz_paczki.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -136,6 +137,7 @@
     <ClInclude Include="logowanie.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Formularz_paczki.resx">

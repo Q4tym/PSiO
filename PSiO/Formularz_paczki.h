@@ -1,738 +1,307 @@
 ﻿#pragma once
+
 #include <iostream>
-#include <msclr/marshal_cppstd.h>
-#include "Klasy.h" //
 #include <fstream>
-#include "json.hpp" // Upewnij się, że ten plik nagłówkowy (biblioteka nlohmann/json) jest dostępny w ścieżkach include projektu
 #include <iomanip>
-#include <msclr/marshal.h> // Dla starszych metod marshal, jeśli używane
-// #include <msclr/marshal_cppstd.h> // Już załączone wyżej
+#include <string>
+#include "Klasy.h" 
+#include "json.hpp" 
+#include <msclr/marshal_cppstd.h>
 
 namespace PSiO {
 
-    using namespace System;
-    using namespace System::ComponentModel;
-    using namespace System::Collections;
-    using namespace System::Windows::Forms;
-    using namespace System::Data;
-    using namespace System::Drawing;
-    using namespace System::Runtime::InteropServices; // Potrzebne dla Marshal::StringToHGlobalAnsi jeśli by było używane tutaj
+	using namespace System;
+	using namespace System::ComponentModel;
+	using namespace System::Collections;
+	using namespace System::Windows::Forms;
+	using namespace System::Data;
+	using namespace System::Drawing;
+	using namespace System::Media; // Dla SystemSounds
 
-    public ref class Formularz_paczki : public System::Windows::Forms::Form
-    {
-    public:
-        Formularz_paczki(void)
-        {
-            InitializeComponent();
-            // Inicjalizacja placeholderów
-            // Nadawca
-            this->textBox1->Text = "Wpisz imie";
-            this->textBox1->ForeColor = System::Drawing::Color::Gray;
-            this->textBox2->Text = "Wpisz nazwisko";
-            this->textBox2->ForeColor = System::Drawing::Color::Gray;
-            this->textBox3->Text = "Wpisz telefon";
-            this->textBox3->ForeColor = System::Drawing::Color::Gray;
-            this->textBox4->Text = "Wpisz email";
-            this->textBox4->ForeColor = System::Drawing::Color::Gray;
-            this->textBox5->Text = "Wpisz ulice";
-            this->textBox5->ForeColor = System::Drawing::Color::Gray;
-            this->textBox6->Text = "Wpisz miasto";
-            this->textBox6->ForeColor = System::Drawing::Color::Gray;
-            this->textBox7->Text = "Wpisz wojewodztwo";
-            this->textBox7->ForeColor = System::Drawing::Color::Gray;
-            this->textBox8->Text = "Wpisz kodPocztowy";
-            this->textBox8->ForeColor = System::Drawing::Color::Gray;
-            this->textBox9->Text = "Wpisz kraj";
-            this->textBox9->ForeColor = System::Drawing::Color::Gray;
+	// Funkcja pomocnicza do konwersji System::String^ na std::string
+	inline std::string toStdString(System::String^ str) {
+		if (String::IsNullOrEmpty(str)) {
+			return std::string();
+		}
+		msclr::interop::marshal_context context;
+		return context.marshal_as<std::string>(str);
+	}
 
-            // Odbiorca
-            this->textBox10->Text = "Wpisz kraj";
-            this->textBox10->ForeColor = System::Drawing::Color::Gray;
-            this->textBox11->Text = "Wpisz kodPocztowy";
-            this->textBox11->ForeColor = System::Drawing::Color::Gray;
-            this->textBox12->Text = "Wpisz wojewodztwo";
-            this->textBox12->ForeColor = System::Drawing::Color::Gray;
-            this->textBox13->Text = "Wpisz miasto";
-            this->textBox13->ForeColor = System::Drawing::Color::Gray;
-            this->textBox14->Text = "Wpisz ulice";
-            this->textBox14->ForeColor = System::Drawing::Color::Gray;
-            this->textBox15->Text = "Wpisz email";
-            this->textBox15->ForeColor = System::Drawing::Color::Gray;
-            this->textBox16->Text = "Wpisz telefon";
-            this->textBox16->ForeColor = System::Drawing::Color::Gray;
-            this->textBox17->Text = "Wpisz nazwisko";
-            this->textBox17->ForeColor = System::Drawing::Color::Gray;
-            this->textBox18->Text = "Wpisz imie";
-            this->textBox18->ForeColor = System::Drawing::Color::Gray;
-        }
+	public ref class Formularz_paczki : public System::Windows::Forms::Form
+	{
+	public:
+		Formularz_paczki(void)
+		{
+			InitializeComponent();
+			initializePlaceholders(); // Wywołanie nowej, ulepszonej funkcji
+		}
 
-    protected:
-        ~Formularz_paczki()
-        {
-            if (components)
-            {
-                delete components;
-            }
-        }
+	protected:
+		~Formularz_paczki()
+		{
+			if (components)
+			{
+				delete components;
+			}
+		}
 
-    private: System::Windows::Forms::Label^ label1;
-    private: System::Windows::Forms::TextBox^ textBox1;
-    private: System::Windows::Forms::TextBox^ textBox2;
-    private: System::Windows::Forms::TextBox^ textBox3;
-    private: System::Windows::Forms::TextBox^ textBox4;
-    private: System::Windows::Forms::TextBox^ textBox5;
-    private: System::Windows::Forms::TextBox^ textBox6;
-    private: System::Windows::Forms::TextBox^ textBox7;
-    private: System::Windows::Forms::TextBox^ textBox8;
-    private: System::Windows::Forms::TextBox^ textBox9;
-    private: System::Windows::Forms::TextBox^ textBox10;
-    private: System::Windows::Forms::TextBox^ textBox11;
-    private: System::Windows::Forms::TextBox^ textBox12;
-    private: System::Windows::Forms::TextBox^ textBox13;
-    private: System::Windows::Forms::TextBox^ textBox14;
-    private: System::Windows::Forms::TextBox^ textBox15;
-    private: System::Windows::Forms::TextBox^ textBox16;
-    private: System::Windows::Forms::TextBox^ textBox17;
-    private: System::Windows::Forms::TextBox^ textBox18;
-    private: System::Windows::Forms::Label^ label2;
-    private: System::Windows::Forms::Button^ button1;
+	private: System::String^ numerWygenerowanejPaczki;
 
-    private:
-        System::ComponentModel::Container^ components;
+	private: System::Windows::Forms::Label^ labelNadawca;
+	private: System::Windows::Forms::Label^ labelOdbiorca;
+	private: System::Windows::Forms::Button^ buttonUtworz;
+
+	private: System::Windows::Forms::TextBox^ textBox1;
+	private: System::Windows::Forms::TextBox^ textBox2;
+	private: System::Windows::Forms::TextBox^ textBox3;
+	private: System::Windows::Forms::TextBox^ textBox4;
+	private: System::Windows::Forms::TextBox^ textBox5;
+	private: System::Windows::Forms::TextBox^ textBox6;
+	private: System::Windows::Forms::TextBox^ textBox7;
+	private: System::Windows::Forms::TextBox^ textBox8;
+	private: System::Windows::Forms::TextBox^ textBox9;
+	private: System::Windows::Forms::TextBox^ textBox10;
+	private: System::Windows::Forms::TextBox^ textBox11;
+	private: System::Windows::Forms::TextBox^ textBox12;
+	private: System::Windows::Forms::TextBox^ textBox13;
+	private: System::Windows::Forms::TextBox^ textBox14;
+	private: System::Windows::Forms::TextBox^ textBox15;
+	private: System::Windows::Forms::TextBox^ textBox16;
+	private: System::Windows::Forms::TextBox^ textBox17;
+	private: System::Windows::Forms::TextBox^ textBox18;
+
+	private: System::Windows::Forms::Panel^ panelKodKreskowy;
+	private: System::Windows::Forms::Label^ labelNumerPaczki;
+	private: System::Windows::Forms::Label^ labelTytulKodu;
+
+	private: System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
-        void InitializeComponent(void)
-        {
-            System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Formularz_paczki::typeid));
-            this->label1 = (gcnew System::Windows::Forms::Label());
-            this->textBox1 = (gcnew System::Windows::Forms::TextBox());
-            this->textBox2 = (gcnew System::Windows::Forms::TextBox());
-            this->button1 = (gcnew System::Windows::Forms::Button());
-            this->textBox3 = (gcnew System::Windows::Forms::TextBox());
-            this->textBox4 = (gcnew System::Windows::Forms::TextBox());
-            this->textBox5 = (gcnew System::Windows::Forms::TextBox());
-            this->textBox6 = (gcnew System::Windows::Forms::TextBox());
-            this->textBox7 = (gcnew System::Windows::Forms::TextBox());
-            this->textBox8 = (gcnew System::Windows::Forms::TextBox());
-            this->textBox9 = (gcnew System::Windows::Forms::TextBox());
-            this->textBox10 = (gcnew System::Windows::Forms::TextBox());
-            this->textBox11 = (gcnew System::Windows::Forms::TextBox());
-            this->textBox12 = (gcnew System::Windows::Forms::TextBox());
-            this->textBox13 = (gcnew System::Windows::Forms::TextBox());
-            this->textBox14 = (gcnew System::Windows::Forms::TextBox());
-            this->textBox15 = (gcnew System::Windows::Forms::TextBox());
-            this->textBox16 = (gcnew System::Windows::Forms::TextBox());
-            this->textBox17 = (gcnew System::Windows::Forms::TextBox());
-            this->textBox18 = (gcnew System::Windows::Forms::TextBox());
-            this->label2 = (gcnew System::Windows::Forms::Label());
-            this->SuspendLayout();
-            //
-            // label1
-            //
-            this->label1->AutoSize = true;
-            this->label1->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-            this->label1->Location = System::Drawing::Point(27, 64);
-            this->label1->Name = L"label1";
-            this->label1->Size = System::Drawing::Size(64, 15);
-            this->label1->TabIndex = 0;
-            this->label1->Text = L"NADAWCA";
-            this->label1->Click += gcnew System::EventHandler(this, &Formularz_paczki::label1_Click);
-            //
-            // textBox1
-            //
-            this->textBox1->Location = System::Drawing::Point(27, 96);
-            this->textBox1->Name = L"textBox1";
-            this->textBox1->Size = System::Drawing::Size(100, 20);
-            this->textBox1->TabIndex = 1;
-            this->textBox1->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox1_Enter);
-            this->textBox1->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox1_Leave);
-            //
-            // textBox2
-            //
-            this->textBox2->Location = System::Drawing::Point(27, 122);
-            this->textBox2->Name = L"textBox2";
-            this->textBox2->Size = System::Drawing::Size(100, 20);
-            this->textBox2->TabIndex = 2;
-            this->textBox2->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox2_Enter);
-            this->textBox2->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox2_Leave);
-            //
-            // button1
-            //
-            this->button1->Location = System::Drawing::Point(496, 647);
-            this->button1->Name = L"button1";
-            this->button1->Size = System::Drawing::Size(75, 23);
-            this->button1->TabIndex = 20;
-            this->button1->Text = L"Zakończ"; // Zmieniono z "Zakoñcz"
-            this->button1->UseVisualStyleBackColor = true;
-            this->button1->Click += gcnew System::EventHandler(this, &Formularz_paczki::button1_Click);
-            //
-            // textBox3
-            //
-            this->textBox3->Location = System::Drawing::Point(27, 148);
-            this->textBox3->Name = L"textBox3";
-            this->textBox3->Size = System::Drawing::Size(100, 20);
-            this->textBox3->TabIndex = 3;
-            this->textBox3->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox3_Enter);
-            this->textBox3->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox3_Leave);
-            //
-            // textBox4
-            //
-            this->textBox4->Location = System::Drawing::Point(27, 174);
-            this->textBox4->Name = L"textBox4";
-            this->textBox4->Size = System::Drawing::Size(100, 20);
-            this->textBox4->TabIndex = 4;
-            this->textBox4->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox4_Enter);
-            this->textBox4->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox4_Leave);
-            //
-            // textBox5
-            //
-            this->textBox5->Location = System::Drawing::Point(27, 200);
-            this->textBox5->Name = L"textBox5";
-            this->textBox5->Size = System::Drawing::Size(100, 20);
-            this->textBox5->TabIndex = 5;
-            this->textBox5->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox5_Enter);
-            this->textBox5->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox5_Leave);
-            //
-            // textBox6
-            //
-            this->textBox6->Location = System::Drawing::Point(27, 226);
-            this->textBox6->Name = L"textBox6";
-            this->textBox6->Size = System::Drawing::Size(100, 20);
-            this->textBox6->TabIndex = 6;
-            this->textBox6->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox6_Enter);
-            this->textBox6->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox6_Leave);
-            //
-            // textBox7
-            //
-            this->textBox7->Location = System::Drawing::Point(27, 252);
-            this->textBox7->Name = L"textBox7";
-            this->textBox7->Size = System::Drawing::Size(100, 20);
-            this->textBox7->TabIndex = 7;
-            this->textBox7->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox7_Enter);
-            this->textBox7->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox7_Leave);
-            //
-            // textBox8
-            //
-            this->textBox8->Location = System::Drawing::Point(27, 278);
-            this->textBox8->Name = L"textBox8";
-            this->textBox8->Size = System::Drawing::Size(100, 20);
-            this->textBox8->TabIndex = 8;
-            this->textBox8->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox8_Enter);
-            this->textBox8->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox8_Leave);
-            //
-            // textBox9
-            //
-            this->textBox9->Location = System::Drawing::Point(27, 304);
-            this->textBox9->Name = L"textBox9";
-            this->textBox9->Size = System::Drawing::Size(100, 20);
-            this->textBox9->TabIndex = 9;
-            this->textBox9->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox9_Enter);
-            this->textBox9->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox9_Leave);
-            //
-            // textBox10
-            //
-            this->textBox10->Location = System::Drawing::Point(414, 304);
-            this->textBox10->Name = L"textBox10";
-            this->textBox10->Size = System::Drawing::Size(100, 20);
-            this->textBox10->TabIndex = 19; // Poprawiony TabIndex, aby był unikalny
-            this->textBox10->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox10_Enter);
-            this->textBox10->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox10_Leave);
-            //
-            // textBox11
-            //
-            this->textBox11->Location = System::Drawing::Point(414, 278);
-            this->textBox11->Name = L"textBox11";
-            this->textBox11->Size = System::Drawing::Size(100, 20);
-            this->textBox11->TabIndex = 18;
-            this->textBox11->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox11_Enter);
-            this->textBox11->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox11_Leave);
-            //
-            // textBox12
-            //
-            this->textBox12->Location = System::Drawing::Point(414, 252);
-            this->textBox12->Name = L"textBox12";
-            this->textBox12->Size = System::Drawing::Size(100, 20);
-            this->textBox12->TabIndex = 17;
-            this->textBox12->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox12_Enter);
-            this->textBox12->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox12_Leave);
-            //
-            // textBox13
-            //
-            this->textBox13->Location = System::Drawing::Point(414, 226);
-            this->textBox13->Name = L"textBox13";
-            this->textBox13->Size = System::Drawing::Size(100, 20);
-            this->textBox13->TabIndex = 16;
-            this->textBox13->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox13_Enter);
-            this->textBox13->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox13_Leave);
-            //
-            // textBox14
-            //
-            this->textBox14->Location = System::Drawing::Point(414, 200);
-            this->textBox14->Name = L"textBox14";
-            this->textBox14->Size = System::Drawing::Size(100, 20);
-            this->textBox14->TabIndex = 15;
-            this->textBox14->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox14_Enter);
-            this->textBox14->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox14_Leave);
-            //
-            // textBox15
-            //
-            this->textBox15->Location = System::Drawing::Point(414, 174);
-            this->textBox15->Name = L"textBox15";
-            this->textBox15->Size = System::Drawing::Size(100, 20);
-            this->textBox15->TabIndex = 14;
-            this->textBox15->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox15_Enter);
-            this->textBox15->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox15_Leave);
-            //
-            // textBox16
-            //
-            this->textBox16->Location = System::Drawing::Point(414, 148);
-            this->textBox16->Name = L"textBox16";
-            this->textBox16->Size = System::Drawing::Size(100, 20);
-            this->textBox16->TabIndex = 13;
-            this->textBox16->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox16_Enter);
-            this->textBox16->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox16_Leave);
-            //
-            // textBox17
-            //
-            this->textBox17->Location = System::Drawing::Point(414, 122);
-            this->textBox17->Name = L"textBox17";
-            this->textBox17->Size = System::Drawing::Size(100, 20);
-            this->textBox17->TabIndex = 12;
-            this->textBox17->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox17_Enter);
-            this->textBox17->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox17_Leave);
-            //
-            // textBox18
-            //
-            this->textBox18->Location = System::Drawing::Point(414, 96);
-            this->textBox18->Name = L"textBox18";
-            this->textBox18->Size = System::Drawing::Size(100, 20);
-            this->textBox18->TabIndex = 11;
-            this->textBox18->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox18_Enter);
-            this->textBox18->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox18_Leave);
-            //
-            // label2
-            //
-            this->label2->AutoSize = true;
-            this->label2->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-            this->label2->Location = System::Drawing::Point(414, 64);
-            this->label2->Name = L"label2";
-            this->label2->Size = System::Drawing::Size(65, 15);
-            this->label2->TabIndex = 10;
-            this->label2->Text = L"ODBIORCA";
-            this->label2->Click += gcnew System::EventHandler(this, &Formularz_paczki::label2_Click);
-            //
-            // Formularz_paczki
-            //
-            this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
-            this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-            this->ClientSize = System::Drawing::Size(583, 682);
-            this->Controls->Add(this->textBox10);
-            this->Controls->Add(this->textBox11);
-            this->Controls->Add(this->textBox12);
-            this->Controls->Add(this->textBox13);
-            this->Controls->Add(this->textBox14);
-            this->Controls->Add(this->textBox15);
-            this->Controls->Add(this->textBox16);
-            this->Controls->Add(this->textBox17);
-            this->Controls->Add(this->textBox18);
-            this->Controls->Add(this->label2);
-            this->Controls->Add(this->textBox9);
-            this->Controls->Add(this->textBox8);
-            this->Controls->Add(this->textBox7);
-            this->Controls->Add(this->textBox6);
-            this->Controls->Add(this->textBox5);
-            this->Controls->Add(this->textBox4);
-            this->Controls->Add(this->textBox3);
-            this->Controls->Add(this->button1);
-            this->Controls->Add(this->textBox2);
-            this->Controls->Add(this->textBox1);
-            this->Controls->Add(this->label1);
-            this->Name = L"Formularz_paczki";
-            this->Text = L"Formularz_paczki";
-            this->Load += gcnew System::EventHandler(this, &Formularz_paczki::Formularz_paczki_Load);
-            this->ResumeLayout(false);
-            this->PerformLayout();
-        }
+		   void InitializeComponent(void)
+		   {
+			   this->labelNadawca = (gcnew System::Windows::Forms::Label());
+			   this->labelOdbiorca = (gcnew System::Windows::Forms::Label());
+			   this->buttonUtworz = (gcnew System::Windows::Forms::Button());
+			   this->panelKodKreskowy = (gcnew System::Windows::Forms::Panel());
+			   this->labelNumerPaczki = (gcnew System::Windows::Forms::Label());
+			   this->labelTytulKodu = (gcnew System::Windows::Forms::Label());
+
+			   this->textBox1 = (gcnew System::Windows::Forms::TextBox()); this->textBox2 = (gcnew System::Windows::Forms::TextBox());
+			   this->textBox3 = (gcnew System::Windows::Forms::TextBox()); this->textBox4 = (gcnew System::Windows::Forms::TextBox());
+			   this->textBox5 = (gcnew System::Windows::Forms::TextBox()); this->textBox6 = (gcnew System::Windows::Forms::TextBox());
+			   this->textBox7 = (gcnew System::Windows::Forms::TextBox()); this->textBox8 = (gcnew System::Windows::Forms::TextBox());
+			   this->textBox9 = (gcnew System::Windows::Forms::TextBox()); this->textBox10 = (gcnew System::Windows::Forms::TextBox());
+			   this->textBox11 = (gcnew System::Windows::Forms::TextBox()); this->textBox12 = (gcnew System::Windows::Forms::TextBox());
+			   this->textBox13 = (gcnew System::Windows::Forms::TextBox()); this->textBox14 = (gcnew System::Windows::Forms::TextBox());
+			   this->textBox15 = (gcnew System::Windows::Forms::TextBox()); this->textBox16 = (gcnew System::Windows::Forms::TextBox());
+			   this->textBox17 = (gcnew System::Windows::Forms::TextBox()); this->textBox18 = (gcnew System::Windows::Forms::TextBox());
+
+			   this->SuspendLayout();
+			   this->panelKodKreskowy->SuspendLayout();
+
+			   // Etykiety
+			   this->labelNadawca->AutoSize = true;
+			   this->labelNadawca->Font = (gcnew System::Drawing::Font(L"Segoe UI", 14.25F, System::Drawing::FontStyle::Bold));
+			   this->labelNadawca->ForeColor = System::Drawing::Color::FromArgb(0, 122, 204);
+			   this->labelNadawca->Location = System::Drawing::Point(22, 20);
+			   this->labelNadawca->Text = L"NADAWCA";
+
+			   this->labelOdbiorca->AutoSize = true;
+			   this->labelOdbiorca->Font = (gcnew System::Drawing::Font(L"Segoe UI", 14.25F, System::Drawing::FontStyle::Bold));
+			   this->labelOdbiorca->ForeColor = System::Drawing::Color::FromArgb(0, 122, 204);
+			   this->labelOdbiorca->Location = System::Drawing::Point(305, 20);
+			   this->labelOdbiorca->Text = L"ODBIORCA";
+
+			   // TextBoxes - pętla do ustawień
+			   array<TextBox^>^ textboxes = { textBox1, textBox2, textBox3, textBox4, textBox5, textBox6, textBox7, textBox8, textBox9, textBox18, textBox17, textBox16, textBox15, textBox14, textBox13, textBox12, textBox11, textBox10 };
+			   int startXNadawca = 27, startXOdbiorca = 310, startY = 60, stepY = 35;
+			   for (int i = 0; i < 18; ++i) {
+				   TextBox^ tb = textboxes[i < 9 ? i : 26 - i];
+				   tb->Location = System::Drawing::Point(i < 9 ? startXNadawca : startXOdbiorca, startY + (i % 9) * stepY);
+				   tb->Size = System::Drawing::Size(250, 25);
+				   tb->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F));
+				   tb->BackColor = System::Drawing::Color::FromArgb(50, 50, 50);
+				   tb->ForeColor = System::Drawing::Color::White;
+				   tb->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+				   tb->Enter += gcnew System::EventHandler(this, &Formularz_paczki::textBox_Enter);
+				   tb->Leave += gcnew System::EventHandler(this, &Formularz_paczki::textBox_Leave);
+				   this->Controls->Add(tb);
+			   }
+
+			   // Przycisk
+			   this->buttonUtworz->BackColor = System::Drawing::Color::FromArgb(0, 122, 204);
+			   this->buttonUtworz->FlatAppearance->BorderSize = 0;
+			   this->buttonUtworz->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			   this->buttonUtworz->Font = (gcnew System::Drawing::Font(L"Segoe UI", 12, System::Drawing::FontStyle::Bold));
+			   this->buttonUtworz->ForeColor = System::Drawing::Color::White;
+			   this->buttonUtworz->Location = System::Drawing::Point(175, 390);
+			   this->buttonUtworz->Size = System::Drawing::Size(230, 45);
+			   this->buttonUtworz->Text = L"Utwórz Przesyłkę";
+			   this->buttonUtworz->UseVisualStyleBackColor = false;
+			   this->buttonUtworz->Click += gcnew System::EventHandler(this, &Formularz_paczki::buttonUtworz_Click);
+
+			   // Animacja kodu kreskowego (początkowo niewidoczna)
+			   this->labelTytulKodu->AutoSize = true;
+			   this->labelTytulKodu->Font = (gcnew System::Drawing::Font(L"Segoe UI", 12, System::Drawing::FontStyle::Bold));
+			   this->labelTytulKodu->ForeColor = System::Drawing::Color::FromArgb(0, 122, 204);
+			   this->labelTytulKodu->Location = System::Drawing::Point(36, 450);
+			   this->labelTytulKodu->Text = L"Etykieta została wygenerowana:";
+			   this->labelTytulKodu->Visible = false;
+
+			   this->panelKodKreskowy->Controls->Add(this->labelNumerPaczki);
+			   this->panelKodKreskowy->Location = System::Drawing::Point(40, 480);
+			   this->panelKodKreskowy->Size = System::Drawing::Size(500, 150);
+			   this->panelKodKreskowy->Visible = false;
+			   this->panelKodKreskowy->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Formularz_paczki::panelKodKreskowy_Paint);
+
+			   this->labelNumerPaczki->Dock = System::Windows::Forms::DockStyle::Bottom;
+			   this->labelNumerPaczki->Font = (gcnew System::Drawing::Font(L"Courier New", 14.25F, System::Drawing::FontStyle::Bold));
+			   this->labelNumerPaczki->ForeColor = System::Drawing::Color::White;
+			   this->labelNumerPaczki->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			   this->labelNumerPaczki->Visible = false;
+
+			   // Główny formularz
+			   this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
+			   this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			   this->BackColor = System::Drawing::Color::FromArgb(30, 30, 30);
+			   this->ClientSize = System::Drawing::Size(583, 650);
+			   this->Controls->Add(this->labelTytulKodu);
+			   this->Controls->Add(this->panelKodKreskowy);
+			   this->Controls->Add(this->buttonUtworz);
+			   this->Controls->Add(this->labelOdbiorca);
+			   this->Controls->Add(this->labelNadawca);
+			   this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
+			   this->MaximizeBox = false;
+			   this->Name = L"Formularz_paczki";
+			   this->StartPosition = System::Windows::Forms::FormStartPosition::CenterParent;
+			   this->Text = L"Formularz nadania paczki";
+
+			   this->panelKodKreskowy->ResumeLayout(false);
+			   this->ResumeLayout(false);
+			   this->PerformLayout();
+		   }
 #pragma endregion
 
-    private: System::Void Formularz_paczki_Load(System::Object^ sender, System::EventArgs^ e) {
-        this->label1->Focus(); // Ustawienie focusu na elemencie, który nie jest textboxem, aby placeholdery były widoczne
-    }
-    private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
-        // Logika kliknięcia dla label1, jeśli potrzebna
-    }
-    private: System::Void label2_Click(System::Object^ sender, System::EventArgs^ e) {
-        // Logika kliknięcia dla label2, jeśli potrzebna
-    }
+	private:
+		// Ulepszona obsługa placeholderów
+		void initializePlaceholders() {
+			array<TextBox^>^ textboxes = { textBox1, textBox2, textBox3, textBox4, textBox5, textBox6, textBox7, textBox8, textBox9,
+											textBox18, textBox17, textBox16, textBox15, textBox14, textBox13, textBox12, textBox11, textBox10 };
+			array<String^>^ placeholders = { "Imię nadawcy", "Nazwisko nadawcy", "Telefon nadawcy", "Email nadawcy", "Ulica nadawcy", "Miasto nadawcy", "Województwo nadawcy", "Kod pocztowy nadawcy", "Kraj nadawcy",
+											 "Imię odbiorcy", "Nazwisko odbiorcy", "Telefon odbiorcy", "Email odbiorcy", "Ulica odbiorcy", "Miasto odbiorcy", "Województwo odbiorcy", "Kod pocztowy odbiorcy", "Kraj odbiorcy" };
 
-           // --- Metody Enter/Leave dla textBox1 (Nadawca - Imię) ---
-    private: System::Void textBox1_Enter(System::Object^ sender, System::EventArgs^ e) {
-        if (this->textBox1->Text == "Wpisz imie") {
-            this->textBox1->Text = "";
-            this->textBox1->ForeColor = System::Drawing::Color::Black;
-        }
-    }
-    private: System::Void textBox1_Leave(System::Object^ sender, System::EventArgs^ e) {
-        if (String::IsNullOrWhiteSpace(this->textBox1->Text)) {
-            this->textBox1->Text = "Wpisz imie";
-            this->textBox1->ForeColor = System::Drawing::Color::Gray;
-        }
-    }
+			for (int i = 0; i < textboxes->Length; ++i) {
+				TextBox^ tb = textboxes[i];
+				tb->Tag = placeholders[i]; // Używamy właściwości Tag do przechowywania tekstu placeholdera
+				tb->Text = placeholders[i];
+				tb->ForeColor = Color::Gray;
+			}
+		}
 
-           // --- Metody Enter/Leave dla textBox2 (Nadawca - Nazwisko) ---
-    private: System::Void textBox2_Enter(System::Object^ sender, System::EventArgs^ e) {
-        if (this->textBox2->Text == "Wpisz nazwisko") {
-            this->textBox2->Text = "";
-            this->textBox2->ForeColor = System::Drawing::Color::Black;
-        }
-    }
-    private: System::Void textBox2_Leave(System::Object^ sender, System::EventArgs^ e) {
-        if (String::IsNullOrWhiteSpace(this->textBox2->Text)) {
-            this->textBox2->Text = "Wpisz nazwisko";
-            this->textBox2->ForeColor = System::Drawing::Color::Gray;
-        }
-    }
+		System::Void textBox_Enter(System::Object^ sender, System::EventArgs^ e) {
+			TextBox^ tb = dynamic_cast<TextBox^>(sender);
+			if (tb->ForeColor == Color::Gray) {
+				tb->Text = "";
+				tb->ForeColor = Color::White;
+			}
+		}
 
-           // --- Metody Enter/Leave dla textBox3 (Nadawca - Telefon) ---
-    private: System::Void textBox3_Enter(System::Object^ sender, System::EventArgs^ e) {
-        if (this->textBox3->Text == "Wpisz telefon") {
-            this->textBox3->Text = "";
-            this->textBox3->ForeColor = System::Drawing::Color::Black;
-        }
-    }
-    private: System::Void textBox3_Leave(System::Object^ sender, System::EventArgs^ e) {
-        if (String::IsNullOrWhiteSpace(this->textBox3->Text)) {
-            this->textBox3->Text = "Wpisz telefon";
-            this->textBox3->ForeColor = System::Drawing::Color::Gray;
-        }
-    }
+		System::Void textBox_Leave(System::Object^ sender, System::EventArgs^ e) {
+			TextBox^ tb = dynamic_cast<TextBox^>(sender);
+			if (String::IsNullOrWhiteSpace(tb->Text)) {
+				tb->Text = safe_cast<String^>(tb->Tag);
+				tb->ForeColor = Color::Gray;
+			}
+		}
 
-           // --- Metody Enter/Leave dla textBox4 (Nadawca - Email) ---
-    private: System::Void textBox4_Enter(System::Object^ sender, System::EventArgs^ e) {
-        if (this->textBox4->Text == "Wpisz email") {
-            this->textBox4->Text = "";
-            this->textBox4->ForeColor = System::Drawing::Color::Black;
-        }
-    }
-    private: System::Void textBox4_Leave(System::Object^ sender, System::EventArgs^ e) {
-        if (String::IsNullOrWhiteSpace(this->textBox4->Text)) {
-            this->textBox4->Text = "Wpisz email";
-            this->textBox4->ForeColor = System::Drawing::Color::Gray;
-        }
-    }
+		// Rysowanie animacji kodu kreskowego
+		System::Void panelKodKreskowy_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+			// Sprawdzenie, czy numer paczki istnieje, aby uniknąć błędu
+			if (String::IsNullOrEmpty(this->numerWygenerowanejPaczki)) {
+				return;
+			}
 
-           // --- Metody Enter/Leave dla textBox5 (Nadawca - Ulica) ---
-    private: System::Void textBox5_Enter(System::Object^ sender, System::EventArgs^ e) {
-        if (this->textBox5->Text == "Wpisz ulice") {
-            this->textBox5->Text = "";
-            this->textBox5->ForeColor = System::Drawing::Color::Black;
-        }
-    }
-    private: System::Void textBox5_Leave(System::Object^ sender, System::EventArgs^ e) {
-        if (String::IsNullOrWhiteSpace(this->textBox5->Text)) {
-            this->textBox5->Text = "Wpisz ulice";
-            this->textBox5->ForeColor = System::Drawing::Color::Gray;
-        }
-    }
+			Graphics^ g = e->Graphics;
+			Random^ rand = gcnew Random(this->numerWygenerowanejPaczki->GetHashCode());
+			int panelWidth = panelKodKreskowy->Width;
+			int panelHeight = panelKodKreskowy->Height - 30; // Zostaw miejsce na numer
+			g->Clear(this->BackColor);
 
-           // --- Metody Enter/Leave dla textBox6 (Nadawca - Miasto) ---
-    private: System::Void textBox6_Enter(System::Object^ sender, System::EventArgs^ e) {
-        if (this->textBox6->Text == "Wpisz miasto") {
-            this->textBox6->Text = "";
-            this->textBox6->ForeColor = System::Drawing::Color::Black;
-        }
-    }
-    private: System::Void textBox6_Leave(System::Object^ sender, System::EventArgs^ e) {
-        if (String::IsNullOrWhiteSpace(this->textBox6->Text)) {
-            this->textBox6->Text = "Wpisz miasto";
-            this->textBox6->ForeColor = System::Drawing::Color::Gray;
-        }
-    }
+			for (int x = 0; x < panelWidth; ) {
+				int lineWidth = rand->Next(1, 5);
+				if (x + lineWidth > panelWidth) lineWidth = panelWidth - x;
+				g->FillRectangle(Brushes::White, x, 0, lineWidth, panelHeight);
+				int spaceWidth = rand->Next(1, 5);
+				x += lineWidth + spaceWidth;
+			}
+		}
 
-           // --- Metody Enter/Leave dla textBox7 (Nadawca - Województwo) ---
-    private: System::Void textBox7_Enter(System::Object^ sender, System::EventArgs^ e) {
-        if (this->textBox7->Text == "Wpisz wojewodztwo") {
-            this->textBox7->Text = "";
-            this->textBox7->ForeColor = System::Drawing::Color::Black;
-        }
-    }
-    private: System::Void textBox7_Leave(System::Object^ sender, System::EventArgs^ e) {
-        if (String::IsNullOrWhiteSpace(this->textBox7->Text)) {
-            this->textBox7->Text = "Wpisz wojewodztwo";
-            this->textBox7->ForeColor = System::Drawing::Color::Gray;
-        }
-    }
+		// Kliknięcie głównego przycisku
+		System::Void buttonUtworz_Click(System::Object^ sender, System::EventArgs^ e) {
+			if (textBox6->ForeColor == Color::Gray || textBox13->ForeColor == Color::Gray) {
+				MessageBox::Show("Proszę wypełnić przynajmniej miasto nadawcy i odbiorcy.", "Błąd Walidacji", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				return;
+			}
 
-           // --- Metody Enter/Leave dla textBox8 (Nadawca - Kod Pocztowy) ---
-    private: System::Void textBox8_Enter(System::Object^ sender, System::EventArgs^ e) {
-        if (this->textBox8->Text == "Wpisz kodPocztowy") {
-            this->textBox8->Text = "";
-            this->textBox8->ForeColor = System::Drawing::Color::Black;
-        }
-    }
-    private: System::Void textBox8_Leave(System::Object^ sender, System::EventArgs^ e) {
-        if (String::IsNullOrWhiteSpace(this->textBox8->Text)) {
-            this->textBox8->Text = "Wpisz kodPocztowy";
-            this->textBox8->ForeColor = System::Drawing::Color::Gray;
-        }
-    }
+			Nadawca nadawcaObj;
+			nadawcaObj.imie = textBox1->ForeColor == Color::Gray ? "" : toStdString(textBox1->Text);
+			nadawcaObj.nazwisko = textBox2->ForeColor == Color::Gray ? "" : toStdString(textBox2->Text);
+			nadawcaObj.miasto = toStdString(textBox6->Text);
+			// ... uzupełnij resztę pól nadawcy w razie potrzeby ...
 
-           // --- Metody Enter/Leave dla textBox9 (Nadawca - Kraj) ---
-    private: System::Void textBox9_Enter(System::Object^ sender, System::EventArgs^ e) {
-        if (this->textBox9->Text == "Wpisz kraj") {
-            this->textBox9->Text = "";
-            this->textBox9->ForeColor = System::Drawing::Color::Black;
-        }
-    }
-    private: System::Void textBox9_Leave(System::Object^ sender, System::EventArgs^ e) {
-        if (String::IsNullOrWhiteSpace(this->textBox9->Text)) {
-            this->textBox9->Text = "Wpisz kraj";
-            this->textBox9->ForeColor = System::Drawing::Color::Gray;
-        }
-    }
+			Odbiorca odbiorcaObj;
+			odbiorcaObj.imie = textBox18->ForeColor == Color::Gray ? "" : toStdString(textBox18->Text);
+			odbiorcaObj.nazwisko = textBox17->ForeColor == Color::Gray ? "" : toStdString(textBox17->Text);
+			odbiorcaObj.miasto = toStdString(textBox13->Text);
+			// ... uzupełnij resztę pól odbiorcy w razie potrzeby ...
 
-           // --- Metody Enter/Leave dla textBox18 (Odbiorca - Imię) ---
-    private: System::Void textBox18_Enter(System::Object^ sender, System::EventArgs^ e) {
-        if (this->textBox18->Text == "Wpisz imie") {
-            this->textBox18->Text = "";
-            this->textBox18->ForeColor = System::Drawing::Color::Black;
-        }
-    }
-    private: System::Void textBox18_Leave(System::Object^ sender, System::EventArgs^ e) {
-        if (String::IsNullOrWhiteSpace(this->textBox18->Text)) {
-            this->textBox18->Text = "Wpisz imie";
-            this->textBox18->ForeColor = System::Drawing::Color::Gray;
-        }
-    }
+			Paczka paczka(nadawcaObj, odbiorcaObj);
+			this->numerWygenerowanejPaczki = msclr::interop::marshal_as<String^>(paczka.getNumerPaczki());
 
-           // --- Metody Enter/Leave dla textBox17 (Odbiorca - Nazwisko) ---
-    private: System::Void textBox17_Enter(System::Object^ sender, System::EventArgs^ e) {
-        if (this->textBox17->Text == "Wpisz nazwisko") {
-            this->textBox17->Text = "";
-            this->textBox17->ForeColor = System::Drawing::Color::Black;
-        }
-    }
-    private: System::Void textBox17_Leave(System::Object^ sender, System::EventArgs^ e) {
-        if (String::IsNullOrWhiteSpace(this->textBox17->Text)) {
-            this->textBox17->Text = "Wpisz nazwisko";
-            this->textBox17->ForeColor = System::Drawing::Color::Gray;
-        }
-    }
+			// Logika zapisu do pliku JSON
+			nlohmann::json new_package_json;
+			new_package_json["numerPaczki"] = paczka.getNumerPaczki();
+			new_package_json["nadawca"] = { {"imie", paczka.getNadawca().imie}, {"nazwisko", paczka.getNadawca().nazwisko}, {"adres", {{"miasto", paczka.getNadawca().miasto}}} };
+			new_package_json["odbiorca"] = { {"imie", paczka.getOdbiorca().imie}, {"nazwisko", paczka.getOdbiorca().nazwisko}, {"adres", {{"miasto", paczka.getOdbiorca().miasto}}} };
 
-           // --- Metody Enter/Leave dla textBox16 (Odbiorca - Telefon) ---
-    private: System::Void textBox16_Enter(System::Object^ sender, System::EventArgs^ e) {
-        if (this->textBox16->Text == "Wpisz telefon") {
-            this->textBox16->Text = "";
-            this->textBox16->ForeColor = System::Drawing::Color::Black;
-        }
-    }
-    private: System::Void textBox16_Leave(System::Object^ sender, System::EventArgs^ e) {
-        if (String::IsNullOrWhiteSpace(this->textBox16->Text)) {
-            this->textBox16->Text = "Wpisz telefon";
-            this->textBox16->ForeColor = System::Drawing::Color::Gray;
-        }
-    }
+			std::string filename = "paczka_data.json";
+			nlohmann::json existing_data_array = nlohmann::json::array();
+			std::ifstream ifs(filename);
+			if (ifs.is_open()) {
+				try { ifs >> existing_data_array; }
+				catch (nlohmann::json::parse_error&) {}
+				ifs.close();
+			}
+			if (!existing_data_array.is_array()) { existing_data_array = nlohmann::json::array(); }
+			existing_data_array.push_back(new_package_json);
 
-           // --- Metody Enter/Leave dla textBox15 (Odbiorca - Email) ---
-    private: System::Void textBox15_Enter(System::Object^ sender, System::EventArgs^ e) {
-        if (this->textBox15->Text == "Wpisz email") {
-            this->textBox15->Text = "";
-            this->textBox15->ForeColor = System::Drawing::Color::Black;
-        }
-    }
-    private: System::Void textBox15_Leave(System::Object^ sender, System::EventArgs^ e) {
-        if (String::IsNullOrWhiteSpace(this->textBox15->Text)) {
-            this->textBox15->Text = "Wpisz email";
-            this->textBox15->ForeColor = System::Drawing::Color::Gray;
-        }
-    }
+			std::ofstream ofs(filename);
+			if (ofs.is_open()) {
+				ofs << std::setw(4) << existing_data_array << std::endl;
+				ofs.close();
 
-           // --- Metody Enter/Leave dla textBox14 (Odbiorca - Ulica) ---
-    private: System::Void textBox14_Enter(System::Object^ sender, System::EventArgs^ e) {
-        if (this->textBox14->Text == "Wpisz ulice") {
-            this->textBox14->Text = "";
-            this->textBox14->ForeColor = System::Drawing::Color::Black;
-        }
-    }
-    private: System::Void textBox14_Leave(System::Object^ sender, System::EventArgs^ e) {
-        if (String::IsNullOrWhiteSpace(this->textBox14->Text)) {
-            this->textBox14->Text = "Wpisz ulice";
-            this->textBox14->ForeColor = System::Drawing::Color::Gray;
-        }
-    }
+				MessageBox::Show("Paczka została pomyślnie zarejestrowana!\nNumer: " + this->numerWygenerowanejPaczki, "Sukces", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				SystemSounds::Asterisk->Play();
 
-           // --- Metody Enter/Leave dla textBox13 (Odbiorca - Miasto) ---
-    private: System::Void textBox13_Enter(System::Object^ sender, System::EventArgs^ e) {
-        if (this->textBox13->Text == "Wpisz miasto") {
-            this->textBox13->Text = "";
-            this->textBox13->ForeColor = System::Drawing::Color::Black;
-        }
-    }
-    private: System::Void textBox13_Leave(System::Object^ sender, System::EventArgs^ e) {
-        if (String::IsNullOrWhiteSpace(this->textBox13->Text)) {
-            this->textBox13->Text = "Wpisz miasto";
-            this->textBox13->ForeColor = System::Drawing::Color::Gray;
-        }
-    }
+				// Pokaż animację i zmień przycisk na "Zamknij"
+				this->labelTytulKodu->Visible = true;
+				this->panelKodKreskowy->Visible = true;
+				this->labelNumerPaczki->Text = this->numerWygenerowanejPaczki;
+				this->labelNumerPaczki->Visible = true;
+				this->panelKodKreskowy->Refresh(); // Wymuś odrysowanie panelu
 
-           // --- Metody Enter/Leave dla textBox12 (Odbiorca - Województwo) ---
-    private: System::Void textBox12_Enter(System::Object^ sender, System::EventArgs^ e) {
-        if (this->textBox12->Text == "Wpisz wojewodztwo") {
-            this->textBox12->Text = "";
-            this->textBox12->ForeColor = System::Drawing::Color::Black;
-        }
-    }
-    private: System::Void textBox12_Leave(System::Object^ sender, System::EventArgs^ e) {
-        if (String::IsNullOrWhiteSpace(this->textBox12->Text)) {
-            this->textBox12->Text = "Wpisz wojewodztwo";
-            this->textBox12->ForeColor = System::Drawing::Color::Gray;
-        }
-    }
+				this->buttonUtworz->Text = "Zamknij";
+				this->buttonUtworz->Click -= gcnew System::EventHandler(this, &Formularz_paczki::buttonUtworz_Click);
+				this->buttonUtworz->Click += gcnew System::EventHandler(this, &Formularz_paczki::buttonZamknij_Click);
+			}
+			else {
+				MessageBox::Show("Błąd: Nie można zapisać pliku paczka_data.json", "Błąd Zapisu", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			}
+			paczka.paczkaPrzyjeta();
+		}
 
-           // --- Metody Enter/Leave dla textBox11 (Odbiorca - Kod Pocztowy) ---
-    private: System::Void textBox11_Enter(System::Object^ sender, System::EventArgs^ e) {
-        if (this->textBox11->Text == "Wpisz kodPocztowy") {
-            this->textBox11->Text = "";
-            this->textBox11->ForeColor = System::Drawing::Color::Black;
-        }
-    }
-    private: System::Void textBox11_Leave(System::Object^ sender, System::EventArgs^ e) {
-        if (String::IsNullOrWhiteSpace(this->textBox11->Text)) {
-            this->textBox11->Text = "Wpisz kodPocztowy";
-            this->textBox11->ForeColor = System::Drawing::Color::Gray;
-        }
-    }
-
-           // --- Metody Enter/Leave dla textBox10 (Odbiorca - Kraj) ---
-    private: System::Void textBox10_Enter(System::Object^ sender, System::EventArgs^ e) {
-        if (this->textBox10->Text == "Wpisz kraj") {
-            this->textBox10->Text = "";
-            this->textBox10->ForeColor = System::Drawing::Color::Black;
-        }
-    }
-    private: System::Void textBox10_Leave(System::Object^ sender, System::EventArgs^ e) {
-        if (String::IsNullOrWhiteSpace(this->textBox10->Text)) {
-            this->textBox10->Text = "Wpisz kraj";
-            this->textBox10->ForeColor = System::Drawing::Color::Gray;
-        }
-    }
-
-
-    private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-        // Konwersja System::String na std::string za pomocą msclr::interop::marshal_as
-        std::string nadawcaImie = msclr::interop::marshal_as<std::string>(textBox1->Text == "Wpisz imie" ? "" : textBox1->Text);
-        std::string nadawcaNazwisko = msclr::interop::marshal_as<std::string>(textBox2->Text == "Wpisz nazwisko" ? "" : textBox2->Text);
-        std::string nadawcaTelefon = msclr::interop::marshal_as<std::string>(textBox3->Text == "Wpisz telefon" ? "" : textBox3->Text);
-        std::string nadawcaEmail = msclr::interop::marshal_as<std::string>(textBox4->Text == "Wpisz email" ? "" : textBox4->Text);
-        std::string nadawcaUlica = msclr::interop::marshal_as<std::string>(textBox5->Text == "Wpisz ulice" ? "" : textBox5->Text);
-        std::string nadawcaMiasto = msclr::interop::marshal_as<std::string>(textBox6->Text == "Wpisz miasto" ? "" : textBox6->Text);
-        std::string nadawcaWojewodztwo = msclr::interop::marshal_as<std::string>(textBox7->Text == "Wpisz wojewodztwo" ? "" : textBox7->Text);
-        std::string nadawcaKodPocztowy = msclr::interop::marshal_as<std::string>(textBox8->Text == "Wpisz kodPocztowy" ? "" : textBox8->Text);
-        std::string nadawcaKraj = msclr::interop::marshal_as<std::string>(textBox9->Text == "Wpisz kraj" ? "" : textBox9->Text);
-
-        std::string odbiorcaImie = msclr::interop::marshal_as<std::string>(textBox18->Text == "Wpisz imie" ? "" : textBox18->Text);
-        std::string odbiorcaNazwisko = msclr::interop::marshal_as<std::string>(textBox17->Text == "Wpisz nazwisko" ? "" : textBox17->Text);
-        std::string odbiorcaTelefon = msclr::interop::marshal_as<std::string>(textBox16->Text == "Wpisz telefon" ? "" : textBox16->Text);
-        std::string odbiorcaEmail = msclr::interop::marshal_as<std::string>(textBox15->Text == "Wpisz email" ? "" : textBox15->Text);
-        std::string odbiorcaUlica = msclr::interop::marshal_as<std::string>(textBox14->Text == "Wpisz ulice" ? "" : textBox14->Text);
-        std::string odbiorcaMiasto = msclr::interop::marshal_as<std::string>(textBox13->Text == "Wpisz miasto" ? "" : textBox13->Text);
-        std::string odbiorcaWojewodztwo = msclr::interop::marshal_as<std::string>(textBox12->Text == "Wpisz wojewodztwo" ? "" : textBox12->Text);
-        std::string odbiorcaKodPocztowy = msclr::interop::marshal_as<std::string>(textBox11->Text == "Wpisz kodPocztowy" ? "" : textBox11->Text);
-        std::string odbiorcaKraj = msclr::interop::marshal_as<std::string>(textBox10->Text == "Wpisz kraj" ? "" : textBox10->Text);
-
-        Nadawca nadawcaObj;
-        nadawcaObj.imie = nadawcaImie;
-        nadawcaObj.nazwisko = nadawcaNazwisko;
-        nadawcaObj.telefon = nadawcaTelefon;
-        nadawcaObj.email = nadawcaEmail;
-        nadawcaObj.ulica = nadawcaUlica;
-        nadawcaObj.miasto = nadawcaMiasto;
-        nadawcaObj.wojewodztwo = nadawcaWojewodztwo;
-        nadawcaObj.kodPocztowy = nadawcaKodPocztowy;
-        nadawcaObj.kraj = nadawcaKraj;
-
-        Odbiorca odbiorcaObj;
-        odbiorcaObj.imie = odbiorcaImie;
-        odbiorcaObj.nazwisko = odbiorcaNazwisko;
-        odbiorcaObj.telefon = odbiorcaTelefon;
-        odbiorcaObj.email = odbiorcaEmail;
-        odbiorcaObj.ulica = odbiorcaUlica;
-        odbiorcaObj.miasto = odbiorcaMiasto;
-        odbiorcaObj.wojewodztwo = odbiorcaWojewodztwo;
-        odbiorcaObj.kodPocztowy = odbiorcaKodPocztowy;
-        odbiorcaObj.kraj = odbiorcaKraj;
-
-        Paczka paczka(nadawcaObj, odbiorcaObj);
-
-        nlohmann::json new_package_json;
-        new_package_json["numerPaczki"] = paczka.getNumerPaczki();
-        new_package_json["nadawca"] = {
-            {"imie", paczka.getNadawca().imie},
-            {"nazwisko", paczka.getNadawca().nazwisko},
-            {"telefon", paczka.getNadawca().telefon},
-            {"email", paczka.getNadawca().email},
-            {"adres", {
-                {"ulica", paczka.getNadawca().ulica},
-                {"miasto", paczka.getNadawca().miasto},
-                {"wojewodztwo", paczka.getNadawca().wojewodztwo},
-                {"kodPocztowy", paczka.getNadawca().kodPocztowy},
-                {"kraj", paczka.getNadawca().kraj}
-            }}
-        };
-        new_package_json["odbiorca"] = {
-            {"imie", paczka.getOdbiorca().imie},
-            {"nazwisko", paczka.getOdbiorca().nazwisko},
-            {"telefon", paczka.getOdbiorca().telefon},
-            {"email", paczka.getOdbiorca().email},
-            {"adres", {
-                {"ulica", paczka.getOdbiorca().ulica},
-                {"miasto", paczka.getOdbiorca().miasto},
-                {"wojewodztwo", paczka.getOdbiorca().wojewodztwo},
-                {"kodPocztowy", paczka.getOdbiorca().kodPocztowy},
-                {"kraj", paczka.getOdbiorca().kraj}
-            }}
-        };
-
-        std::string filename = "paczka_data.json";
-        nlohmann::json existing_data_array = nlohmann::json::array();
-
-        std::ifstream ifs(filename);
-        if (ifs.is_open()) {
-            try {
-                ifs >> existing_data_array;
-                if (!existing_data_array.is_array()) { // Sprawdzenie, czy wczytane dane są tablicą
-                    existing_data_array = nlohmann::json::array(); // Jeśli nie, utwórz nową pustą tablicę
-                    System::Windows::Forms::MessageBox::Show("Istniejący plik paczka_data.json nie zawierał tablicy. Dane zostaną nadpisane nową tablicą paczek.", "Ostrzeżenie", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-                }
-            }
-            catch (nlohmann::json::parse_error& e) {
-                // Jeśli plik jest pusty lub niepoprawny JSON, zacznij od nowej tablicy.
-                // Można by też sprawdzić, czy plik jest po prostu pusty.
-                ifs.clear(); // Wyczyść flagi błędów strumienia
-                ifs.seekg(0, std::ios::beg); // Przewiń na początek pliku
-                if (ifs.peek() != std::ifstream::traits_type::eof() || ifs.fail()) { // Sprawdź, czy plik nie jest pusty, a błąd parsowania wystąpił z innego powodu
-                    System::String^ errorMessage = msclr::interop::marshal_as<System::String^>(e.what());
-                    System::Windows::Forms::MessageBox::Show(System::String::Format("Błąd parsowania pliku paczka_data.json: {0}. Tworzę nową listę paczek.", errorMessage), "Błąd Pliku", MessageBoxButtons::OK, MessageBoxIcon::Error);
-                }
-                existing_data_array = nlohmann::json::array(); // W razie błędu, zacznij od nowej tablicy
-            }
-            ifs.close();
-        }
-
-        existing_data_array.push_back(new_package_json);
-
-        std::ofstream ofs(filename);
-        if (ofs.is_open()) {
-            ofs << std::setw(4) << existing_data_array << std::endl;
-            ofs.close();
-            System::Windows::Forms::MessageBox::Show("Dane paczki zostały dodane do paczka_data.json", "Sukces", MessageBoxButtons::OK, MessageBoxIcon::Information);
-        }
-        else {
-            System::Windows::Forms::MessageBox::Show("Błąd: Nie można zapisać pliku paczka_data.json", "Błąd Zapisu", MessageBoxButtons::OK, MessageBoxIcon::Error);
-        }
-
-        this->Close();
-        paczka.paczkaPrzyjeta(); // Wywołanie metody informującej o przyjęciu paczki (np. do konsoli)
-    }
-    }; // Koniec klasy Formularz_paczki
-} // Koniec namespace PSiO
+		System::Void buttonZamknij_Click(System::Object^ sender, System::EventArgs^ e) {
+			this->Close();
+		}
+	};
+}
