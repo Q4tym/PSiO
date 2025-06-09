@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "Klasy.h"
 #include <map>
@@ -104,7 +104,7 @@ namespace PSiO {
 			this->buttonOdswiez->Location = System::Drawing::Point(12, 12);
 			this->buttonOdswiez->Name = L"buttonOdswiez";
 			this->buttonOdswiez->Size = System::Drawing::Size(130, 32);
-			this->buttonOdswiez->Text = L"Odœwie¿ Listê";
+			this->buttonOdswiez->Text = L"Odï¿½wieï¿½ Listï¿½";
 			this->buttonOdswiez->UseVisualStyleBackColor = false;
 			this->buttonOdswiez->Click += gcnew System::EventHandler(this, &Formularz_Kuriera::buttonOdswiez_Click);
 			this->buttonOdswiez->MouseEnter += gcnew System::EventHandler(this, &Formularz_Kuriera::button_MouseEnter);
@@ -204,7 +204,7 @@ namespace PSiO {
 			this->labelStatLiczbaPaczek->Location = System::Drawing::Point(16, 30);
 			this->labelStatLiczbaPaczek->Name = L"labelStatLiczbaPaczek";
 			this->labelStatLiczbaPaczek->Size = System::Drawing::Size(147, 17);
-			this->labelStatLiczbaPaczek->Text = L"Ca³kowita liczba paczek:";
+			this->labelStatLiczbaPaczek->Text = L"Caï¿½kowita liczba paczek:";
 			// 
 			// Formularz_Kuriera
 			// 
@@ -270,7 +270,7 @@ namespace PSiO {
 		}
 		catch (const std::exception& e) {
 			System::String^ errorMessage = msclr::interop::marshal_as<System::String^>(e.what());
-			MessageBox::Show("Wyst¹pi³ b³¹d podczas wczytywania paczek: " + errorMessage, "B³¹d Pliku", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			MessageBox::Show("Wystï¿½piï¿½ bï¿½ï¿½d podczas wczytywania paczek: " + errorMessage, "Bï¿½ï¿½d Pliku", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
 	}
 

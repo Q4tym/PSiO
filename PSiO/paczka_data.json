@@ -152,5 +152,39 @@
             "imie": "s",
             "nazwisko": "s"
         }
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "miasto": "s"
+            },
+            "imie": "s",
+            "nazwisko": "s"
+        },
+        "numerPaczki": "PKZ684937",
+        "odbiorca": {
+            "adres": {
+                "miasto": "s"
+            },
+            "imie": "s",
+            "nazwisko": "s"
+        }
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "miasto": "s"
+            },
+            "imie": "s",
+            "nazwisko": "s"
+        },
+        "numerPaczki": "PKZ971665",
+        "odbiorca": {
+            "adres": {
+                "miasto": "s"
+            },
+            "imie": "s",
+            "nazwisko": "s"
+        }
     }
 ]

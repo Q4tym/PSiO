@@ -1,15 +1,15 @@
-#include "Klasy.h"
+ï»¿#include "Klasy.h"
 #include <msclr/marshal_cppstd.h>
 
 // --- Implementacja metod dla klasy Sortownia ---
 
 void Sortownia::wczytajPaczkiZPliku(const std::string& nazwaPliku) {
-    paczki.clear(); // Wyczyœæ wektor przed wczytaniem nowych danych
+    paczki.clear(); // Wyczyï¿½ï¿½ wektor przed wczytaniem nowych danych
     std::ifstream ifs(nazwaPliku);
     if (!ifs.is_open()) {
-        // Jeœli plik nie istnieje, po prostu nic nie rób.
-        // W prawdziwej aplikacji mo¿na by rzuciæ wyj¹tek lub zalogowaæ b³¹d.
-        // std::cerr << "Nie uda³o siê otworzyæ pliku: " << nazwaPliku << std::endl;
+        // Jeï¿½li plik nie istnieje, po prostu nic nie rï¿½b.
+        // W prawdziwej aplikacji moï¿½na by rzuciï¿½ wyjï¿½tek lub zalogowaï¿½ bï¿½ï¿½d.
+        // std::cerr << "Nie udaï¿½o siï¿½ otworzyï¿½ pliku: " << nazwaPliku << std::endl;
         return;
     }
 
@@ -18,8 +18,8 @@ void Sortownia::wczytajPaczkiZPliku(const std::string& nazwaPliku) {
         ifs >> dane;
     }
     catch (nlohmann::json::parse_error& e) {
-        // Jeœli plik jest pusty lub uszkodzony
-        // std::cerr << "B³¹d parsowania JSON: " << e.what() << std::endl;
+        // Jeï¿½li plik jest pusty lub uszkodzony
+        // std::cerr << "Bï¿½ï¿½d parsowania JSON: " << e.what() << std::endl;
         return;
     }
 
@@ -49,7 +49,7 @@ void Sortownia::wczytajPaczkiZPliku(const std::string& nazwaPliku) {
 }
 
 void Sortownia::sortujPaczki(KryteriumSortowania kryterium) {
-    // U¿ycie algorytmu STL std::sort z w³asnym komparatorem (lambda)
+    // Uï¿½ycie algorytmu STL std::sort z wï¿½asnym komparatorem (lambda)
     if (kryterium == KryteriumSortowania::WG_MIASTA) {
         std::sort(paczki.begin(), paczki.end(), [](const Paczka& a, const Paczka& b) {
             return a.getOdbiorca().miasto < b.getOdbiorca().miasto;
@@ -76,11 +76,11 @@ void Paczka::paczkaPrzyjeta()
     ss << "Numer paczki: " << getNumerPaczki() << "\n\n";
 
     ss << "Nadawca:\n";
-    ss << "  Imiê i nazwisko: " << nadawca.imie << " " << nadawca.nazwisko << "\n";
+    ss << "  Imiï¿½ i nazwisko: " << nadawca.imie << " " << nadawca.nazwisko << "\n";
     ss << "  Adres: " << nadawca.ulica << ", " << nadawca.kodPocztowy << " " << nadawca.miasto << "\n\n";
 
     ss << "Odbiorca:\n";
-    ss << "  Imiê i nazwisko: " << odbiorca.imie << " " << odbiorca.nazwisko << "\n";
+    ss << "  Imiï¿½ i nazwisko: " << odbiorca.imie << " " << odbiorca.nazwisko << "\n";
     ss << "  Adres: " << odbiorca.ulica << ", " << odbiorca.kodPocztowy << " " << odbiorca.miasto << "\n";
     ss << "-------------------------------------\n";
 

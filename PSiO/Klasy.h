@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <iostream>
 #include <string>
 #include <vector>
@@ -12,7 +12,7 @@
 class Sortownia
 {
 public:
-    // Enum class do wyboru kryterium sortowania - spe³nia wymaganie projektowe
+    // Enum class do wyboru kryterium sortowania - speï¿½nia wymaganie projektowe
     enum class KryteriumSortowania {
         WG_MIASTA,
         WG_KODU_POCZTOWEGO
@@ -21,7 +21,7 @@ public:
     void wczytajPaczkiZPliku(const std::string& nazwaPliku);
     void sortujPaczki(KryteriumSortowania kryterium);
 
-    // Zwraca sta³¹ referencjê do wektora paczek
+    // Zwraca staï¿½ï¿½ referencjï¿½ do wektora paczek
     const std::vector<class Paczka>& getPaczki() const;
 
 private:
@@ -91,7 +91,7 @@ public:
         : numerPaczki(generateRandomPackageNumber()), nadawca(n), odbiorca(o) {
     }
 
-    // Konstruktor do wczytywania paczki Z PLIKU (u¿ywa istniej¹cego numeru)
+    // Konstruktor do wczytywania paczki Z PLIKU (uï¿½ywa istniejï¿½cego numeru)
     Paczka(std::string num, const Nadawca& n, const Odbiorca& o)
         : numerPaczki(std::move(num)), nadawca(n), odbiorca(o) {
     }

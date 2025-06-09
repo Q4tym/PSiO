@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "logowanie.h"
 #include "Formularz_paczki.h"
 
@@ -70,7 +70,7 @@ namespace PSiO {
 			   this->buttonExit->Name = L"buttonExit";
 			   this->buttonExit->Size = System::Drawing::Size(250, 35);
 			   this->buttonExit->TabIndex = 2;
-			   this->buttonExit->Text = L"Zakoñcz";
+			   this->buttonExit->Text = L"Zakoï¿½cz";
 			   this->buttonExit->UseVisualStyleBackColor = false;
 			   this->buttonExit->Click += gcnew System::EventHandler(this, &MyForm::buttonExit_Click);
 			   this->buttonExit->MouseEnter += gcnew System::EventHandler(this, &MyForm::button_MouseEnter_Gray);
@@ -87,7 +87,7 @@ namespace PSiO {
 			   this->buttonNewPackage->Name = L"buttonNewPackage";
 			   this->buttonNewPackage->Size = System::Drawing::Size(250, 50);
 			   this->buttonNewPackage->TabIndex = 0;
-			   this->buttonNewPackage->Text = L"NADAJ PACZKÊ";
+			   this->buttonNewPackage->Text = L"NADAJ PACZKï¿½";
 			   this->buttonNewPackage->UseVisualStyleBackColor = false;
 			   this->buttonNewPackage->Click += gcnew System::EventHandler(this, &MyForm::buttonNewPackage_Click);
 			   this->buttonNewPackage->MouseEnter += gcnew System::EventHandler(this, &MyForm::button_MouseEnter);
@@ -133,7 +133,7 @@ namespace PSiO {
 		formularz->ShowDialog(this);
 	}
 	private: System::Void buttonExit_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (MessageBox::Show("Czy na pewno chcesz zamkn¹æ aplikacjê?", "Potwierdzenie Wyjœcia", MessageBoxButtons::YesNo, MessageBoxIcon::Question) == System::Windows::Forms::DialogResult::Yes)
+		if (MessageBox::Show("Czy na pewno chcesz zamknï¿½ï¿½ aplikacjï¿½?", "Potwierdzenie Wyjï¿½cia", MessageBoxButtons::YesNo, MessageBoxIcon::Question) == System::Windows::Forms::DialogResult::Yes)
 		{
 			Application::Exit();
 		}
