@@ -4,8 +4,7 @@
 #include <map>
 #include <string>
 #include <algorithm>
-
-#include <msclr/marshal_cppstd.h> // Potrzebne do msclr::interop::marshal_as
+#include <msclr/marshal_cppstd.h>
 
 namespace PSiO {
 
@@ -16,9 +15,10 @@ namespace PSiO {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
+	// Struktura pomocnicza do sortowania mapy wg wartości
 	struct PorownajWpisyMapy {
 		bool operator()(const std::pair<std::string, int>& a, const std::pair<std::string, int>& b) const {
-			return a.second < b.second;
+			return a.second > b.second; // Sortowanie malejąco
 		}
 	};
 
@@ -28,7 +28,7 @@ namespace PSiO {
 		Formularz_Kuriera(void)
 		{
 			InitializeComponent();
-			sortownia = new Sortownia();
+			sortownia = new Sortownia(); // Utworzenie obiektu sortowni
 			odswiezListePaczek(false);
 		}
 
@@ -39,7 +39,7 @@ namespace PSiO {
 			{
 				delete components;
 			}
-			delete sortownia;
+			delete sortownia; // Zwolnienie pamięci
 		}
 
 	private:
@@ -104,11 +104,9 @@ namespace PSiO {
 			this->buttonOdswiez->Location = System::Drawing::Point(12, 12);
 			this->buttonOdswiez->Name = L"buttonOdswiez";
 			this->buttonOdswiez->Size = System::Drawing::Size(130, 32);
-			this->buttonOdswiez->Text = L"Od�wie� List�";
+			this->buttonOdswiez->Text = L"Odśwież Listę";
 			this->buttonOdswiez->UseVisualStyleBackColor = false;
 			this->buttonOdswiez->Click += gcnew System::EventHandler(this, &Formularz_Kuriera::buttonOdswiez_Click);
-			this->buttonOdswiez->MouseEnter += gcnew System::EventHandler(this, &Formularz_Kuriera::button_MouseEnter);
-			this->buttonOdswiez->MouseLeave += gcnew System::EventHandler(this, &Formularz_Kuriera::button_MouseLeave);
 			// 
 			// buttonSortujMiasto
 			// 
@@ -123,8 +121,6 @@ namespace PSiO {
 			this->buttonSortujMiasto->Text = L"Sortuj wg Miasta";
 			this->buttonSortujMiasto->UseVisualStyleBackColor = false;
 			this->buttonSortujMiasto->Click += gcnew System::EventHandler(this, &Formularz_Kuriera::buttonSortujMiasto_Click);
-			this->buttonSortujMiasto->MouseEnter += gcnew System::EventHandler(this, &Formularz_Kuriera::button_MouseEnter_Gray);
-			this->buttonSortujMiasto->MouseLeave += gcnew System::EventHandler(this, &Formularz_Kuriera::button_MouseLeave_Gray);
 			// 
 			// buttonSortujKod
 			// 
@@ -139,8 +135,6 @@ namespace PSiO {
 			this->buttonSortujKod->Text = L"Sortuj wg Kodu Pocz.";
 			this->buttonSortujKod->UseVisualStyleBackColor = false;
 			this->buttonSortujKod->Click += gcnew System::EventHandler(this, &Formularz_Kuriera::buttonSortujKod_Click);
-			this->buttonSortujKod->MouseEnter += gcnew System::EventHandler(this, &Formularz_Kuriera::button_MouseEnter_Gray);
-			this->buttonSortujKod->MouseLeave += gcnew System::EventHandler(this, &Formularz_Kuriera::button_MouseLeave_Gray);
 			// 
 			// labelInfo
 			// 
@@ -204,7 +198,7 @@ namespace PSiO {
 			this->labelStatLiczbaPaczek->Location = System::Drawing::Point(16, 30);
 			this->labelStatLiczbaPaczek->Name = L"labelStatLiczbaPaczek";
 			this->labelStatLiczbaPaczek->Size = System::Drawing::Size(147, 17);
-			this->labelStatLiczbaPaczek->Text = L"Ca�kowita liczba paczek:";
+			this->labelStatLiczbaPaczek->Text = L"Całkowita liczba paczek:";
 			// 
 			// Formularz_Kuriera
 			// 
@@ -230,86 +224,74 @@ namespace PSiO {
 		}
 #pragma endregion
 
-	private: System::Void button_MouseEnter(System::Object^ sender, System::EventArgs^ e) {
-		Button^ button = safe_cast<Button^>(sender);
-		button->BackColor = Color::FromArgb(0, 142, 224);
-	}
-	private: System::Void button_MouseLeave(System::Object^ sender, System::EventArgs^ e) {
-		Button^ button = safe_cast<Button^>(sender);
-		button->BackColor = Color::FromArgb(0, 122, 204);
-	}
-	private: System::Void button_MouseEnter_Gray(System::Object^ sender, System::EventArgs^ e) {
-		Button^ button = safe_cast<Button^>(sender);
-		button->BackColor = Color::FromArgb(80, 80, 80);
-	}
-	private: System::Void button_MouseLeave_Gray(System::Object^ sender, System::EventArgs^ e) {
-		Button^ button = safe_cast<Button^>(sender);
-		button->BackColor = Color::FromArgb(50, 50, 50);
-	}
+	private:
+		static bool comparePairs(const std::pair<std::string, int>& a, const std::pair<std::string, int>& b) {
+			return a.second > b.second; // Sortowanie malejąco
+		}
 
-	private: void odswiezListePaczek(bool posortowane) {
-		try {
-			listViewPaczki->Items->Clear();
-			if (!posortowane) {
-				sortownia->wczytajPaczkiZPliku("paczka_data.json");
+		void odswiezListePaczek(bool posortowane) {
+			try {
+				listViewPaczki->Items->Clear();
+				if (!posortowane) {
+					sortownia->wczytajPaczkiZPliku("paczka_data.json");
+				}
+				const auto& paczki = sortownia->getPaczki();
+				for (const auto& paczka : paczki) {
+					String^ numerPaczki = msclr::interop::marshal_as<String^>(paczka.getNumerPaczki());
+					String^ miasto = msclr::interop::marshal_as<String^>(paczka.getOdbiorca().miasto);
+					String^ kod = msclr::interop::marshal_as<String^>(paczka.getOdbiorca().kodPocztowy);
+					String^ status = "W sortowni";
+					ListViewItem^ item = gcnew ListViewItem(numerPaczki);
+					item->SubItems->Add(miasto);
+					item->SubItems->Add(kod);
+					item->SubItems->Add(status);
+					listViewPaczki->Items->Add(item);
+				}
+				this->labelInfo->Text = String::Format("Wczytano {0} paczek.", paczki.size());
+				aktualizujStatystyki();
 			}
+			catch (const std::exception& e) {
+				System::String^ errorMessage = msclr::interop::marshal_as<System::String^>(e.what());
+				MessageBox::Show("Wystąpił błąd podczas wczytywania paczek: " + errorMessage, "Błąd Pliku", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			}
+		}
+
+		void aktualizujStatystyki() {
 			const auto& paczki = sortownia->getPaczki();
+			labelLiczbaPaczekVal->Text = paczki.size().ToString();
+
+			if (paczki.empty()) {
+				labelMiastoVal->Text = "Brak";
+				return;
+			}
+			std::map<std::string, int> licznikiMiast;
 			for (const auto& paczka : paczki) {
-				String^ numerPaczki = msclr::interop::marshal_as<String^>(paczka.getNumerPaczki());
-				String^ miasto = msclr::interop::marshal_as<String^>(paczka.getOdbiorca().miasto);
-				String^ kod = msclr::interop::marshal_as<String^>(paczka.getOdbiorca().kodPocztowy);
-				String^ status = "W sortowni";
-				ListViewItem^ item = gcnew ListViewItem(numerPaczki);
-				item->SubItems->Add(miasto);
-				item->SubItems->Add(kod);
-				item->SubItems->Add(status);
-				listViewPaczki->Items->Add(item);
+				if (!paczka.getOdbiorca().miasto.empty()) {
+					licznikiMiast[paczka.getOdbiorca().miasto]++;
+				}
 			}
-			this->labelInfo->Text = String::Format("Wczytano {0} paczek.", paczki.size());
-			aktualizujStatystyki();
-		}
-		catch (const std::exception& e) {
-			System::String^ errorMessage = msclr::interop::marshal_as<System::String^>(e.what());
-			MessageBox::Show("Wyst�pi� b��d podczas wczytywania paczek: " + errorMessage, "B��d Pliku", MessageBoxButtons::OK, MessageBoxIcon::Error);
-		}
-	}
-
-	private: void aktualizujStatystyki() {
-		const auto& paczki = sortownia->getPaczki();
-		labelLiczbaPaczekVal->Text = paczki.size().ToString();
-
-		if (paczki.empty()) {
-			labelMiastoVal->Text = "Brak";
-			return;
-		}
-		std::map<std::string, int> licznikiMiast;
-		for (const auto& paczka : paczki) {
-			if (!paczka.getOdbiorca().miasto.empty()) {
-				licznikiMiast[paczka.getOdbiorca().miasto]++;
+			if (licznikiMiast.empty()) {
+				labelMiastoVal->Text = "Brak";
+				return;
 			}
+
+			auto najpopularniejsze = std::max_element(licznikiMiast.begin(), licznikiMiast.end(), comparePairs);
+
+			String^ miasto = msclr::interop::marshal_as<String^>(najpopularniejsze->first);
+			String^ ilosc = String::Format("({0} szt.)", najpopularniejsze->second);
+			labelMiastoVal->Text = String::Format("{0} {1}", miasto, ilosc);
 		}
-		if (licznikiMiast.empty()) {
-			labelMiastoVal->Text = "Brak";
-			return;
+
+		System::Void buttonOdswiez_Click(System::Object^ sender, System::EventArgs^ e) {
+			odswiezListePaczek(false);
 		}
-
-		auto najpopularniejsze = std::max_element(licznikiMiast.begin(), licznikiMiast.end(), PorownajWpisyMapy());
-
-		String^ miasto = msclr::interop::marshal_as<String^>(najpopularniejsze->first);
-		String^ ilosc = String::Format("({0} szt.)", najpopularniejsze->second);
-		labelMiastoVal->Text = String::Format("{0} {1}", miasto, ilosc);
-	}
-
-	private: System::Void buttonOdswiez_Click(System::Object^ sender, System::EventArgs^ e) {
-		odswiezListePaczek(false);
-	}
-	private: System::Void buttonSortujMiasto_Click(System::Object^ sender, System::EventArgs^ e) {
-		sortownia->sortujPaczki(Sortownia::KryteriumSortowania::WG_MIASTA);
-		odswiezListePaczek(true);
-	}
-	private: System::Void buttonSortujKod_Click(System::Object^ sender, System::EventArgs^ e) {
-		sortownia->sortujPaczki(Sortownia::KryteriumSortowania::WG_KODU_POCZTOWEGO);
-		odswiezListePaczek(true);
-	}
+		System::Void buttonSortujMiasto_Click(System::Object^ sender, System::EventArgs^ e) {
+			sortownia->sortujPaczki(Sortownia::KryteriumSortowania::WG_MIASTA);
+			odswiezListePaczek(true);
+		}
+		System::Void buttonSortujKod_Click(System::Object^ sender, System::EventArgs^ e) {
+			sortownia->sortujPaczki(Sortownia::KryteriumSortowania::WG_KODU_POCZTOWEGO);
+			odswiezListePaczek(true);
+		}
 	};
 }

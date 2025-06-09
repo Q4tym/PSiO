@@ -1,55 +1,103 @@
 ﻿#include "Klasy.h"
-#include <msclr/marshal_cppstd.h>
+#include <fstream>
+#include <sstream>
+#include <algorithm>
+#include <random>
+#include <iomanip>
+#include <stdexcept>
 
-// --- Implementacja metod dla klasy Sortownia ---
+using json = nlohmann::json;
+
+// --- Implementacja metod klasy Paczka ---
+
+// Statyczna metoda do generowania losowego numeru paczki
+std::string Paczka::generateRandomPackageNumber() {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> distrib(100000, 999999);
+    return "PKZ" + std::to_string(distrib(gen));
+}
+
+// Konstruktor tworzący nową paczkę
+Paczka::Paczka(const Nadawca& n, const Odbiorca& o)
+    : numerPaczki(generateRandomPackageNumber()), nadawca(n), odbiorca(o) {
+}
+
+// Konstruktor wczytujący paczkę z pliku
+Paczka::Paczka(std::string num, const Nadawca& n, const Odbiorca& o)
+    : numerPaczki(std::move(num)), nadawca(n), odbiorca(o) {
+}
+
+// Metoda wywoływana po przyjęciu paczki
+void Paczka::paczkaPrzyjeta() const {
+    // Można tutaj dodać logikę, np. zapis do logu systemowego
+    // Na razie zostawiamy pustą
+}
+
+
+// --- Implementacja metod klasy Sortownia ---
+
+const std::vector<Paczka>& Sortownia::getPaczki() const {
+    return paczki;
+}
 
 void Sortownia::wczytajPaczkiZPliku(const std::string& nazwaPliku) {
-    paczki.clear(); // Wyczy�� wektor przed wczytaniem nowych danych
+    paczki.clear();
     std::ifstream ifs(nazwaPliku);
     if (!ifs.is_open()) {
-        // Je�li plik nie istnieje, po prostu nic nie r�b.
-        // W prawdziwej aplikacji mo�na by rzuci� wyj�tek lub zalogowa� b��d.
-        // std::cerr << "Nie uda�o si� otworzy� pliku: " << nazwaPliku << std::endl;
+        // Jeśli plik nie istnieje, to nie jest błąd, po prostu nie ma paczek
         return;
     }
 
-    nlohmann::json dane;
+    json data;
     try {
-        ifs >> dane;
+        ifs >> data;
     }
-    catch (nlohmann::json::parse_error& e) {
-        // Je�li plik jest pusty lub uszkodzony
-        // std::cerr << "B��d parsowania JSON: " << e.what() << std::endl;
+    catch (json::parse_error&) {
+        // Plik jest uszkodzony lub pusty, traktujemy jakby nie było paczek
+        ifs.close();
         return;
     }
+    ifs.close();
 
-    if (!dane.is_array()) {
-        return; // Oczekujemy tablicy paczek
+    if (!data.is_array()) {
+        return; // Oczekujemy tablicy w pliku JSON
     }
 
-    for (const auto& jPaczka : dane) {
-        Nadawca nadawca;
-        nadawca.imie = jPaczka["nadawca"]["imie"];
-        nadawca.nazwisko = jPaczka["nadawca"]["nazwisko"];
-        nadawca.ulica = jPaczka["nadawca"]["adres"]["ulica"];
-        nadawca.miasto = jPaczka["nadawca"]["adres"]["miasto"];
-        nadawca.kodPocztowy = jPaczka["nadawca"]["adres"]["kodPocztowy"];
+    for (const auto& item : data) {
+        if (!item.is_object()) continue;
 
-        Odbiorca odbiorca;
-        odbiorca.imie = jPaczka["odbiorca"]["imie"];
-        odbiorca.nazwisko = jPaczka["odbiorca"]["nazwisko"];
-        odbiorca.ulica = jPaczka["odbiorca"]["adres"]["ulica"];
-        odbiorca.miasto = jPaczka["odbiorca"]["adres"]["miasto"];
-        odbiorca.kodPocztowy = jPaczka["odbiorca"]["adres"]["kodPocztowy"];
+        Nadawca n;
+        if (item.contains("nadawca") && item["nadawca"].is_object()) {
+            const auto& jNadawca = item["nadawca"];
+            if (jNadawca.contains("imie")) n.imie = jNadawca["imie"].get<std::string>();
+            if (jNadawca.contains("nazwisko")) n.nazwisko = jNadawca["nazwisko"].get<std::string>();
+            if (jNadawca.contains("adres") && jNadawca["adres"].is_object()) {
+                if (jNadawca["adres"].contains("miasto")) n.miasto = jNadawca["adres"]["miasto"].get<std::string>();
+                if (jNadawca["adres"].contains("kodPocztowy")) n.kodPocztowy = jNadawca["adres"]["kodPocztowy"].get<std::string>();
+            }
+        }
 
-        std::string numerPaczki = jPaczka["numerPaczki"];
+        Odbiorca o;
+        if (item.contains("odbiorca") && item["odbiorca"].is_object()) {
+            const auto& jOdbiorca = item["odbiorca"];
+            if (jOdbiorca.contains("imie")) o.imie = jOdbiorca["imie"].get<std::string>();
+            if (jOdbiorca.contains("nazwisko")) o.nazwisko = jOdbiorca["nazwisko"].get<std::string>();
+            if (jOdbiorca.contains("adres") && jOdbiorca["adres"].is_object()) {
+                if (jOdbiorca["adres"].contains("miasto")) o.miasto = jOdbiorca["adres"]["miasto"].get<std::string>();
+                if (jOdbiorca["adres"].contains("kodPocztowy")) o.kodPocztowy = jOdbiorca["adres"]["kodPocztowy"].get<std::string>();
+            }
+        }
 
-        paczki.emplace_back(numerPaczki, nadawca, odbiorca);
+        std::string numer = item.value("numerPaczki", "");
+        if (!numer.empty()) {
+            paczki.emplace_back(numer, n, o);
+        }
     }
 }
 
+
 void Sortownia::sortujPaczki(KryteriumSortowania kryterium) {
-    // U�ycie algorytmu STL std::sort z w�asnym komparatorem (lambda)
     if (kryterium == KryteriumSortowania::WG_MIASTA) {
         std::sort(paczki.begin(), paczki.end(), [](const Paczka& a, const Paczka& b) {
             return a.getOdbiorca().miasto < b.getOdbiorca().miasto;
@@ -60,29 +108,4 @@ void Sortownia::sortujPaczki(KryteriumSortowania kryterium) {
             return a.getOdbiorca().kodPocztowy < b.getOdbiorca().kodPocztowy;
             });
     }
-}
-
-const std::vector<Paczka>& Sortownia::getPaczki() const {
-    return paczki;
-}
-
-
-// --- Implementacja metody dla klasy Paczka ---
-
-void Paczka::paczkaPrzyjeta()
-{
-    std::stringstream ss;
-    ss << "--- Potwierdzenie Nadania Paczki ---\n";
-    ss << "Numer paczki: " << getNumerPaczki() << "\n\n";
-
-    ss << "Nadawca:\n";
-    ss << "  Imi� i nazwisko: " << nadawca.imie << " " << nadawca.nazwisko << "\n";
-    ss << "  Adres: " << nadawca.ulica << ", " << nadawca.kodPocztowy << " " << nadawca.miasto << "\n\n";
-
-    ss << "Odbiorca:\n";
-    ss << "  Imi� i nazwisko: " << odbiorca.imie << " " << odbiorca.nazwisko << "\n";
-    ss << "  Adres: " << odbiorca.ulica << ", " << odbiorca.kodPocztowy << " " << odbiorca.miasto << "\n";
-    ss << "-------------------------------------\n";
-
-    std::cout << ss.str() << std::endl;
 }

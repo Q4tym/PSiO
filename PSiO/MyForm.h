@@ -1,4 +1,5 @@
 ﻿#pragma once
+
 #include "logowanie.h"
 #include "Formularz_paczki.h"
 
@@ -56,8 +57,6 @@ namespace PSiO {
 			   this->buttonLogin->Text = L"PANEL KURIERA";
 			   this->buttonLogin->UseVisualStyleBackColor = false;
 			   this->buttonLogin->Click += gcnew System::EventHandler(this, &MyForm::buttonLogin_Click);
-			   this->buttonLogin->MouseEnter += gcnew System::EventHandler(this, &MyForm::button_MouseEnter);
-			   this->buttonLogin->MouseLeave += gcnew System::EventHandler(this, &MyForm::button_MouseLeave);
 			   // 
 			   // buttonExit
 			   // 
@@ -70,11 +69,9 @@ namespace PSiO {
 			   this->buttonExit->Name = L"buttonExit";
 			   this->buttonExit->Size = System::Drawing::Size(250, 35);
 			   this->buttonExit->TabIndex = 2;
-			   this->buttonExit->Text = L"Zako�cz";
+			   this->buttonExit->Text = L"Zakończ";
 			   this->buttonExit->UseVisualStyleBackColor = false;
 			   this->buttonExit->Click += gcnew System::EventHandler(this, &MyForm::buttonExit_Click);
-			   this->buttonExit->MouseEnter += gcnew System::EventHandler(this, &MyForm::button_MouseEnter_Gray);
-			   this->buttonExit->MouseLeave += gcnew System::EventHandler(this, &MyForm::button_MouseLeave_Gray);
 			   // 
 			   // buttonNewPackage
 			   // 
@@ -87,11 +84,9 @@ namespace PSiO {
 			   this->buttonNewPackage->Name = L"buttonNewPackage";
 			   this->buttonNewPackage->Size = System::Drawing::Size(250, 50);
 			   this->buttonNewPackage->TabIndex = 0;
-			   this->buttonNewPackage->Text = L"NADAJ PACZK�";
+			   this->buttonNewPackage->Text = L"NADAJ PACZKĘ";
 			   this->buttonNewPackage->UseVisualStyleBackColor = false;
 			   this->buttonNewPackage->Click += gcnew System::EventHandler(this, &MyForm::buttonNewPackage_Click);
-			   this->buttonNewPackage->MouseEnter += gcnew System::EventHandler(this, &MyForm::button_MouseEnter);
-			   this->buttonNewPackage->MouseLeave += gcnew System::EventHandler(this, &MyForm::button_MouseLeave);
 			   // 
 			   // labelTitle
 			   // 
@@ -121,39 +116,22 @@ namespace PSiO {
 			   this->Text = L"System Kurierski";
 			   this->ResumeLayout(false);
 			   this->PerformLayout();
-
 		   }
 #pragma endregion
-	private: System::Void buttonLogin_Click(System::Object^ sender, System::EventArgs^ e) {
-		MyForm1^ loginForm = gcnew MyForm1();
-		loginForm->ShowDialog(this);
-	}
-	private: System::Void buttonNewPackage_Click(System::Object^ sender, System::EventArgs^ e) {
-		Formularz_paczki^ formularz = gcnew Formularz_paczki();
-		formularz->ShowDialog(this);
-	}
-	private: System::Void buttonExit_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (MessageBox::Show("Czy na pewno chcesz zamkn�� aplikacj�?", "Potwierdzenie Wyj�cia", MessageBoxButtons::YesNo, MessageBoxIcon::Question) == System::Windows::Forms::DialogResult::Yes)
-		{
-			Application::Exit();
+	private:
+		System::Void buttonLogin_Click(System::Object^ sender, System::EventArgs^ e) {
+			MyForm1^ loginForm = gcnew MyForm1();
+			loginForm->ShowDialog(this);
 		}
-	}
-
-	private: System::Void button_MouseEnter(System::Object^ sender, System::EventArgs^ e) {
-		Button^ button = safe_cast<Button^>(sender);
-		button->BackColor = Color::FromArgb(0, 142, 224);
-	}
-	private: System::Void button_MouseLeave(System::Object^ sender, System::EventArgs^ e) {
-		Button^ button = safe_cast<Button^>(sender);
-		button->BackColor = Color::FromArgb(0, 122, 204);
-	}
-	private: System::Void button_MouseEnter_Gray(System::Object^ sender, System::EventArgs^ e) {
-		Button^ button = safe_cast<Button^>(sender);
-		button->BackColor = Color::FromArgb(80, 80, 80);
-	}
-	private: System::Void button_MouseLeave_Gray(System::Object^ sender, System::EventArgs^ e) {
-		Button^ button = safe_cast<Button^>(sender);
-		button->BackColor = Color::FromArgb(50, 50, 50);
-	}
+		System::Void buttonNewPackage_Click(System::Object^ sender, System::EventArgs^ e) {
+			Formularz_paczki^ formularz = gcnew Formularz_paczki();
+			formularz->ShowDialog(this);
+		}
+		System::Void buttonExit_Click(System::Object^ sender, System::EventArgs^ e) {
+			if (MessageBox::Show("Czy na pewno chcesz zamknąć aplikację?", "Potwierdzenie Wyjścia", MessageBoxButtons::YesNo, MessageBoxIcon::Question) == System::Windows::Forms::DialogResult::Yes)
+			{
+				Application::Exit();
+			}
+		}
 	};
 }

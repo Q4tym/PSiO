@@ -2,34 +2,31 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <fstream>
-#include <sstream>
-#include <algorithm>
-#include <random>
-#include <iomanip>
-#include "json.hpp" // Potrzebne do wczytywania danych w Sortowni
+#include "json.hpp" // Do obsługi formatu JSON
 
-class Sortownia
-{
+// --- Deklaracje klas ---
+class Paczka; // Deklaracja wyprzedzająca
+
+// --- Klasa Sortownia ---
+class Sortownia {
 public:
-    // Enum class do wyboru kryterium sortowania - spe�nia wymaganie projektowe
+    // Enum do wyboru kryterium sortowania
     enum class KryteriumSortowania {
         WG_MIASTA,
         WG_KODU_POCZTOWEGO
     };
 
+    // Metody publiczne
     void wczytajPaczkiZPliku(const std::string& nazwaPliku);
     void sortujPaczki(KryteriumSortowania kryterium);
-
-    // Zwraca sta�� referencj� do wektora paczek
-    const std::vector<class Paczka>& getPaczki() const;
+    const std::vector<Paczka>& getPaczki() const;
 
 private:
-    std::vector<class Paczka> paczki; // Wektor do przechowywania paczek
+    std::vector<Paczka> paczki; // Wektor do przechowywania paczek
 };
 
-class Adres
-{
+// --- Klasy abstrakcyjne ---
+class Adres {
 public:
     std::string ulica;
     std::string miasto;
@@ -41,8 +38,7 @@ private:
     virtual void klasaWirtualnaAdres() = 0;
 };
 
-class Osoba
-{
+class Osoba {
 public:
     std::string imie;
     std::string nazwisko;
@@ -53,52 +49,44 @@ private:
     virtual void klasaWirtualnaOsoba() = 0;
 };
 
-class Nadawca : public Osoba, public Adres
-{
+// --- Klasy konkretne ---
+class Nadawca : public Osoba, public Adres {
 private:
-    void klasaWirtualnaOsoba() override {};
-    void klasaWirtualnaAdres() override {};
+    void klasaWirtualnaOsoba() override {}
+    void klasaWirtualnaAdres() override {}
 public:
     Nadawca() = default;
 };
 
-class Odbiorca : public Osoba, public Adres
-{
+class Odbiorca : public Osoba, public Adres {
 private:
-    void klasaWirtualnaOsoba() override {};
-    void klasaWirtualnaAdres() override {};
+    void klasaWirtualnaOsoba() override {}
+    void klasaWirtualnaAdres() override {}
 public:
     Odbiorca() = default;
 };
 
-class Paczka
-{
+// --- Klasa Paczka ---
+class Paczka {
 private:
     std::string numerPaczki;
     Nadawca nadawca;
     Odbiorca odbiorca;
 
-    std::string generateRandomPackageNumber() {
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::uniform_int_distribution<> distrib(100000, 999999);
-        return "PKZ" + std::to_string(distrib(gen));
-    }
+    // Prywatna metoda do generowania unikalnego numeru paczki
+    static std::string generateRandomPackageNumber();
 
 public:
     // Konstruktor do tworzenia NOWEJ paczki (generuje nowy numer)
-    Paczka(const Nadawca& n, const Odbiorca& o)
-        : numerPaczki(generateRandomPackageNumber()), nadawca(n), odbiorca(o) {
-    }
+    Paczka(const Nadawca& n, const Odbiorca& o);
 
-    // Konstruktor do wczytywania paczki Z PLIKU (u�ywa istniej�cego numeru)
-    Paczka(std::string num, const Nadawca& n, const Odbiorca& o)
-        : numerPaczki(std::move(num)), nadawca(n), odbiorca(o) {
-    }
+    // Konstruktor do wczytywania paczki Z PLIKU (używa istniejącego numeru)
+    Paczka(std::string num, const Nadawca& n, const Odbiorca& o);
 
+    // Gettery
     const Nadawca& getNadawca() const { return nadawca; }
     const Odbiorca& getOdbiorca() const { return odbiorca; }
     std::string getNumerPaczki() const { return numerPaczki; }
 
-    void paczkaPrzyjeta();
+    void paczkaPrzyjeta() const;
 };

@@ -186,5 +186,41 @@
             "imie": "s",
             "nazwisko": "s"
         }
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "miasto": "s"
+            },
+            "imie": "s",
+            "nazwisko": "s"
+        },
+        "numerPaczki": "PKZ437047",
+        "odbiorca": {
+            "adres": {
+                "miasto": "s"
+            },
+            "imie": "s",
+            "nazwisko": "s"
+        }
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "s",
+                "miasto": "s"
+            },
+            "imie": "ss",
+            "nazwisko": "s"
+        },
+        "numerPaczki": "PKZ899233",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "ss",
+                "miasto": "s"
+            },
+            "imie": "s",
+            "nazwisko": "s"
+        }
     }
 ]
