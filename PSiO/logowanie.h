@@ -1,16 +1,14 @@
 ﻿#pragma once
 
-#include string>
-#include fstream>
-#include vector>
-#include iomanip>
-#include streambuf>
+#include <string>
+#include <fstream>
+#include <vector>
+#include <iomanip>
+#include <streambuf>
 
 #include "json.hpp"
-#include "Utils.h" // Używamy centralnej funkcji toStdString
+#include "Utils.h" // Using central toStdString function
 #include "Formularz_Kuriera.h"
-
-// Removed #include Microsoft.VisualBasic.dll> - replaced by custom input dialog
 
 namespace PSiO {
 
@@ -21,11 +19,11 @@ namespace PSiO {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	// Custom InputDialog for password input instead of Microsoft.VisualBasic::Interaction::InputBox
+	// Custom InputDialog for password input (replaces Microsoft.VisualBasic interaction)
 	public ref class InputDialog : public Form {
 	public:
 		InputDialog(String^ prompt) {
-			this->Text = L"Wymagana Autoryzacja";
+			this->Text = L"Authorization Required";
 			this->Size = System::Drawing::Size(320, 150);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
 			this->StartPosition = FormStartPosition::CenterParent;
@@ -54,7 +52,7 @@ namespace PSiO {
 			this->AcceptButton = buttonOk;
 
 			Button^ buttonCancel = gcnew Button();
-			buttonCancel->Text = "Anuluj";
+			buttonCancel->Text = "Cancel";
 			buttonCancel->DialogResult = System::Windows::Forms::DialogResult::Cancel;
 			buttonCancel->Location = System::Drawing::Point(100, 75);
 			this->Controls->Add(buttonCancel);
@@ -78,7 +76,7 @@ namespace PSiO {
 			InitializeComponent();
 			this->textBoxPassword->PasswordChar = '*';
 			this->couriersFilename = "kurierzy.json";
-			this->adminPassword = "admin"; // Hasło administratora
+			this->adminPassword = "admin"; // Administrator password
 			this->labelStatus->Text = "";
 		}
 
@@ -120,119 +118,72 @@ namespace PSiO {
 			this->panelUsername->SuspendLayout();
 			this->panelPassword->SuspendLayout();
 			this->SuspendLayout();
-			// 
 			// labelUsername
-			// 
 			this->labelUsername->AutoSize = true;
 			this->labelUsername->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F));
 			this->labelUsername->ForeColor = System::Drawing::Color::Gainsboro;
 			this->labelUsername->Location = System::Drawing::Point(30, 30);
-			this->labelUsername->Name = L"labelUsername";
-			this->labelUsername->Size = System::Drawing::Size(124, 17);
-			this->labelUsername->TabIndex = 0;
-			this->labelUsername->Text = L"Nazwa użytkownika:";
-			// 
+			this->labelUsername->Text = L"Username:";
 			// panelUsername
-			// 
-			this->panelUsername->BackColor = System::Drawing::Color::FromArgb(static_castSystem::Int32 > (static_castSystem::Byte > (0)), static_castSystem::Int32 > (static_castSystem::Byte > (122)), static_castSystem::Int32 > (static_castSystem::Byte > (204)));
+			this->panelUsername->BackColor = System::Drawing::Color::FromArgb(0, 122, 204);
 			this->panelUsername->Controls->Add(this->textBoxUsername);
 			this->panelUsername->Location = System::Drawing::Point(33, 53);
-			this->panelUsername->Name = L"panelUsername";
 			this->panelUsername->Padding = System::Windows::Forms::Padding(1);
 			this->panelUsername->Size = System::Drawing::Size(254, 28);
-			this->panelUsername->TabIndex = 1;
-			// 
 			// textBoxUsername
-			// 
-			this->textBoxUsername->BackColor = System::Drawing::Color::FromArgb(static_castSystem::Int32 > (static_castSystem::Byte > (50)), static_castSystem::Int32 > (static_castSystem::Byte > (50)), static_castSystem::Int32 > (static_castSystem::Byte > (50)));
+			this->textBoxUsername->BackColor = System::Drawing::Color::FromArgb(50, 50, 50);
 			this->textBoxUsername->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBoxUsername->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->textBoxUsername->Font = (gcnew System::Drawing::Font(L"Segoe UI", 11.25F));
 			this->textBoxUsername->ForeColor = System::Drawing::Color::White;
-			this->textBoxUsername->Location = System::Drawing::Point(1, 1);
-			this->textBoxUsername->Name = L"textBoxUsername";
-			this->textBoxUsername->Size = System::Drawing::Size(252, 20);
-			this->textBoxUsername->TabIndex = 1;
-			// 
 			// labelPassword
-			// 
 			this->labelPassword->AutoSize = true;
 			this->labelPassword->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F));
 			this->labelPassword->ForeColor = System::Drawing::Color::Gainsboro;
 			this->labelPassword->Location = System::Drawing::Point(30, 95);
-			this->labelPassword->Name = L"labelPassword";
-			this->labelPassword->Size = System::Drawing::Size(44, 17);
-			this->labelPassword->TabIndex = 2;
-			this->labelPassword->Text = L"Hasło:";
-			// 
+			this->labelPassword->Text = L"Password:";
 			// panelPassword
-			// 
-			this->panelPassword->BackColor = System::Drawing::Color::FromArgb(static_castSystem::Int32 > (static_castSystem::Byte > (0)), static_castSystem::Int32 > (static_castSystem::Byte > (122)), static_castSystem::Int32 > (static_castSystem::Byte > (204)));
+			this->panelPassword->BackColor = System::Drawing::Color::FromArgb(0, 122, 204);
 			this->panelPassword->Controls->Add(this->textBoxPassword);
 			this->panelPassword->Location = System::Drawing::Point(33, 118);
-			this->panelPassword->Name = L"panelPassword";
 			this->panelPassword->Padding = System::Windows::Forms::Padding(1);
 			this->panelPassword->Size = System::Drawing::Size(254, 28);
-			this->panelPassword->TabIndex = 2;
-			// 
 			// textBoxPassword
-			// 
-			this->textBoxPassword->BackColor = System::Drawing::Color::FromArgb(static_castSystem::Int32 > (static_castSystem::Byte > (50)), static_castSystem::Int32 > (static_castSystem::Byte > (50)), static_castSystem::Int32 > (static_castSystem::Byte > (50)));
+			this->textBoxPassword->BackColor = System::Drawing::Color::FromArgb(50, 50, 50);
 			this->textBoxPassword->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBoxPassword->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->textBoxPassword->Font = (gcnew System::Drawing::Font(L"Segoe UI", 11.25F));
 			this->textBoxPassword->ForeColor = System::Drawing::Color::White;
-			this->textBoxPassword->Location = System::Drawing::Point(1, 1);
-			this->textBoxPassword->Name = L"textBoxPassword";
-			this->textBoxPassword->Size = System::Drawing::Size(252, 20);
-			this->textBoxPassword->TabIndex = 2;
-			// 
 			// buttonLoginCourier
-			// 
-			this->buttonLoginCourier->BackColor = System::Drawing::Color::FromArgb(static_castSystem::Int32 > (static_castSystem::Byte > (0)), static_castSystem::Int32 > (static_castSystem::Byte > (122)), static_castSystem::Int32 > (static_castSystem::Byte > (204)));
+			this->buttonLoginCourier->BackColor = System::Drawing::Color::FromArgb(0, 122, 204);
 			this->buttonLoginCourier->FlatAppearance->BorderSize = 0;
 			this->buttonLoginCourier->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->buttonLoginCourier->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F, System::Drawing::FontStyle::Bold));
 			this->buttonLoginCourier->ForeColor = System::Drawing::Color::White;
 			this->buttonLoginCourier->Location = System::Drawing::Point(33, 165);
-			this->buttonLoginCourier->Name = L"buttonLoginCourier";
 			this->buttonLoginCourier->Size = System::Drawing::Size(120, 35);
-			this->buttonLoginCourier->TabIndex = 3;
-			this->buttonLoginCourier->Text = L"Zaloguj";
-			this->buttonLoginCourier->UseVisualStyleBackColor = false;
+			this->buttonLoginCourier->Text = L"Login";
 			this->buttonLoginCourier->Click += gcnew System::EventHandler(this, &MyForm1::buttonLoginCourier_Click);
-			// 
 			// buttonRegisterCourier
-			// 
-			this->buttonRegisterCourier->BackColor = System::Drawing::Color::FromArgb(static_castSystem::Int32 > (static_castSystem::Byte > (50)), static_castSystem::Int32 > (static_castSystem::Byte > (50)), static_castSystem::Int32 > (static_castSystem::Byte > (50)));
+			this->buttonRegisterCourier->BackColor = System::Drawing::Color::FromArgb(50, 50, 50);
 			this->buttonRegisterCourier->FlatAppearance->BorderSize = 0;
 			this->buttonRegisterCourier->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->buttonRegisterCourier->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F));
 			this->buttonRegisterCourier->ForeColor = System::Drawing::Color::White;
 			this->buttonRegisterCourier->Location = System::Drawing::Point(167, 165);
-			this->buttonRegisterCourier->Name = L"buttonRegisterCourier";
 			this->buttonRegisterCourier->Size = System::Drawing::Size(120, 35);
-			this->buttonRegisterCourier->TabIndex = 4;
-			this->buttonRegisterCourier->Text = L"Rejestruj";
-			this->buttonRegisterCourier->UseVisualStyleBackColor = false;
+			this->buttonRegisterCourier->Text = L"Register";
 			this->buttonRegisterCourier->Click += gcnew System::EventHandler(this, &MyForm1::buttonRegisterCourier_Click);
-			// 
 			// labelStatus
-			// 
 			this->labelStatus->AutoSize = true;
 			this->labelStatus->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9));
 			this->labelStatus->ForeColor = System::Drawing::Color::White;
 			this->labelStatus->Location = System::Drawing::Point(30, 215);
-			this->labelStatus->Name = L"labelStatus";
-			this->labelStatus->Size = System::Drawing::Size(0, 15);
 			this->labelStatus->MinimumSize = System::Drawing::Size(260, 0);
-			this->labelStatus->TabIndex = 5;
-			// 
 			// MyForm1
-			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->BackColor = System::Drawing::Color::FromArgb(static_castSystem::Int32 > (static_castSystem::Byte > (30)), static_castSystem::Int32 > (static_castSystem::Byte > (30)), static_castSystem::Int32 > (static_castSystem::Byte > (30)));
+			this->BackColor = System::Drawing::Color::FromArgb(30, 30, 30);
 			this->ClientSize = System::Drawing::Size(320, 250);
 			this->Controls->Add(this->panelPassword);
 			this->Controls->Add(this->panelUsername);
@@ -244,13 +195,10 @@ namespace PSiO {
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
 			this->MaximizeBox = false;
 			this->MinimizeBox = false;
-			this->Name = L"MyForm1";
-			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterParent;
-			this->Text = L"Logowanie / Rejestracja Kuriera";
+			this->StartPosition = FormStartPosition::CenterParent;
+			this->Text = L"Courier Login / Registration";
 			this->panelUsername->ResumeLayout(false);
-			this->panelUsername->PerformLayout();
 			this->panelPassword->ResumeLayout(false);
-			this->panelPassword->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 		}
@@ -263,7 +211,7 @@ namespace PSiO {
 			if (!ifs.is_open()) {
 				return nlohmann::json::array();
 			}
-			std::string content((std::istreambuf_iteratorchar > (ifs)), std::istreambuf_iteratorchar > ());
+			std::string content((std::istreambuf_iterator<char>(ifs)), std::istreambuf_iterator<char>());
 			ifs.close();
 			if (content.empty()) {
 				return nlohmann::json::array();
@@ -281,7 +229,7 @@ namespace PSiO {
 			std::string fileNameStd = toStdString(this->couriersFilename);
 			std::ofstream ofs(fileNameStd);
 			if (ofs.is_open()) {
-				ofs  std::setw(4)  couriers_json_array  std::endl;
+				ofs << std::setw(4) << couriers_json_array << std::endl;
 				ofs.close();
 				return true;
 			}
@@ -289,13 +237,13 @@ namespace PSiO {
 		}
 
 		System::Void buttonRegisterCourier_Click(System::Object^ sender, System::EventArgs^ e) {
-			InputDialog^ inputDialog = gcnew InputDialog("Podaj hasło administratora, aby zarejestrować nowego kuriera:");
+			InputDialog^ inputDialog = gcnew InputDialog("Enter admin password to register a new courier:");
 			if (inputDialog->ShowDialog() != System::Windows::Forms::DialogResult::OK) {
 				return; // User cancelled
 			}
 			String^ inputPassword = inputDialog->GetInput();
 			if (inputPassword != this->adminPassword) {
-				MessageBox::Show("Błędne hasło administratora. Rejestracja anulowana.", "Błąd", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				MessageBox::Show("Incorrect administrator password. Registration cancelled.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 				return;
 			}
 
@@ -303,7 +251,7 @@ namespace PSiO {
 			std::string password = toStdString(this->textBoxPassword->Text);
 
 			if (username.empty() || password.empty()) {
-				this->labelStatus->Text = "Nazwa i hasło nie mogą być puste.";
+				this->labelStatus->Text = "Username and password cannot be empty.";
 				this->labelStatus->ForeColor = Color::Red;
 				return;
 			}
@@ -311,7 +259,7 @@ namespace PSiO {
 			nlohmann::json couriers = readCouriersFile();
 			for (const auto& courier : couriers) {
 				if (courier.is_object() && courier.contains("username") && courier["username"] == username) {
-					this->labelStatus->Text = "Ta nazwa użytkownika już istnieje.";
+					this->labelStatus->Text = "This username already exists.";
 					this->labelStatus->ForeColor = Color::Red;
 					return;
 				}
@@ -320,13 +268,13 @@ namespace PSiO {
 			couriers.push_back({ {"username", username}, {"password", password} });
 
 			if (writeCouriersFile(couriers)) {
-				this->labelStatus->Text = "Rejestracja zakończona pomyślnie.";
+				this->labelStatus->Text = "Registration successful.";
 				this->labelStatus->ForeColor = Color::Green;
 				this->textBoxUsername->Text = "";
 				this->textBoxPassword->Text = "";
 			}
 			else {
-				this->labelStatus->Text = "Błąd zapisu do pliku kurierów.";
+				this->labelStatus->Text = "Error writing to couriers file.";
 				this->labelStatus->ForeColor = Color::Red;
 			}
 		}
@@ -336,7 +284,7 @@ namespace PSiO {
 			std::string password = toStdString(this->textBoxPassword->Text);
 
 			if (username.empty() || password.empty()) {
-				this->labelStatus->Text = "Wprowadź nazwę użytkownika i hasło.";
+				this->labelStatus->Text = "Please enter username and password.";
 				this->labelStatus->ForeColor = Color::Red;
 				return;
 			}
@@ -352,7 +300,7 @@ namespace PSiO {
 			}
 
 			if (loggedIn) {
-				this->labelStatus->Text = "Logowanie pomyślne!";
+				this->labelStatus->Text = "Login successful!";
 				this->labelStatus->ForeColor = Color::Green;
 				this->DialogResult = System::Windows::Forms::DialogResult::OK;
 				this->Hide();
@@ -361,7 +309,7 @@ namespace PSiO {
 				this->Close();
 			}
 			else {
-				this->labelStatus->Text = "Nieprawidłowa nazwa lub hasło.";
+				this->labelStatus->Text = "Invalid username or password.";
 				this->labelStatus->ForeColor = Color::Red;
 			}
 		}

@@ -1,10 +1,10 @@
 ﻿#pragma once
 
 #include "Klasy.h"
-#include map>
-#include string>
-#include algorithm>
-#include msclr/marshal_cppstd.h>
+#include <map>
+#include <string>
+#include <algorithm>
+#include <msclr/marshal_cppstd.h>
 
 namespace PSiO {
 
@@ -15,10 +15,10 @@ namespace PSiO {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	// Struktura pomocnicza do sortowania mapy wg wartości
+	// Structure for sorting map entries by value
 	struct PorownajWpisyMapy {
-		bool operator()(const std::pairstd::string, int > & a, const std::pairstd::string, int > & b) const {
-			return a.second > b.second; // Sortowanie malejąco
+		bool operator()(const std::pair<std::string, int>& a, const std::pair<std::string, int>& b) const {
+			return a.second > b.second; // Descending sort
 		}
 	};
 
@@ -28,7 +28,7 @@ namespace PSiO {
 		Formularz_Kuriera(void)
 		{
 			InitializeComponent();
-			sortownia = new Sortownia(); // Utworzenie obiektu sortowni
+			sortownia = new Sortownia(); // Create sorting object
 			odswiezListePaczek(false);
 		}
 
@@ -39,7 +39,7 @@ namespace PSiO {
 			{
 				delete components;
 			}
-			delete sortownia; // Zwolnienie pamięci
+			delete sortownia; // Free memory
 		}
 
 	private:
@@ -74,10 +74,10 @@ namespace PSiO {
 			// 
 			// listViewPaczki
 			// 
-			this->listViewPaczki->Anchor = static_castSystem::Windows::Forms::AnchorStyles > ((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+			this->listViewPaczki->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
-			this->listViewPaczki->BackColor = System::Drawing::Color::FromArgb(static_castSystem::Int32 > (static_castSystem::Byte > (45)), static_castSystem::Int32 > (static_castSystem::Byte > (45)), static_castSystem::Int32 > (static_castSystem::Byte > (48)));
+			this->listViewPaczki->BackColor = System::Drawing::Color::FromArgb(45, 45, 48);
 			this->listViewPaczki->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->listViewPaczki->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F));
 			this->listViewPaczki->ForeColor = System::Drawing::Color::White;
@@ -147,7 +147,7 @@ namespace PSiO {
 			// 
 			// groupBoxStatystyki
 			// 
-			this->groupBoxStatystyki->Anchor = static_castSystem::Windows::Forms::AnchorStyles > (((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left) | System::Windows::Forms::AnchorStyles::Right));
+			this->groupBoxStatystyki->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left) | System::Windows::Forms::AnchorStyles::Right));
 			this->groupBoxStatystyki->Controls->Add(this->labelMiastoVal);
 			this->groupBoxStatystyki->Controls->Add(this->labelLiczbaPaczekVal);
 			this->groupBoxStatystyki->Controls->Add(this->labelStatMiasto);
@@ -204,7 +204,7 @@ namespace PSiO {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->BackColor = System::Drawing::Color::FromArgb(static_castSystem::Int32 > (static_castSystem::Byte > (30)), static_castSystem::Int32 > (static_castSystem::Byte > (30)), static_castSystem::Int32 > (static_castSystem::Byte > (30)));
+			this->BackColor = System::Drawing::Color::FromArgb(30, 30, 30);
 			this->ClientSize = System::Drawing::Size(784, 461);
 			this->Controls->Add(this->groupBoxStatystyki);
 			this->Controls->Add(this->labelInfo);
@@ -221,11 +221,12 @@ namespace PSiO {
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
+			// Bind events moved here for clarity (already done in designer above)
 		}
 #pragma endregion
 
 	private:
-		static bool comparePairs(const std::pairstd::string, int > & a, const std::pairstd::string, int > & b) {
+		static bool comparePairs(const std::pair<std::string, int>& a, const std::pair<std::string, int>& b) {
 			return a.second > b.second; // Sortowanie malejąco
 		}
 
@@ -237,9 +238,9 @@ namespace PSiO {
 				}
 				const auto& paczki = sortownia->getPaczki();
 				for (const auto& paczka : paczki) {
-					String^ numerPaczki = msclr::interop::marshal_asString^ > (paczka.getNumerPaczki());
-					String^ miasto = msclr::interop::marshal_asString^ > (paczka.getOdbiorca().miasto);
-					String^ kod = msclr::interop::marshal_asString^ > (paczka.getOdbiorca().kodPocztowy);
+					String^ numerPaczki = msclr::interop::marshal_as<String^>(paczka.getNumerPaczki());
+					String^ miasto = msclr::interop::marshal_as<String^>(paczka.getOdbiorca().miasto);
+					String^ kod = msclr::interop::marshal_as<String^>(paczka.getOdbiorca().kodPocztowy);
 					String^ status = "W sortowni";
 					ListViewItem^ item = gcnew ListViewItem(numerPaczki);
 					item->SubItems->Add(miasto);
@@ -251,7 +252,7 @@ namespace PSiO {
 				aktualizujStatystyki();
 			}
 			catch (const std::exception& e) {
-				System::String^ errorMessage = msclr::interop::marshal_asSystem::String^ > (e.what());
+				System::String^ errorMessage = msclr::interop::marshal_as<System::String^>(e.what());
 				MessageBox::Show("Wystąpił błąd podczas wczytywania paczek: " + errorMessage, "Błąd Pliku", MessageBoxButtons::OK, MessageBoxIcon::Error);
 			}
 		}
@@ -264,34 +265,39 @@ namespace PSiO {
 				labelMiastoVal->Text = "Brak";
 				return;
 			}
-			std::mapstd::string, int > licznikiMiast;
+			std::map<std::string, int> licznikiMiast;
 			for (const auto& paczka : paczki) {
 				if (!paczka.getOdbiorca().miasto.empty()) {
 					licznikiMiast[paczka.getOdbiorca().miasto]++;
 				}
 			}
-			if (licznikiMiast.empty()) {
-				labelMiastoVal->Text = "Brak";
-				return;
+			// Find the city with the maximum count
+			auto maxElement = std::max_element(
+				licznikiMiast.begin(), licznikiMiast.end(),
+				[](const std::pair<std::string, int>& a, const std::pair<std::string, int>& b) {
+					return a.second < b.second; // ascending for max
+				});
+			if (maxElement != licznikiMiast.end()) {
+				labelMiastoVal->Text = gcnew String(maxElement->first.c_str());
 			}
+			else {
+				labelMiastoVal->Text = "Brak";
+			}
+		}
 
-			auto najpopularniejsze = std::max_element(licznikiMiast.begin(), licznikiMiast.end(), comparePairs);
+		// Event handlers declarations
+		System::Void buttonSortujMiasto_Click(System::Object^ sender, System::EventArgs^ e) {
+			sortownia->sortujPoMiescie();
+			odswiezListePaczek(true);
+		}
 
-			String^ miasto = msclr::interop::marshal_asString^ > (najpopularniejsze->first);
-			String^ ilosc = String::Format("({0} szt.)", najpopularniejsze->second);
-			labelMiastoVal->Text = String::Format("{0} {1}", miasto, ilosc);
+		System::Void buttonSortujKod_Click(System::Object^ sender, System::EventArgs^ e) {
+			sortownia->sortujPoKodzie();
+			odswiezListePaczek(true);
 		}
 
 		System::Void buttonOdswiez_Click(System::Object^ sender, System::EventArgs^ e) {
 			odswiezListePaczek(false);
-		}
-		System::Void buttonSortujMiasto_Click(System::Object^ sender, System::EventArgs^ e) {
-			sortownia->sortujPaczki(Sortownia::KryteriumSortowania::WG_MIASTA);
-			odswiezListePaczek(true);
-		}
-		System::Void buttonSortujKod_Click(System::Object^ sender, System::EventArgs^ e) {
-			sortownia->sortujPaczki(Sortownia::KryteriumSortowania::WG_KODU_POCZTOWEGO);
-			odswiezListePaczek(true);
 		}
 	};
 }
