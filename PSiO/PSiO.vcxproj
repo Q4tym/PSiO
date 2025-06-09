@@ -126,12 +126,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Formularz_paczki.cpp" />
-    <ClCompile Include="Interop\void.cpp" />
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="Klasy.cpp" />
     <ClCompile Include="MyForm1.cpp" />
-    <ClCompile Include="void.cpp" />
-    <ClCompile Include="x64\void.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Formularz_Kuriera.h" />
