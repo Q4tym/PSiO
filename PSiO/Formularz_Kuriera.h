@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "Klasy.h" // Assuming Klasy.h defines Sortownia, Paczka, etc.
+#include "Klasy.h"
 #include <map>
 #include <string>
 #include <algorithm>
@@ -15,12 +15,15 @@ namespace PSiO {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	// Structure for sorting map entries by value (if needed directly, though std::max_element is used differently below)
-	struct PorownajWpisyMapy {
-		bool operator()(const std::pair<std::string, int>& a, const std::pair<std::string, int>& b) const {
-			return a.second > b.second; // Descending sort
-		}
-	};
+	//
+	// --- POPRAWKA: Dodanie słowa kluczowego 'inline' ---
+	// Słowo 'inline' rozwiązuje błąd wielokrotnej definicji symbolu (LNK2005),
+	// informując linker, że ma scalić wszystkie kopie tej funkcji w jedną.
+	//
+	inline bool compareMapPairValues(const std::pair<std::string, int>& a, const std::pair<std::string, int>& b) {
+		return a.second < b.second;
+	}
+
 
 	public ref class Formularz_Kuriera : public System::Windows::Forms::Form
 	{
@@ -28,7 +31,7 @@ namespace PSiO {
 		Formularz_Kuriera(void)
 		{
 			InitializeComponent();
-			sortownia = new Sortownia(); // Create sorting object
+			sortownia = new Sortownia();
 			odswiezListePaczek(false);
 		}
 
@@ -39,7 +42,7 @@ namespace PSiO {
 			{
 				delete components;
 			}
-			delete sortownia; // Free memory
+			delete sortownia;
 		}
 
 	private:
@@ -221,33 +224,22 @@ namespace PSiO {
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
-			// Bind events moved here for clarity (already done in designer above)
 		}
 #pragma endregion
 
 	private:
-		// Event handlers for the buttons
 		System::Void buttonOdswiez_Click(System::Object^ sender, System::EventArgs^ e) {
 			odswiezListePaczek(false);
 		}
 
 		System::Void buttonSortujMiasto_Click(System::Object^ sender, System::EventArgs^ e) {
-			// Placeholder: Assuming Sortownia has this method
-			// You need to implement Sortownia::sortujPaczkiPoMiescie() in Klasy.h or Klasy.cpp
-			sortownia->sortujPaczkiPoMiescie(); //
-			odswiezListePaczek(true); // Pass true to indicate sorted data is already loaded
+			sortownia->sortujPaczki(Sortownia::KryteriumSortowania::WG_MIASTA);
+			odswiezListePaczek(true);
 		}
 
 		System::Void buttonSortujKod_Click(System::Object^ sender, System::EventArgs^ e) {
-			// Placeholder: Assuming Sortownia has this method
-			// You need to implement Sortownia::sortujPaczkiPoKodziePocztowym() in Klasy.h or Klasy.cpp
-			sortownia->sortujPaczkiPoKodziePocztowym(); //
-			odswiezListePaczek(true); // Pass true to indicate sorted data is already loaded
-		}
-
-		// Helper function for std::max_element to avoid C3923/E2093 with local lambda in managed classes
-		static bool compareMapPairValues(const std::pair<std::string, int>& a, const std::pair<std::string, int>& b) {
-			return a.second < b.second; // Used for std::max_element to find the element with the largest 'second' value
+			sortownia->sortujPaczki(Sortownia::KryteriumSortowania::WG_KODU_POCZTOWEGO);
+			odswiezListePaczek(true);
 		}
 
 		void odswiezListePaczek(bool posortowane) {
@@ -292,10 +284,9 @@ namespace PSiO {
 				}
 			}
 
-			// Use the static helper function for comparison
 			auto maxElement = std::max_element(
 				licznikiMiast.begin(), licznikiMiast.end(),
-				&Formularz_Kuriera::compareMapPairValues); // Fixed to use static member function
+				compareMapPairValues);
 
 			if (maxElement != licznikiMiast.end()) {
 				labelMiastoVal->Text = gcnew String(maxElement->first.c_str());

@@ -142,6 +142,7 @@
     <ClInclude Include="logowanie.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Sortownia.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
