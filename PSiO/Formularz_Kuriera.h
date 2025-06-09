@@ -283,21 +283,3 @@ namespace PSiO {
 			else {
 				labelMiastoVal->Text = "Brak";
 			}
-		}
-
-		// Event handlers declarations
-		System::Void buttonSortujMiasto_Click(System::Object^ sender, System::EventArgs^ e) {
-			sortownia->sortujPoMiescie();
-			odswiezListePaczek(true);
-		}
-
-		System::Void buttonSortujKod_Click(System::Object^ sender, System::EventArgs^ e) {
-			sortownia->sortujPoKodzie();
-			odswiezListePaczek(true);
-		}
-
-		System::Void buttonOdswiez_Click(System::Object^ sender, System::EventArgs^ e) {
-			odswiezListePaczek(false);
-		}
-	};
-}
