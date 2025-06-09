@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include "Klasy.h" 
-#include "json.hpp" 
+#include "Klasy.h"
+#include "json.hpp"
 #include "Utils.h" // Używamy centralnej funkcji toStdString
 #include <iomanip>
 #include <fstream>
@@ -14,7 +14,6 @@ namespace PSiO {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
-	using namespace System::Media;
 
 	public ref class Formularz_paczki : public System::Windows::Forms::Form
 	{
@@ -40,6 +39,9 @@ namespace PSiO {
 		System::Windows::Forms::Label^ labelOdbiorca;
 		System::Windows::Forms::Button^ buttonUtworz;
 		System::Windows::Forms::Timer^ animationTimer;
+		System::Windows::Forms::Timer^ fadeOutTimer;
+		System::Windows::Forms::Timer^ fadeInTimer;
+		int fadeStep;
 
 		// Kontrolki wejściowe zgrupowane dla łatwiejszego zarządzania
 		System::Collections::Generic::List<TextBox^>^ inputTextBoxes;
@@ -48,6 +50,8 @@ namespace PSiO {
 		System::Windows::Forms::Panel^ panelKodKreskowy;
 		System::Windows::Forms::Label^ labelNumerPaczki;
 		System::Windows::Forms::Label^ labelTytulKodu;
+
+		SoundPlayer^ successSound;
 
 		System::ComponentModel::Container^ components;
 
@@ -62,6 +66,8 @@ namespace PSiO {
 			this->labelNumerPaczki = (gcnew System::Windows::Forms::Label());
 			this->labelTytulKodu = (gcnew System::Windows::Forms::Label());
 			this->animationTimer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->fadeOutTimer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->fadeInTimer = (gcnew System::Windows::Forms::Timer(this->components));
 
 			this->inputTextBoxes = gcnew System::Collections::Generic::List<TextBox^>();
 			for (int i = 0; i < 18; ++i) {
@@ -71,20 +77,27 @@ namespace PSiO {
 			this->panelKodKreskowy->SuspendLayout();
 			this->SuspendLayout();
 
-			// Etykiety
+			// 
+			// labelNadawca
+			// 
 			this->labelNadawca->AutoSize = true;
 			this->labelNadawca->Font = (gcnew System::Drawing::Font(L"Segoe UI", 14.25F, System::Drawing::FontStyle::Bold));
 			this->labelNadawca->ForeColor = System::Drawing::Color::FromArgb(0, 122, 204);
 			this->labelNadawca->Location = System::Drawing::Point(22, 20);
 			this->labelNadawca->Text = L"NADAWCA";
 
+			// 
+			// labelOdbiorca
+			// 
 			this->labelOdbiorca->AutoSize = true;
 			this->labelOdbiorca->Font = (gcnew System::Drawing::Font(L"Segoe UI", 14.25F, System::Drawing::FontStyle::Bold));
 			this->labelOdbiorca->ForeColor = System::Drawing::Color::FromArgb(0, 122, 204);
 			this->labelOdbiorca->Location = System::Drawing::Point(305, 20);
 			this->labelOdbiorca->Text = L"ODBIORCA";
 
+			// 
 			// TextBoxes
+			// 
 			int startXNadawca = 27, startXOdbiorca = 310, startY = 60, stepY = 35;
 			for (int i = 0; i < 18; ++i) {
 				TextBox^ tb = this->inputTextBoxes[i];
@@ -99,7 +112,9 @@ namespace PSiO {
 				this->Controls->Add(tb);
 			}
 
-			// Przycisk
+			// 
+			// buttonUtworz
+			// 
 			this->buttonUtworz->BackColor = System::Drawing::Color::FromArgb(0, 122, 204);
 			this->buttonUtworz->FlatAppearance->BorderSize = 0;
 			this->buttonUtworz->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
@@ -111,7 +126,9 @@ namespace PSiO {
 			this->buttonUtworz->UseVisualStyleBackColor = false;
 			this->buttonUtworz->Click += gcnew System::EventHandler(this, &Formularz_paczki::buttonUtworz_Click);
 
-			// Etykieta wygenerowanego kodu (początkowo niewidoczna)
+			// 
+			// labelTytulKodu
+			// 
 			this->labelTytulKodu->AutoSize = true;
 			this->labelTytulKodu->Font = (gcnew System::Drawing::Font(L"Segoe UI", 12, System::Drawing::FontStyle::Bold));
 			this->labelTytulKodu->ForeColor = System::Drawing::Color::FromArgb(0, 122, 204);
@@ -119,7 +136,9 @@ namespace PSiO {
 			this->labelTytulKodu->Text = L"Etykieta została wygenerowana:";
 			this->labelTytulKodu->Visible = false;
 
-			// Panel kodu kreskowego
+			// 
+			// panelKodKreskowy
+			// 
 			this->panelKodKreskowy->Controls->Add(this->labelNumerPaczki);
 			this->panelKodKreskowy->Location = System::Drawing::Point(40, 480);
 			this->panelKodKreskowy->Size = System::Drawing::Size(500, 150);
@@ -130,11 +149,27 @@ namespace PSiO {
 			this->labelNumerPaczki->ForeColor = System::Drawing::Color::White;
 			this->labelNumerPaczki->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 
-			// Timer do animacji
+			// 
+			// animationTimer
+			// 
 			this->animationTimer->Interval = 15;
 			this->animationTimer->Tick += gcnew System::EventHandler(this, &Formularz_paczki::animationTimer_Tick);
 
-			// Główny formularz
+			// 
+			// fadeOutTimer
+			// 
+			this->fadeOutTimer->Interval = 30;
+			this->fadeOutTimer->Tick += gcnew System::EventHandler(this, &Formularz_paczki::fadeOutTimer_Tick);
+
+			// 
+			// fadeInTimer
+			// 
+			this->fadeInTimer->Interval = 30;
+			this->fadeInTimer->Tick += gcnew System::EventHandler(this, &Formularz_paczki::fadeInTimer_Tick);
+
+			// 
+			// Formularz_paczki
+			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(30, 30, 30);
@@ -152,6 +187,9 @@ namespace PSiO {
 			this->panelKodKreskowy->ResumeLayout(false);
 			this->ResumeLayout(false);
 			this->PerformLayout();
+
+			// Load custom sound
+			this->successSound = gcnew SoundPlayer("success.wav");
 		}
 #pragma endregion
 
@@ -251,49 +289,19 @@ namespace PSiO {
 				ofs << std::setw(4) << existing_data_array << std::endl;
 				ofs.close();
 
-				MessageBox::Show("Paczka została pomyślnie zarejestrowana!\nNumer: " + this->numerWygenerowanejPaczki, "Sukces", MessageBoxButtons::OK, MessageBoxIcon::Information);
-				SystemSounds::Asterisk->Play();
+				// Play fancy sound on success
+				this->successSound->Play();
 
-				// Uruchomienie animacji
-				animationTimer->Start();
+				// Start animation sequence
+				fadeStep = 20;
+				fadeOutTimer->Start();
+
+				MessageBox::Show("Paczka została pomyślnie zarejestrowana!\nNumer: " + this->numerWygenerowanejPaczki, "Sukces", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			}
 			else {
 				MessageBox::Show("Błąd: Nie można zapisać pliku paczka_data.json", "Błąd Zapisu", MessageBoxButtons::OK, MessageBoxIcon::Error);
 			}
-			paczka.paczkaPrzyjeta();
 		}
 
-		// --- NOWA FUNKCJA: Animacja po utworzeniu paczki ---
-		System::Void animationTimer_Tick(System::Object^ sender, System::EventArgs^ e) {
-			bool animationFinished = true;
-
-			// Krok 1: Ukryj kontrolki wejściowe
-			for each (TextBox ^ tb in this->inputTextBoxes) {
-				if (tb->Visible) {
-					animationFinished = false;
-					tb->Visible = false;
-				}
-			}
-			if (this->labelNadawca->Visible) this->labelNadawca->Visible = false;
-			if (this->labelOdbiorca->Visible) this->labelOdbiorca->Visible = false;
-
-			// Krok 2: Pokaż kontrolki wyjściowe
-			this->labelTytulKodu->Visible = true;
-			this->panelKodKreskowy->Visible = true;
-			this->labelNumerPaczki->Text = this->numerWygenerowanejPaczki;
-			this->panelKodKreskowy->Refresh();
-
-			// Krok 3: Zmień przycisk i zatrzymaj timer
-			if (animationFinished) {
-				this->buttonUtworz->Text = "Zamknij";
-				this->buttonUtworz->Click -= gcnew System::EventHandler(this, &Formularz_paczki::buttonUtworz_Click);
-				this->buttonUtworz->Click += gcnew System::EventHandler(this, &Formularz_paczki::buttonZamknij_Click);
-				animationTimer->Stop();
-			}
-		}
-
-		System::Void buttonZamknij_Click(System::Object^ sender, System::EventArgs^ e) {
-			this->Close();
-		}
-	};
-}
+		// Animation step timers
+		System

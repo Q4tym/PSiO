@@ -1,16 +1,16 @@
 ﻿#pragma once
 
-#include <string>
-#include <fstream>
-#include <vector>
-#include <iomanip>
-#include <streambuf>
+#include string>
+#include fstream>
+#include vector>
+#include iomanip>
+#include streambuf>
 
 #include "json.hpp"
 #include "Utils.h" // Używamy centralnej funkcji toStdString
 #include "Formularz_Kuriera.h"
 
-// Removed #include <Microsoft.VisualBasic.dll> - replaced by custom input dialog
+// Removed #include Microsoft.VisualBasic.dll> - replaced by custom input dialog
 
 namespace PSiO {
 
@@ -134,7 +134,7 @@ namespace PSiO {
 			// 
 			// panelUsername
 			// 
-			this->panelUsername->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(122)), static_cast<System::Int32>(static_cast<System::Byte>(204)));
+			this->panelUsername->BackColor = System::Drawing::Color::FromArgb(static_castSystem::Int32 > (static_castSystem::Byte > (0)), static_castSystem::Int32 > (static_castSystem::Byte > (122)), static_castSystem::Int32 > (static_castSystem::Byte > (204)));
 			this->panelUsername->Controls->Add(this->textBoxUsername);
 			this->panelUsername->Location = System::Drawing::Point(33, 53);
 			this->panelUsername->Name = L"panelUsername";
@@ -144,7 +144,7 @@ namespace PSiO {
 			// 
 			// textBoxUsername
 			// 
-			this->textBoxUsername->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)));
+			this->textBoxUsername->BackColor = System::Drawing::Color::FromArgb(static_castSystem::Int32 > (static_castSystem::Byte > (50)), static_castSystem::Int32 > (static_castSystem::Byte > (50)), static_castSystem::Int32 > (static_castSystem::Byte > (50)));
 			this->textBoxUsername->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBoxUsername->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->textBoxUsername->Font = (gcnew System::Drawing::Font(L"Segoe UI", 11.25F));
@@ -167,7 +167,7 @@ namespace PSiO {
 			// 
 			// panelPassword
 			// 
-			this->panelPassword->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(122)), static_cast<System::Int32>(static_cast<System::Byte>(204)));
+			this->panelPassword->BackColor = System::Drawing::Color::FromArgb(static_castSystem::Int32 > (static_castSystem::Byte > (0)), static_castSystem::Int32 > (static_castSystem::Byte > (122)), static_castSystem::Int32 > (static_castSystem::Byte > (204)));
 			this->panelPassword->Controls->Add(this->textBoxPassword);
 			this->panelPassword->Location = System::Drawing::Point(33, 118);
 			this->panelPassword->Name = L"panelPassword";
@@ -177,7 +177,7 @@ namespace PSiO {
 			// 
 			// textBoxPassword
 			// 
-			this->textBoxPassword->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)));
+			this->textBoxPassword->BackColor = System::Drawing::Color::FromArgb(static_castSystem::Int32 > (static_castSystem::Byte > (50)), static_castSystem::Int32 > (static_castSystem::Byte > (50)), static_castSystem::Int32 > (static_castSystem::Byte > (50)));
 			this->textBoxPassword->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBoxPassword->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->textBoxPassword->Font = (gcnew System::Drawing::Font(L"Segoe UI", 11.25F));
@@ -189,7 +189,7 @@ namespace PSiO {
 			// 
 			// buttonLoginCourier
 			// 
-			this->buttonLoginCourier->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(122)), static_cast<System::Int32>(static_cast<System::Byte>(204)));
+			this->buttonLoginCourier->BackColor = System::Drawing::Color::FromArgb(static_castSystem::Int32 > (static_castSystem::Byte > (0)), static_castSystem::Int32 > (static_castSystem::Byte > (122)), static_castSystem::Int32 > (static_castSystem::Byte > (204)));
 			this->buttonLoginCourier->FlatAppearance->BorderSize = 0;
 			this->buttonLoginCourier->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->buttonLoginCourier->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F, System::Drawing::FontStyle::Bold));
@@ -204,7 +204,7 @@ namespace PSiO {
 			// 
 			// buttonRegisterCourier
 			// 
-			this->buttonRegisterCourier->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)));
+			this->buttonRegisterCourier->BackColor = System::Drawing::Color::FromArgb(static_castSystem::Int32 > (static_castSystem::Byte > (50)), static_castSystem::Int32 > (static_castSystem::Byte > (50)), static_castSystem::Int32 > (static_castSystem::Byte > (50)));
 			this->buttonRegisterCourier->FlatAppearance->BorderSize = 0;
 			this->buttonRegisterCourier->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->buttonRegisterCourier->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F));
@@ -232,7 +232,7 @@ namespace PSiO {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(30)), static_cast<System::Int32>(static_cast<System::Byte>(30)), static_cast<System::Int32>(static_cast<System::Byte>(30)));
+			this->BackColor = System::Drawing::Color::FromArgb(static_castSystem::Int32 > (static_castSystem::Byte > (30)), static_castSystem::Int32 > (static_castSystem::Byte > (30)), static_castSystem::Int32 > (static_castSystem::Byte > (30)));
 			this->ClientSize = System::Drawing::Size(320, 250);
 			this->Controls->Add(this->panelPassword);
 			this->Controls->Add(this->panelUsername);
@@ -263,7 +263,7 @@ namespace PSiO {
 			if (!ifs.is_open()) {
 				return nlohmann::json::array();
 			}
-			std::string content((std::istreambuf_iterator<char>(ifs)), std::istreambuf_iterator<char>());
+			std::string content((std::istreambuf_iteratorchar > (ifs)), std::istreambuf_iteratorchar > ());
 			ifs.close();
 			if (content.empty()) {
 				return nlohmann::json::array();
@@ -281,7 +281,7 @@ namespace PSiO {
 			std::string fileNameStd = toStdString(this->couriersFilename);
 			std::ofstream ofs(fileNameStd);
 			if (ofs.is_open()) {
-				ofs << std::setw(4) << couriers_json_array << std::endl;
+				ofs  std::setw(4)  couriers_json_array  std::endl;
 				ofs.close();
 				return true;
 			}
