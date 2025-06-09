@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "Klasy.h"
+#include "Klasy.h" // Assuming Klasy.h defines Sortownia, Paczka, etc.
 #include <map>
 #include <string>
 #include <algorithm>
@@ -15,7 +15,7 @@ namespace PSiO {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	// Structure for sorting map entries by value
+	// Structure for sorting map entries by value (if needed directly, though std::max_element is used differently below)
 	struct PorownajWpisyMapy {
 		bool operator()(const std::pair<std::string, int>& a, const std::pair<std::string, int>& b) const {
 			return a.second > b.second; // Descending sort
@@ -71,9 +71,9 @@ namespace PSiO {
 			this->labelStatLiczbaPaczek = (gcnew System::Windows::Forms::Label());
 			this->groupBoxStatystyki->SuspendLayout();
 			this->SuspendLayout();
-			// 
+			//
 			// listViewPaczki
-			// 
+			//
 			this->listViewPaczki->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
@@ -93,9 +93,9 @@ namespace PSiO {
 			this->listViewPaczki->Columns->Add("Miasto Odbiorcy", 150);
 			this->listViewPaczki->Columns->Add("Kod Pocztowy", 120);
 			this->listViewPaczki->Columns->Add("Status", 100);
-			// 
+			//
 			// buttonOdswiez
-			// 
+			//
 			this->buttonOdswiez->BackColor = System::Drawing::Color::FromArgb(0, 122, 204);
 			this->buttonOdswiez->FlatAppearance->BorderSize = 0;
 			this->buttonOdswiez->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
@@ -107,9 +107,9 @@ namespace PSiO {
 			this->buttonOdswiez->Text = L"Odśwież Listę";
 			this->buttonOdswiez->UseVisualStyleBackColor = false;
 			this->buttonOdswiez->Click += gcnew System::EventHandler(this, &Formularz_Kuriera::buttonOdswiez_Click);
-			// 
+			//
 			// buttonSortujMiasto
-			// 
+			//
 			this->buttonSortujMiasto->BackColor = System::Drawing::Color::FromArgb(50, 50, 50);
 			this->buttonSortujMiasto->FlatAppearance->BorderSize = 0;
 			this->buttonSortujMiasto->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
@@ -121,9 +121,9 @@ namespace PSiO {
 			this->buttonSortujMiasto->Text = L"Sortuj wg Miasta";
 			this->buttonSortujMiasto->UseVisualStyleBackColor = false;
 			this->buttonSortujMiasto->Click += gcnew System::EventHandler(this, &Formularz_Kuriera::buttonSortujMiasto_Click);
-			// 
+			//
 			// buttonSortujKod
-			// 
+			//
 			this->buttonSortujKod->BackColor = System::Drawing::Color::FromArgb(50, 50, 50);
 			this->buttonSortujKod->FlatAppearance->BorderSize = 0;
 			this->buttonSortujKod->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
@@ -135,18 +135,18 @@ namespace PSiO {
 			this->buttonSortujKod->Text = L"Sortuj wg Kodu Pocz.";
 			this->buttonSortujKod->UseVisualStyleBackColor = false;
 			this->buttonSortujKod->Click += gcnew System::EventHandler(this, &Formularz_Kuriera::buttonSortujKod_Click);
-			// 
+			//
 			// labelInfo
-			// 
+			//
 			this->labelInfo->AutoSize = true;
 			this->labelInfo->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F));
 			this->labelInfo->ForeColor = System::Drawing::Color::Gainsboro;
 			this->labelInfo->Location = System::Drawing::Point(450, 20);
 			this->labelInfo->Name = L"labelInfo";
 			this->labelInfo->Text = L"Panel kuriera - lista paczek w systemie.";
-			// 
+			//
 			// groupBoxStatystyki
-			// 
+			//
 			this->groupBoxStatystyki->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left) | System::Windows::Forms::AnchorStyles::Right));
 			this->groupBoxStatystyki->Controls->Add(this->labelMiastoVal);
 			this->groupBoxStatystyki->Controls->Add(this->labelLiczbaPaczekVal);
@@ -159,9 +159,9 @@ namespace PSiO {
 			this->groupBoxStatystyki->Size = System::Drawing::Size(760, 73);
 			this->groupBoxStatystyki->TabStop = false;
 			this->groupBoxStatystyki->Text = L"Panel Statystyk";
-			// 
+			//
 			// labelMiastoVal
-			// 
+			//
 			this->labelMiastoVal->AutoSize = true;
 			this->labelMiastoVal->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F, System::Drawing::FontStyle::Bold));
 			this->labelMiastoVal->ForeColor = System::Drawing::Color::White;
@@ -169,9 +169,9 @@ namespace PSiO {
 			this->labelMiastoVal->Name = L"labelMiastoVal";
 			this->labelMiastoVal->Size = System::Drawing::Size(36, 17);
 			this->labelMiastoVal->Text = L"Brak";
-			// 
+			//
 			// labelLiczbaPaczekVal
-			// 
+			//
 			this->labelLiczbaPaczekVal->AutoSize = true;
 			this->labelLiczbaPaczekVal->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F, System::Drawing::FontStyle::Bold));
 			this->labelLiczbaPaczekVal->ForeColor = System::Drawing::Color::White;
@@ -179,9 +179,9 @@ namespace PSiO {
 			this->labelLiczbaPaczekVal->Name = L"labelLiczbaPaczekVal";
 			this->labelLiczbaPaczekVal->Size = System::Drawing::Size(15, 17);
 			this->labelLiczbaPaczekVal->Text = L"0";
-			// 
+			//
 			// labelStatMiasto
-			// 
+			//
 			this->labelStatMiasto->AutoSize = true;
 			this->labelStatMiasto->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F));
 			this->labelStatMiasto->ForeColor = System::Drawing::Color::Gainsboro;
@@ -189,9 +189,9 @@ namespace PSiO {
 			this->labelStatMiasto->Name = L"labelStatMiasto";
 			this->labelStatMiasto->Size = System::Drawing::Size(183, 17);
 			this->labelStatMiasto->Text = L"Najpopularniejsze miasto celu:";
-			// 
+			//
 			// labelStatLiczbaPaczek
-			// 
+			//
 			this->labelStatLiczbaPaczek->AutoSize = true;
 			this->labelStatLiczbaPaczek->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F));
 			this->labelStatLiczbaPaczek->ForeColor = System::Drawing::Color::Gainsboro;
@@ -199,9 +199,9 @@ namespace PSiO {
 			this->labelStatLiczbaPaczek->Name = L"labelStatLiczbaPaczek";
 			this->labelStatLiczbaPaczek->Size = System::Drawing::Size(147, 17);
 			this->labelStatLiczbaPaczek->Text = L"Całkowita liczba paczek:";
-			// 
+			//
 			// Formularz_Kuriera
-			// 
+			//
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(30, 30, 30);
@@ -226,8 +226,28 @@ namespace PSiO {
 #pragma endregion
 
 	private:
-		static bool comparePairs(const std::pair<std::string, int>& a, const std::pair<std::string, int>& b) {
-			return a.second > b.second; // Sortowanie malejąco
+		// Event handlers for the buttons
+		System::Void buttonOdswiez_Click(System::Object^ sender, System::EventArgs^ e) {
+			odswiezListePaczek(false);
+		}
+
+		System::Void buttonSortujMiasto_Click(System::Object^ sender, System::EventArgs^ e) {
+			// Placeholder: Assuming Sortownia has this method
+			// You need to implement Sortownia::sortujPaczkiPoMiescie() in Klasy.h or Klasy.cpp
+			sortownia->sortujPaczkiPoMiescie(); //
+			odswiezListePaczek(true); // Pass true to indicate sorted data is already loaded
+		}
+
+		System::Void buttonSortujKod_Click(System::Object^ sender, System::EventArgs^ e) {
+			// Placeholder: Assuming Sortownia has this method
+			// You need to implement Sortownia::sortujPaczkiPoKodziePocztowym() in Klasy.h or Klasy.cpp
+			sortownia->sortujPaczkiPoKodziePocztowym(); //
+			odswiezListePaczek(true); // Pass true to indicate sorted data is already loaded
+		}
+
+		// Helper function for std::max_element to avoid C3923/E2093 with local lambda in managed classes
+		static bool compareMapPairValues(const std::pair<std::string, int>& a, const std::pair<std::string, int>& b) {
+			return a.second < b.second; // Used for std::max_element to find the element with the largest 'second' value
 		}
 
 		void odswiezListePaczek(bool posortowane) {
@@ -271,15 +291,18 @@ namespace PSiO {
 					licznikiMiast[paczka.getOdbiorca().miasto]++;
 				}
 			}
-			// Find the city with the maximum count
+
+			// Use the static helper function for comparison
 			auto maxElement = std::max_element(
 				licznikiMiast.begin(), licznikiMiast.end(),
-				[](const std::pair<std::string, int>& a, const std::pair<std::string, int>& b) {
-					return a.second < b.second; // ascending for max
-				});
+				&Formularz_Kuriera::compareMapPairValues); // Fixed to use static member function
+
 			if (maxElement != licznikiMiast.end()) {
 				labelMiastoVal->Text = gcnew String(maxElement->first.c_str());
 			}
 			else {
 				labelMiastoVal->Text = "Brak";
 			}
+		}
+	};
+}
