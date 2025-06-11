@@ -241,5 +241,43 @@
             "imie": "s",
             "nazwisko": "s"
         }
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "s",
+                "miasto": "s"
+            },
+            "imie": "s",
+            "nazwisko": "s"
+        },
+        "numerPaczki": "PKZ992546",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "s",
+                "miasto": "s"
+            },
+            "imie": "s",
+            "nazwisko": "s"
+        }
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "s",
+                "miasto": "s"
+            },
+            "imie": "s",
+            "nazwisko": "s"
+        },
+        "numerPaczki": "PKZ187203",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "s",
+                "miasto": "s"
+            },
+            "imie": "s",
+            "nazwisko": "s"
+        }
     }
 ]

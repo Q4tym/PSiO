@@ -7,6 +7,7 @@
 #include "json.hpp"
 #include "Klasy.h"
 #include "Utils.h" // Konwersja String^ na std::string
+#include "EtykietaForm.h" // Dołączony nowy plik nagłówkowy
 
 namespace PSiO {
 
@@ -522,12 +523,19 @@ namespace PSiO {
 			ofs << std::setw(4) << paczkiJson << std::endl;
 			ofs.close();
 
-			MessageBox::Show("Paczka o numerze " + msclr::interop::marshal_as<String^>(nowaPaczka.getNumerPaczki()) + " została pomyślnie nadana!", "Sukces", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			String^ numerPaczki = msclr::interop::marshal_as<String^>(nowaPaczka.getNumerPaczki());
+			MessageBox::Show("Paczka o numerze " + numerPaczki + " została pomyślnie nadana!", "Sukces", MessageBoxButtons::OK, MessageBoxIcon::Information);
 
-			// Pokaż animację i zamknij formularz
+			// Pokaż animację
 			this->Hide();
 			AnimationForm^ animForm = gcnew AnimationForm();
 			animForm->ShowDialog();
+
+			// Po zamknięciu animacji, pokaż etykietę
+			EtykietaForm^ etykietaForm = gcnew EtykietaForm(numerPaczki);
+			etykietaForm->ShowDialog();
+
+			// Po zamknięciu etykiety, zamknij główny formularz nadawania
 			this->Close();
 		}
 	};

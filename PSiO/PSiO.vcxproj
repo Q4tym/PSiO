@@ -131,6 +131,7 @@
     <ClCompile Include="MyForm1.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EtykietaForm.h" />
     <ClInclude Include="Formularz_Kuriera.h" />
     <ClInclude Include="Formularz_paczki.h">
       <FileType>CppForm</FileType>
