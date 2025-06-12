@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <ostream> // Potrzebne do przeciążenia operatora <<
 #include "json.hpp"
 
 // --- Deklaracje klas ---
@@ -11,6 +12,7 @@ class Paczka;
 // --- Klasa Sortownia ---
 class Sortownia {
 public:
+    //--[REQUIREMENT: Enumeration]--
     enum class KryteriumSortowania {
         WG_MIASTA,
         WG_KODU_POCZTOWEGO,
@@ -26,7 +28,8 @@ private:
 };
 
 
-// --- Klasy abstrakcyjne ---
+//--[REQUIREMENT: Inheritance & Virtual Method]--
+// Klasy abstrakcyjne Adres i Osoba z czysto wirtualnymi metodami.
 class Adres {
 public:
     std::string ulica;
@@ -51,6 +54,9 @@ private:
 };
 
 // --- Klasy konkretne ---
+//--[REQUIREMENT: Polymorphism]--
+// Klasy Nadawca i Odbiorca dziedziczą po klasach bazowych i implementują
+// ich wirtualne metody, co jest podstawą polimorfizmu.
 class Nadawca : public Osoba, public Adres {
 private:
     void klasaWirtualnaOsoba() override {}
@@ -70,19 +76,19 @@ public:
 // --- Klasa Paczka ---
 class Paczka {
 public:
-    // Enum dla rozmiaru paczki
     enum class RozmiarPaczki { MALA, SREDNIA, DUZA };
 
 private:
+    //--[REQUIREMENT: Encapsulation]--
+    // Pola są prywatne, dostęp przez publiczne metody.
     std::string numerPaczki;
     Nadawca nadawca;
     Odbiorca odbiorca;
-    RozmiarPaczki rozmiar; // Nowe pole
+    RozmiarPaczki rozmiar;
 
     static std::string generateRandomPackageNumber();
 
 public:
-    // Zaktualizowane konstruktory
     Paczka(const Nadawca& n, const Odbiorca& o, RozmiarPaczki r);
     Paczka(std::string num, const Nadawca& n, const Odbiorca& o, RozmiarPaczki r);
 
@@ -93,4 +99,8 @@ public:
     RozmiarPaczki getRozmiar() const { return rozmiar; }
 
     void paczkaPrzyjeta() const;
+
+    //--[REQUIREMENT: Operator Overloading]--
+    // Deklaracja przyjaźni, aby umożliwić globalnej funkcji dostęp do prywatnych pól.
+    friend std::ostream& operator<<(std::ostream& os, const Paczka& p);
 };

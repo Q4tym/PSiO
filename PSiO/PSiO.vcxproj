@@ -126,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Formularz_paczki.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="Klasy.cpp" />
     <ClCompile Include="MyForm1.cpp" />
@@ -136,6 +137,7 @@
     <ClInclude Include="Formularz_paczki.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="logger.h" />
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -144,6 +146,7 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Sortownia.h" />
+    <ClInclude Include="SplashScreen.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>

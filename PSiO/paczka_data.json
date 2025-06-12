@@ -328,5 +328,27 @@
             "telefon": "s"
         },
         "rozmiar": "SREDNIA"
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "s",
+                "miasto": "s",
+                "ulica": "s"
+            },
+            "imie": "s",
+            "nazwisko": "s"
+        },
+        "numerPaczki": "PKZ814660",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "s",
+                "miasto": "s",
+                "ulica": "s"
+            },
+            "imie": "s",
+            "nazwisko": "s"
+        },
+        "rozmiar": "MALA"
     }
 ]

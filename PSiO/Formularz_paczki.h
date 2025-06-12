@@ -1,10 +1,6 @@
 ﻿#pragma once
 
 #include <string>
-#include <fstream>
-#include <vector>
-#include <iomanip>
-#include "json.hpp"
 #include "Klasy.h"
 #include "Utils.h"
 #include "EtykietaForm.h"
@@ -15,8 +11,6 @@ namespace PSiO {
 	using namespace System::ComponentModel;
 	using namespace System::Windows::Forms;
 	using namespace System::Drawing;
-
-	using json = nlohmann::json;
 
 	// Klasa AnimationForm pozostaje bez zmian...
 	public ref class AnimationForm : public Form {
@@ -118,24 +112,14 @@ namespace PSiO {
 	public ref class Formularz_paczki : public System::Windows::Forms::Form
 	{
 	public:
-		Formularz_paczki(void)
-		{
-			InitializeComponent();
-			this->fileName = "paczka_data.json";
-		}
+		Formularz_paczki(void);
 
 	protected:
-		~Formularz_paczki()
-		{
-			if (components)
-			{
-				delete components;
-			}
-		}
+		~Formularz_paczki();
 
 	private:
 		System::String^ fileName;
-		// --- Kontrolki dla Nadawcy ---
+		// --- Deklaracje wszystkich kontrolek ---
 		System::Windows::Forms::GroupBox^ groupNadawca;
 		System::Windows::Forms::TextBox^ textNadawcaImie;
 		System::Windows::Forms::Label^ labelNadawcaImie;
@@ -155,8 +139,6 @@ namespace PSiO {
 		System::Windows::Forms::Label^ labelNadawcaKod;
 		System::Windows::Forms::TextBox^ textNadawcaKraj;
 		System::Windows::Forms::Label^ labelNadawcaKraj;
-
-		// --- Kontrolki dla Odbiorcy ---
 		System::Windows::Forms::GroupBox^ groupOdbiorca;
 		System::Windows::Forms::TextBox^ textOdbiorcaImie;
 		System::Windows::Forms::Label^ labelOdbiorcaImie;
@@ -176,8 +158,6 @@ namespace PSiO {
 		System::Windows::Forms::Label^ labelOdbiorcaKod;
 		System::Windows::Forms::TextBox^ textOdbiorcaKraj;
 		System::Windows::Forms::Label^ labelOdbiorcaKraj;
-
-		// --- Kontrolki dla paczki i przycisków ---
 		System::Windows::Forms::GroupBox^ groupPaczka;
 		System::Windows::Forms::RadioButton^ radioMala;
 		System::Windows::Forms::RadioButton^ radioSrednia;
@@ -187,6 +167,10 @@ namespace PSiO {
 		System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
+		/// <summary>
+		/// Wymagana metoda obsługi projektanta — nie należy modyfikować 
+		/// jej zawartości w edytorze kodu.
+		/// </summary>
 		void InitializeComponent(void)
 		{
 			// Inicjalizacja wszystkich kontrolek
@@ -279,7 +263,6 @@ namespace PSiO {
 			// Konfiguracja kontrolek (etykiety i pola tekstowe)
 			int yPos = 30;
 			int yStep = 50;
-			// Pętla do ustawienia właściwości kontrolek, aby uniknąć powtórzeń
 			for (int i = 0; i < 2; ++i) {
 				GroupBox^ currentGroup = (i == 0) ? groupNadawca : groupOdbiorca;
 				auto controls = currentGroup->Controls;
@@ -404,7 +387,7 @@ namespace PSiO {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(30, 30, 30);
 			this->CancelButton = this->buttonAnuluj;
-			this->ClientSize = System::Drawing::Size(664, 615); // Zwiększony rozmiar formularza
+			this->ClientSize = System::Drawing::Size(664, 615);
 			this->Controls->Add(this->buttonAnuluj);
 			this->Controls->Add(this->buttonNadaj);
 			this->Controls->Add(this->groupPaczka);
@@ -425,124 +408,8 @@ namespace PSiO {
 		}
 #pragma endregion
 	private:
-		System::Void buttonAnuluj_Click(System::Object^ sender, System::EventArgs^ e) {
-			this->Close();
-		}
-
-		System::Void buttonNadaj_Click(System::Object^ sender, System::EventArgs^ e) {
-			// Walidacja podstawowych pól (można rozszerzyć)
-			if (String::IsNullOrWhiteSpace(textNadawcaImie->Text) || String::IsNullOrWhiteSpace(textOdbiorcaImie->Text) ||
-				String::IsNullOrWhiteSpace(textNadawcaNazwisko->Text) || String::IsNullOrWhiteSpace(textOdbiorcaNazwisko->Text) ||
-				String::IsNullOrWhiteSpace(textNadawcaMiasto->Text) || String::IsNullOrWhiteSpace(textOdbiorcaMiasto->Text) ||
-				String::IsNullOrWhiteSpace(textNadawcaKod->Text) || String::IsNullOrWhiteSpace(textOdbiorcaKod->Text) ||
-				String::IsNullOrWhiteSpace(textNadawcaUlica->Text) || String::IsNullOrWhiteSpace(textOdbiorcaUlica->Text)) {
-				MessageBox::Show("Pola: imię, nazwisko, ulica, miasto i kod pocztowy muszą być wypełnione.", "Błąd Walidacji", MessageBoxButtons::OK, MessageBoxIcon::Error);
-				return;
-			}
-
-			// Tworzenie obiektu Nadawcy C++
-			Nadawca n;
-			n.imie = toStdString(textNadawcaImie->Text);
-			n.nazwisko = toStdString(textNadawcaNazwisko->Text);
-			n.telefon = toStdString(textNadawcaTelefon->Text);
-			n.email = toStdString(textNadawcaEmail->Text);
-			n.ulica = toStdString(textNadawcaUlica->Text);
-			n.miasto = toStdString(textNadawcaMiasto->Text);
-			n.wojewodztwo = toStdString(textNadawcaWojewodztwo->Text);
-			n.kodPocztowy = toStdString(textNadawcaKod->Text);
-			n.kraj = toStdString(textNadawcaKraj->Text);
-
-			// Tworzenie obiektu Odbiorcy C++
-			Odbiorca o;
-			o.imie = toStdString(textOdbiorcaImie->Text);
-			o.nazwisko = toStdString(textOdbiorcaNazwisko->Text);
-			o.telefon = toStdString(textOdbiorcaTelefon->Text);
-			o.email = toStdString(textOdbiorcaEmail->Text);
-			o.ulica = toStdString(textOdbiorcaUlica->Text);
-			o.miasto = toStdString(textOdbiorcaMiasto->Text);
-			o.wojewodztwo = toStdString(textOdbiorcaWojewodztwo->Text);
-			o.kodPocztowy = toStdString(textOdbiorcaKod->Text);
-			o.kraj = toStdString(textOdbiorcaKraj->Text);
-
-			// Odczytanie rozmiaru paczki
-			Paczka::RozmiarPaczki rozmiar;
-			if (radioSrednia->Checked) {
-				rozmiar = Paczka::RozmiarPaczki::SREDNIA;
-			}
-			else if (radioDuza->Checked) {
-				rozmiar = Paczka::RozmiarPaczki::DUZA;
-			}
-			else {
-				rozmiar = Paczka::RozmiarPaczki::MALA;
-			}
-
-			Paczka nowaPaczka(n, o, rozmiar);
-
-			// Zapis do pliku JSON
-			std::string stdFileName = toStdString(this->fileName);
-			json paczkiJson;
-
-			std::ifstream ifs(stdFileName);
-			if (ifs.is_open()) {
-				try {
-					paczkiJson = json::parse(ifs);
-					if (!paczkiJson.is_array()) paczkiJson = json::array();
-				}
-				catch (json::parse_error&) {
-					paczkiJson = json::array();
-				}
-				ifs.close();
-			}
-			else {
-				paczkiJson = json::array();
-			}
-
-			// Konwersja rozmiaru na string dla JSON
-			std::string rozmiarStr = "MALA";
-			if (rozmiar == Paczka::RozmiarPaczki::SREDNIA) rozmiarStr = "SREDNIA";
-			else if (rozmiar == Paczka::RozmiarPaczki::DUZA) rozmiarStr = "DUZA";
-
-			// Dodaj nową paczkę z wszystkimi polami
-			json jPaczka;
-			jPaczka["numerPaczki"] = nowaPaczka.getNumerPaczki();
-			jPaczka["rozmiar"] = rozmiarStr;
-			jPaczka["nadawca"]["imie"] = n.imie;
-			jPaczka["nadawca"]["nazwisko"] = n.nazwisko;
-			jPaczka["nadawca"]["telefon"] = n.telefon;
-			jPaczka["nadawca"]["email"] = n.email;
-			jPaczka["nadawca"]["adres"]["ulica"] = n.ulica;
-			jPaczka["nadawca"]["adres"]["miasto"] = n.miasto;
-			jPaczka["nadawca"]["adres"]["wojewodztwo"] = n.wojewodztwo;
-			jPaczka["nadawca"]["adres"]["kodPocztowy"] = n.kodPocztowy;
-			jPaczka["nadawca"]["adres"]["kraj"] = n.kraj;
-
-			jPaczka["odbiorca"]["imie"] = o.imie;
-			jPaczka["odbiorca"]["nazwisko"] = o.nazwisko;
-			jPaczka["odbiorca"]["telefon"] = o.telefon;
-			jPaczka["odbiorca"]["email"] = o.email;
-			jPaczka["odbiorca"]["adres"]["ulica"] = o.ulica;
-			jPaczka["odbiorca"]["adres"]["miasto"] = o.miasto;
-			jPaczka["odbiorca"]["adres"]["wojewodztwo"] = o.wojewodztwo;
-			jPaczka["odbiorca"]["adres"]["kodPocztowy"] = o.kodPocztowy;
-			jPaczka["odbiorca"]["adres"]["kraj"] = o.kraj;
-
-			paczkiJson.push_back(jPaczka);
-
-			std::ofstream ofs(stdFileName);
-			ofs << std::setw(4) << paczkiJson << std::endl;
-			ofs.close();
-
-			String^ numerPaczki = msclr::interop::marshal_as<String^>(nowaPaczka.getNumerPaczki());
-			MessageBox::Show("Paczka o numerze " + numerPaczki + " została pomyślnie nadana!", "Sukces", MessageBoxButtons::OK, MessageBoxIcon::Information);
-
-			this->Hide();
-			AnimationForm^ animForm = gcnew AnimationForm();
-			animForm->ShowDialog();
-
-			EtykietaForm^ etykietaForm = gcnew EtykietaForm(numerPaczki);
-			etykietaForm->ShowDialog();
-
-			this->Close();
-		}
+		// Pozostawiamy tylko deklaracje metod, których implementacja jest w pliku .cpp
+		System::Void buttonAnuluj_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void buttonNadaj_Click(System::Object^ sender, System::EventArgs^ e);
 	};
 }
