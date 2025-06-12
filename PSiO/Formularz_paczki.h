@@ -535,7 +535,7 @@ namespace PSiO {
 			EtykietaForm^ etykietaForm = gcnew EtykietaForm(numerPaczki);
 			etykietaForm->ShowDialog();
 
-			// Po zamknięciu etykiety, zamknij główny formularz nadawania
+			
 			this->Close();
 		}
 	};
