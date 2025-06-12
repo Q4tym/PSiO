@@ -6,8 +6,8 @@
 #include <iomanip>
 #include "json.hpp"
 #include "Klasy.h"
-#include "Utils.h" // Konwersja String^ na std::string
-#include "EtykietaForm.h" // Dołączony nowy plik nagłówkowy
+#include "Utils.h"
+#include "EtykietaForm.h"
 
 namespace PSiO {
 
@@ -18,7 +18,7 @@ namespace PSiO {
 
 	using json = nlohmann::json;
 
-	// --- NOWA KLASA: Formularz z animacją ---
+	// Klasa AnimationForm pozostaje bez zmian...
 	public ref class AnimationForm : public Form {
 	public:
 		AnimationForm() {
@@ -115,7 +115,6 @@ namespace PSiO {
 		}
 	};
 
-	// --- GŁÓWNA KLASA FORMULARZA PACZKI ---
 	public ref class Formularz_paczki : public System::Windows::Forms::Form
 	{
 	public:
@@ -136,24 +135,53 @@ namespace PSiO {
 
 	private:
 		System::String^ fileName;
+		// --- Kontrolki dla Nadawcy ---
 		System::Windows::Forms::GroupBox^ groupNadawca;
-		System::Windows::Forms::TextBox^ textNadawcaKod;
-		System::Windows::Forms::Label^ labelNadawcaKod;
-		System::Windows::Forms::TextBox^ textNadawcaMiasto;
-		System::Windows::Forms::Label^ labelNadawcaMiasto;
-		System::Windows::Forms::TextBox^ textNadawcaNazwisko;
-		System::Windows::Forms::Label^ labelNadawcaNazwisko;
 		System::Windows::Forms::TextBox^ textNadawcaImie;
 		System::Windows::Forms::Label^ labelNadawcaImie;
+		System::Windows::Forms::TextBox^ textNadawcaNazwisko;
+		System::Windows::Forms::Label^ labelNadawcaNazwisko;
+		System::Windows::Forms::TextBox^ textNadawcaTelefon;
+		System::Windows::Forms::Label^ labelNadawcaTelefon;
+		System::Windows::Forms::TextBox^ textNadawcaEmail;
+		System::Windows::Forms::Label^ labelNadawcaEmail;
+		System::Windows::Forms::TextBox^ textNadawcaUlica;
+		System::Windows::Forms::Label^ labelNadawcaUlica;
+		System::Windows::Forms::TextBox^ textNadawcaMiasto;
+		System::Windows::Forms::Label^ labelNadawcaMiasto;
+		System::Windows::Forms::TextBox^ textNadawcaWojewodztwo;
+		System::Windows::Forms::Label^ labelNadawcaWojewodztwo;
+		System::Windows::Forms::TextBox^ textNadawcaKod;
+		System::Windows::Forms::Label^ labelNadawcaKod;
+		System::Windows::Forms::TextBox^ textNadawcaKraj;
+		System::Windows::Forms::Label^ labelNadawcaKraj;
+
+		// --- Kontrolki dla Odbiorcy ---
 		System::Windows::Forms::GroupBox^ groupOdbiorca;
-		System::Windows::Forms::TextBox^ textOdbiorcaKod;
-		System::Windows::Forms::Label^ labelOdbiorcaKod;
-		System::Windows::Forms::TextBox^ textOdbiorcaMiasto;
-		System::Windows::Forms::Label^ labelOdbiorcaMiasto;
-		System::Windows::Forms::TextBox^ textOdbiorcaNazwisko;
-		System::Windows::Forms::Label^ labelOdbiorcaNazwisko;
 		System::Windows::Forms::TextBox^ textOdbiorcaImie;
 		System::Windows::Forms::Label^ labelOdbiorcaImie;
+		System::Windows::Forms::TextBox^ textOdbiorcaNazwisko;
+		System::Windows::Forms::Label^ labelOdbiorcaNazwisko;
+		System::Windows::Forms::TextBox^ textOdbiorcaTelefon;
+		System::Windows::Forms::Label^ labelOdbiorcaTelefon;
+		System::Windows::Forms::TextBox^ textOdbiorcaEmail;
+		System::Windows::Forms::Label^ labelOdbiorcaEmail;
+		System::Windows::Forms::TextBox^ textOdbiorcaUlica;
+		System::Windows::Forms::Label^ labelOdbiorcaUlica;
+		System::Windows::Forms::TextBox^ textOdbiorcaMiasto;
+		System::Windows::Forms::Label^ labelOdbiorcaMiasto;
+		System::Windows::Forms::TextBox^ textOdbiorcaWojewodztwo;
+		System::Windows::Forms::Label^ labelOdbiorcaWojewodztwo;
+		System::Windows::Forms::TextBox^ textOdbiorcaKod;
+		System::Windows::Forms::Label^ labelOdbiorcaKod;
+		System::Windows::Forms::TextBox^ textOdbiorcaKraj;
+		System::Windows::Forms::Label^ labelOdbiorcaKraj;
+
+		// --- Kontrolki dla paczki i przycisków ---
+		System::Windows::Forms::GroupBox^ groupPaczka;
+		System::Windows::Forms::RadioButton^ radioMala;
+		System::Windows::Forms::RadioButton^ radioSrednia;
+		System::Windows::Forms::RadioButton^ radioDuza;
 		System::Windows::Forms::Button^ buttonNadaj;
 		System::Windows::Forms::Button^ buttonAnuluj;
 		System::ComponentModel::Container^ components;
@@ -161,285 +189,225 @@ namespace PSiO {
 #pragma region Windows Form Designer generated code
 		void InitializeComponent(void)
 		{
+			// Inicjalizacja wszystkich kontrolek
 			this->groupNadawca = (gcnew System::Windows::Forms::GroupBox());
-			this->textNadawcaKod = (gcnew System::Windows::Forms::TextBox());
-			this->labelNadawcaKod = (gcnew System::Windows::Forms::Label());
-			this->textNadawcaMiasto = (gcnew System::Windows::Forms::TextBox());
-			this->labelNadawcaMiasto = (gcnew System::Windows::Forms::Label());
-			this->textNadawcaNazwisko = (gcnew System::Windows::Forms::TextBox());
-			this->labelNadawcaNazwisko = (gcnew System::Windows::Forms::Label());
 			this->textNadawcaImie = (gcnew System::Windows::Forms::TextBox());
 			this->labelNadawcaImie = (gcnew System::Windows::Forms::Label());
+			this->textNadawcaNazwisko = (gcnew System::Windows::Forms::TextBox());
+			this->labelNadawcaNazwisko = (gcnew System::Windows::Forms::Label());
+			this->textNadawcaTelefon = (gcnew System::Windows::Forms::TextBox());
+			this->labelNadawcaTelefon = (gcnew System::Windows::Forms::Label());
+			this->textNadawcaEmail = (gcnew System::Windows::Forms::TextBox());
+			this->labelNadawcaEmail = (gcnew System::Windows::Forms::Label());
+			this->textNadawcaUlica = (gcnew System::Windows::Forms::TextBox());
+			this->labelNadawcaUlica = (gcnew System::Windows::Forms::Label());
+			this->textNadawcaMiasto = (gcnew System::Windows::Forms::TextBox());
+			this->labelNadawcaMiasto = (gcnew System::Windows::Forms::Label());
+			this->textNadawcaWojewodztwo = (gcnew System::Windows::Forms::TextBox());
+			this->labelNadawcaWojewodztwo = (gcnew System::Windows::Forms::Label());
+			this->textNadawcaKod = (gcnew System::Windows::Forms::TextBox());
+			this->labelNadawcaKod = (gcnew System::Windows::Forms::Label());
+			this->textNadawcaKraj = (gcnew System::Windows::Forms::TextBox());
+			this->labelNadawcaKraj = (gcnew System::Windows::Forms::Label());
+
 			this->groupOdbiorca = (gcnew System::Windows::Forms::GroupBox());
-			this->textOdbiorcaKod = (gcnew System::Windows::Forms::TextBox());
-			this->labelOdbiorcaKod = (gcnew System::Windows::Forms::Label());
-			this->textOdbiorcaMiasto = (gcnew System::Windows::Forms::TextBox());
-			this->labelOdbiorcaMiasto = (gcnew System::Windows::Forms::Label());
-			this->textOdbiorcaNazwisko = (gcnew System::Windows::Forms::TextBox());
-			this->labelOdbiorcaNazwisko = (gcnew System::Windows::Forms::Label());
 			this->textOdbiorcaImie = (gcnew System::Windows::Forms::TextBox());
 			this->labelOdbiorcaImie = (gcnew System::Windows::Forms::Label());
+			this->textOdbiorcaNazwisko = (gcnew System::Windows::Forms::TextBox());
+			this->labelOdbiorcaNazwisko = (gcnew System::Windows::Forms::Label());
+			this->textOdbiorcaTelefon = (gcnew System::Windows::Forms::TextBox());
+			this->labelOdbiorcaTelefon = (gcnew System::Windows::Forms::Label());
+			this->textOdbiorcaEmail = (gcnew System::Windows::Forms::TextBox());
+			this->labelOdbiorcaEmail = (gcnew System::Windows::Forms::Label());
+			this->textOdbiorcaUlica = (gcnew System::Windows::Forms::TextBox());
+			this->labelOdbiorcaUlica = (gcnew System::Windows::Forms::Label());
+			this->textOdbiorcaMiasto = (gcnew System::Windows::Forms::TextBox());
+			this->labelOdbiorcaMiasto = (gcnew System::Windows::Forms::Label());
+			this->textOdbiorcaWojewodztwo = (gcnew System::Windows::Forms::TextBox());
+			this->labelOdbiorcaWojewodztwo = (gcnew System::Windows::Forms::Label());
+			this->textOdbiorcaKod = (gcnew System::Windows::Forms::TextBox());
+			this->labelOdbiorcaKod = (gcnew System::Windows::Forms::Label());
+			this->textOdbiorcaKraj = (gcnew System::Windows::Forms::TextBox());
+			this->labelOdbiorcaKraj = (gcnew System::Windows::Forms::Label());
+
+			this->groupPaczka = (gcnew System::Windows::Forms::GroupBox());
+			this->radioMala = (gcnew System::Windows::Forms::RadioButton());
+			this->radioSrednia = (gcnew System::Windows::Forms::RadioButton());
+			this->radioDuza = (gcnew System::Windows::Forms::RadioButton());
 			this->buttonNadaj = (gcnew System::Windows::Forms::Button());
 			this->buttonAnuluj = (gcnew System::Windows::Forms::Button());
+
 			this->groupNadawca->SuspendLayout();
 			this->groupOdbiorca->SuspendLayout();
+			this->groupPaczka->SuspendLayout();
 			this->SuspendLayout();
-			// 
-			// groupNadawca
-			// 
-			this->groupNadawca->Controls->Add(this->textNadawcaKod);
-			this->groupNadawca->Controls->Add(this->labelNadawcaKod);
-			this->groupNadawca->Controls->Add(this->textNadawcaMiasto);
-			this->groupNadawca->Controls->Add(this->labelNadawcaMiasto);
-			this->groupNadawca->Controls->Add(this->textNadawcaNazwisko);
-			this->groupNadawca->Controls->Add(this->labelNadawcaNazwisko);
-			this->groupNadawca->Controls->Add(this->textNadawcaImie);
-			this->groupNadawca->Controls->Add(this->labelNadawcaImie);
-			this->groupNadawca->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(238)));
-			this->groupNadawca->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(122)), static_cast<System::Int32>(static_cast<System::Byte>(204)));
+
+			// --- Konfiguracja GroupBox Nadawcy ---
+			this->groupNadawca->Controls->AddRange(gcnew cli::array< System::Windows::Forms::Control^  >(18) {
+				this->labelNadawcaImie, this->textNadawcaImie, this->labelNadawcaNazwisko, this->textNadawcaNazwisko,
+					this->labelNadawcaTelefon, this->textNadawcaTelefon, this->labelNadawcaEmail, this->textNadawcaEmail,
+					this->labelNadawcaUlica, this->textNadawcaUlica, this->labelNadawcaMiasto, this->textNadawcaMiasto,
+					this->labelNadawcaWojewodztwo, this->textNadawcaWojewodztwo, this->labelNadawcaKod, this->textNadawcaKod,
+					this->labelNadawcaKraj, this->textNadawcaKraj
+			});
+			this->groupNadawca->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F, System::Drawing::FontStyle::Bold));
+			this->groupNadawca->ForeColor = System::Drawing::Color::FromArgb(0, 122, 204);
 			this->groupNadawca->Location = System::Drawing::Point(12, 12);
 			this->groupNadawca->Name = L"groupNadawca";
-			this->groupNadawca->Size = System::Drawing::Size(310, 250);
+			this->groupNadawca->Size = System::Drawing::Size(310, 470);
 			this->groupNadawca->TabIndex = 0;
 			this->groupNadawca->TabStop = false;
 			this->groupNadawca->Text = L"Dane Nadawcy";
-			// 
-			// textNadawcaKod
-			// 
-			this->textNadawcaKod->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)));
-			this->textNadawcaKod->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->textNadawcaKod->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F));
-			this->textNadawcaKod->ForeColor = System::Drawing::Color::White;
-			this->textNadawcaKod->Location = System::Drawing::Point(20, 200);
-			this->textNadawcaKod->Name = L"textNadawcaKod";
-			this->textNadawcaKod->Size = System::Drawing::Size(270, 25);
-			this->textNadawcaKod->TabIndex = 7;
-			// 
-			// labelNadawcaKod
-			// 
-			this->labelNadawcaKod->AutoSize = true;
-			this->labelNadawcaKod->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9));
-			this->labelNadawcaKod->ForeColor = System::Drawing::Color::Gainsboro;
-			this->labelNadawcaKod->Location = System::Drawing::Point(17, 182);
-			this->labelNadawcaKod->Name = L"labelNadawcaKod";
-			this->labelNadawcaKod->Size = System::Drawing::Size(82, 15);
-			this->labelNadawcaKod->TabIndex = 6;
-			this->labelNadawcaKod->Text = L"Kod pocztowy";
-			// 
-			// textNadawcaMiasto
-			// 
-			this->textNadawcaMiasto->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)));
-			this->textNadawcaMiasto->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->textNadawcaMiasto->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F));
-			this->textNadawcaMiasto->ForeColor = System::Drawing::Color::White;
-			this->textNadawcaMiasto->Location = System::Drawing::Point(20, 150);
-			this->textNadawcaMiasto->Name = L"textNadawcaMiasto";
-			this->textNadawcaMiasto->Size = System::Drawing::Size(270, 25);
-			this->textNadawcaMiasto->TabIndex = 5;
-			// 
-			// labelNadawcaMiasto
-			// 
-			this->labelNadawcaMiasto->AutoSize = true;
-			this->labelNadawcaMiasto->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9));
-			this->labelNadawcaMiasto->ForeColor = System::Drawing::Color::Gainsboro;
-			this->labelNadawcaMiasto->Location = System::Drawing::Point(17, 132);
-			this->labelNadawcaMiasto->Name = L"labelNadawcaMiasto";
-			this->labelNadawcaMiasto->Size = System::Drawing::Size(43, 15);
-			this->labelNadawcaMiasto->TabIndex = 4;
-			this->labelNadawcaMiasto->Text = L"Miasto";
-			// 
-			// textNadawcaNazwisko
-			// 
-			this->textNadawcaNazwisko->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)));
-			this->textNadawcaNazwisko->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->textNadawcaNazwisko->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F));
-			this->textNadawcaNazwisko->ForeColor = System::Drawing::Color::White;
-			this->textNadawcaNazwisko->Location = System::Drawing::Point(20, 100);
-			this->textNadawcaNazwisko->Name = L"textNadawcaNazwisko";
-			this->textNadawcaNazwisko->Size = System::Drawing::Size(270, 25);
-			this->textNadawcaNazwisko->TabIndex = 3;
-			// 
-			// labelNadawcaNazwisko
-			// 
-			this->labelNadawcaNazwisko->AutoSize = true;
-			this->labelNadawcaNazwisko->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9));
-			this->labelNadawcaNazwisko->ForeColor = System::Drawing::Color::Gainsboro;
-			this->labelNadawcaNazwisko->Location = System::Drawing::Point(17, 82);
-			this->labelNadawcaNazwisko->Name = L"labelNadawcaNazwisko";
-			this->labelNadawcaNazwisko->Size = System::Drawing::Size(57, 15);
-			this->labelNadawcaNazwisko->TabIndex = 2;
-			this->labelNadawcaNazwisko->Text = L"Nazwisko";
-			// 
-			// textNadawcaImie
-			// 
-			this->textNadawcaImie->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)));
-			this->textNadawcaImie->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->textNadawcaImie->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F));
-			this->textNadawcaImie->ForeColor = System::Drawing::Color::White;
-			this->textNadawcaImie->Location = System::Drawing::Point(20, 50);
-			this->textNadawcaImie->Name = L"textNadawcaImie";
-			this->textNadawcaImie->Size = System::Drawing::Size(270, 25);
-			this->textNadawcaImie->TabIndex = 1;
-			// 
-			// labelNadawcaImie
-			// 
-			this->labelNadawcaImie->AutoSize = true;
-			this->labelNadawcaImie->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9));
-			this->labelNadawcaImie->ForeColor = System::Drawing::Color::Gainsboro;
-			this->labelNadawcaImie->Location = System::Drawing::Point(17, 32);
-			this->labelNadawcaImie->Name = L"labelNadawcaImie";
-			this->labelNadawcaImie->Size = System::Drawing::Size(30, 15);
-			this->labelNadawcaImie->TabIndex = 0;
-			this->labelNadawcaImie->Text = L"Imię";
-			// 
-			// groupOdbiorca
-			// 
-			this->groupOdbiorca->Controls->Add(this->textOdbiorcaKod);
-			this->groupOdbiorca->Controls->Add(this->labelOdbiorcaKod);
-			this->groupOdbiorca->Controls->Add(this->textOdbiorcaMiasto);
-			this->groupOdbiorca->Controls->Add(this->labelOdbiorcaMiasto);
-			this->groupOdbiorca->Controls->Add(this->textOdbiorcaNazwisko);
-			this->groupOdbiorca->Controls->Add(this->labelOdbiorcaNazwisko);
-			this->groupOdbiorca->Controls->Add(this->textOdbiorcaImie);
-			this->groupOdbiorca->Controls->Add(this->labelOdbiorcaImie);
+
+			// --- Konfiguracja GroupBox Odbiorcy ---
+			this->groupOdbiorca->Controls->AddRange(gcnew cli::array< System::Windows::Forms::Control^  >(18) {
+				this->labelOdbiorcaImie, this->textOdbiorcaImie, this->labelOdbiorcaNazwisko, this->textOdbiorcaNazwisko,
+					this->labelOdbiorcaTelefon, this->textOdbiorcaTelefon, this->labelOdbiorcaEmail, this->textOdbiorcaEmail,
+					this->labelOdbiorcaUlica, this->textOdbiorcaUlica, this->labelOdbiorcaMiasto, this->textOdbiorcaMiasto,
+					this->labelOdbiorcaWojewodztwo, this->textOdbiorcaWojewodztwo, this->labelOdbiorcaKod, this->textOdbiorcaKod,
+					this->labelOdbiorcaKraj, this->textOdbiorcaKraj
+			});
 			this->groupOdbiorca->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F, System::Drawing::FontStyle::Bold));
-			this->groupOdbiorca->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(122)), static_cast<System::Int32>(static_cast<System::Byte>(204)));
+			this->groupOdbiorca->ForeColor = System::Drawing::Color::FromArgb(0, 122, 204);
 			this->groupOdbiorca->Location = System::Drawing::Point(338, 12);
 			this->groupOdbiorca->Name = L"groupOdbiorca";
-			this->groupOdbiorca->Size = System::Drawing::Size(310, 250);
+			this->groupOdbiorca->Size = System::Drawing::Size(310, 470);
 			this->groupOdbiorca->TabIndex = 1;
 			this->groupOdbiorca->TabStop = false;
 			this->groupOdbiorca->Text = L"Dane Odbiorcy";
-			// 
-			// textOdbiorcaKod
-			// 
-			this->textOdbiorcaKod->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)));
-			this->textOdbiorcaKod->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->textOdbiorcaKod->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F));
-			this->textOdbiorcaKod->ForeColor = System::Drawing::Color::White;
-			this->textOdbiorcaKod->Location = System::Drawing::Point(20, 200);
-			this->textOdbiorcaKod->Name = L"textOdbiorcaKod";
-			this->textOdbiorcaKod->Size = System::Drawing::Size(270, 25);
-			this->textOdbiorcaKod->TabIndex = 7;
-			// 
-			// labelOdbiorcaKod
-			// 
-			this->labelOdbiorcaKod->AutoSize = true;
-			this->labelOdbiorcaKod->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9));
-			this->labelOdbiorcaKod->ForeColor = System::Drawing::Color::Gainsboro;
-			this->labelOdbiorcaKod->Location = System::Drawing::Point(17, 182);
-			this->labelOdbiorcaKod->Name = L"labelOdbiorcaKod";
-			this->labelOdbiorcaKod->Size = System::Drawing::Size(82, 15);
-			this->labelOdbiorcaKod->TabIndex = 6;
-			this->labelOdbiorcaKod->Text = L"Kod pocztowy";
-			// 
-			// textOdbiorcaMiasto
-			// 
-			this->textOdbiorcaMiasto->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)));
-			this->textOdbiorcaMiasto->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->textOdbiorcaMiasto->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F));
-			this->textOdbiorcaMiasto->ForeColor = System::Drawing::Color::White;
-			this->textOdbiorcaMiasto->Location = System::Drawing::Point(20, 150);
-			this->textOdbiorcaMiasto->Name = L"textOdbiorcaMiasto";
-			this->textOdbiorcaMiasto->Size = System::Drawing::Size(270, 25);
-			this->textOdbiorcaMiasto->TabIndex = 5;
-			// 
-			// labelOdbiorcaMiasto
-			// 
-			this->labelOdbiorcaMiasto->AutoSize = true;
-			this->labelOdbiorcaMiasto->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9));
-			this->labelOdbiorcaMiasto->ForeColor = System::Drawing::Color::Gainsboro;
-			this->labelOdbiorcaMiasto->Location = System::Drawing::Point(17, 132);
-			this->labelOdbiorcaMiasto->Name = L"labelOdbiorcaMiasto";
-			this->labelOdbiorcaMiasto->Size = System::Drawing::Size(43, 15);
-			this->labelOdbiorcaMiasto->TabIndex = 4;
-			this->labelOdbiorcaMiasto->Text = L"Miasto";
-			// 
-			// textOdbiorcaNazwisko
-			// 
-			this->textOdbiorcaNazwisko->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)));
-			this->textOdbiorcaNazwisko->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->textOdbiorcaNazwisko->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F));
-			this->textOdbiorcaNazwisko->ForeColor = System::Drawing::Color::White;
-			this->textOdbiorcaNazwisko->Location = System::Drawing::Point(20, 100);
-			this->textOdbiorcaNazwisko->Name = L"textOdbiorcaNazwisko";
-			this->textOdbiorcaNazwisko->Size = System::Drawing::Size(270, 25);
-			this->textOdbiorcaNazwisko->TabIndex = 3;
-			// 
-			// labelOdbiorcaNazwisko
-			// 
-			this->labelOdbiorcaNazwisko->AutoSize = true;
-			this->labelOdbiorcaNazwisko->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9));
-			this->labelOdbiorcaNazwisko->ForeColor = System::Drawing::Color::Gainsboro;
-			this->labelOdbiorcaNazwisko->Location = System::Drawing::Point(17, 82);
-			this->labelOdbiorcaNazwisko->Name = L"labelOdbiorcaNazwisko";
-			this->labelOdbiorcaNazwisko->Size = System::Drawing::Size(57, 15);
-			this->labelOdbiorcaNazwisko->TabIndex = 2;
-			this->labelOdbiorcaNazwisko->Text = L"Nazwisko";
-			// 
-			// textOdbiorcaImie
-			// 
-			this->textOdbiorcaImie->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)));
-			this->textOdbiorcaImie->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->textOdbiorcaImie->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F));
-			this->textOdbiorcaImie->ForeColor = System::Drawing::Color::White;
-			this->textOdbiorcaImie->Location = System::Drawing::Point(20, 50);
-			this->textOdbiorcaImie->Name = L"textOdbiorcaImie";
-			this->textOdbiorcaImie->Size = System::Drawing::Size(270, 25);
-			this->textOdbiorcaImie->TabIndex = 1;
-			// 
-			// labelOdbiorcaImie
-			// 
-			this->labelOdbiorcaImie->AutoSize = true;
-			this->labelOdbiorcaImie->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9));
-			this->labelOdbiorcaImie->ForeColor = System::Drawing::Color::Gainsboro;
-			this->labelOdbiorcaImie->Location = System::Drawing::Point(17, 32);
-			this->labelOdbiorcaImie->Name = L"labelOdbiorcaImie";
-			this->labelOdbiorcaImie->Size = System::Drawing::Size(30, 15);
-			this->labelOdbiorcaImie->TabIndex = 0;
-			this->labelOdbiorcaImie->Text = L"Imię";
-			// 
+
+			// Konfiguracja kontrolek (etykiety i pola tekstowe)
+			int yPos = 30;
+			int yStep = 50;
+			// Pętla do ustawienia właściwości kontrolek, aby uniknąć powtórzeń
+			for (int i = 0; i < 2; ++i) {
+				GroupBox^ currentGroup = (i == 0) ? groupNadawca : groupOdbiorca;
+				auto controls = currentGroup->Controls;
+				yPos = 30;
+				for (int j = 0; j < controls->Count / 2; ++j) {
+					Label^ lbl = dynamic_cast<Label^>(controls[j * 2]);
+					TextBox^ txt = dynamic_cast<TextBox^>(controls[j * 2 + 1]);
+
+					lbl->AutoSize = true;
+					lbl->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9));
+					lbl->ForeColor = System::Drawing::Color::Gainsboro;
+					lbl->Location = System::Drawing::Point(17, yPos - 18);
+
+					txt->BackColor = System::Drawing::Color::FromArgb(50, 50, 50);
+					txt->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+					txt->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F));
+					txt->ForeColor = System::Drawing::Color::White;
+					txt->Location = System::Drawing::Point(20, yPos);
+					txt->Size = System::Drawing::Size(270, 25);
+
+					yPos += yStep;
+				}
+			}
+
+			// Ustawienie etykiet tekstowych
+			labelNadawcaImie->Text = L"Imię";
+			labelNadawcaNazwisko->Text = L"Nazwisko";
+			labelNadawcaTelefon->Text = L"Telefon";
+			labelNadawcaEmail->Text = L"E-mail";
+			labelNadawcaUlica->Text = L"Ulica i numer";
+			labelNadawcaMiasto->Text = L"Miasto";
+			labelNadawcaWojewodztwo->Text = L"Województwo";
+			labelNadawcaKod->Text = L"Kod pocztowy";
+			labelNadawcaKraj->Text = L"Kraj";
+
+			labelOdbiorcaImie->Text = L"Imię";
+			labelOdbiorcaNazwisko->Text = L"Nazwisko";
+			labelOdbiorcaTelefon->Text = L"Telefon";
+			labelOdbiorcaEmail->Text = L"E-mail";
+			labelOdbiorcaUlica->Text = L"Ulica i numer";
+			labelOdbiorcaMiasto->Text = L"Miasto";
+			labelOdbiorcaWojewodztwo->Text = L"Województwo";
+			labelOdbiorcaKod->Text = L"Kod pocztowy";
+			labelOdbiorcaKraj->Text = L"Kraj";
+
+			// --- Konfiguracja GroupBox Paczka (Rozmiar) ---
+			this->groupPaczka->Controls->Add(this->radioDuza);
+			this->groupPaczka->Controls->Add(this->radioSrednia);
+			this->groupPaczka->Controls->Add(this->radioMala);
+			this->groupPaczka->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F, System::Drawing::FontStyle::Bold));
+			this->groupPaczka->ForeColor = System::Drawing::Color::FromArgb(0, 122, 204);
+			this->groupPaczka->Location = System::Drawing::Point(12, 490);
+			this->groupPaczka->Name = L"groupPaczka";
+			this->groupPaczka->Size = System::Drawing::Size(636, 60);
+			this->groupPaczka->TabIndex = 2;
+			this->groupPaczka->TabStop = false;
+			this->groupPaczka->Text = L"Rozmiar Paczki";
+
+			// radioMala
+			this->radioMala->AutoSize = true;
+			this->radioMala->Checked = true;
+			this->radioMala->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F));
+			this->radioMala->ForeColor = System::Drawing::Color::White;
+			this->radioMala->Location = System::Drawing::Point(20, 25);
+			this->radioMala->Name = L"radioMala";
+			this->radioMala->Size = System::Drawing::Size(98, 21);
+			this->radioMala->Text = L"Mała (A)";
+			this->radioMala->UseVisualStyleBackColor = true;
+
+			// radioSrednia
+			this->radioSrednia->AutoSize = true;
+			this->radioSrednia->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F));
+			this->radioSrednia->ForeColor = System::Drawing::Color::White;
+			this->radioSrednia->Location = System::Drawing::Point(250, 25);
+			this->radioSrednia->Name = L"radioSrednia";
+			this->radioSrednia->Size = System::Drawing::Size(107, 21);
+			this->radioSrednia->Text = L"Średnia (B)";
+			this->radioSrednia->UseVisualStyleBackColor = true;
+
+			// radioDuza
+			this->radioDuza->AutoSize = true;
+			this->radioDuza->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F));
+			this->radioDuza->ForeColor = System::Drawing::Color::White;
+			this->radioDuza->Location = System::Drawing::Point(480, 25);
+			this->radioDuza->Name = L"radioDuza";
+			this->radioDuza->Size = System::Drawing::Size(96, 21);
+			this->radioDuza->Text = L"Duża (C)";
+			this->radioDuza->UseVisualStyleBackColor = true;
+
 			// buttonNadaj
-			// 
-			this->buttonNadaj->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(122)), static_cast<System::Int32>(static_cast<System::Byte>(204)));
+			this->buttonNadaj->BackColor = System::Drawing::Color::FromArgb(0, 122, 204);
 			this->buttonNadaj->FlatAppearance->BorderSize = 0;
 			this->buttonNadaj->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->buttonNadaj->Font = (gcnew System::Drawing::Font(L"Segoe UI", 12, System::Drawing::FontStyle::Bold));
 			this->buttonNadaj->ForeColor = System::Drawing::Color::White;
-			this->buttonNadaj->Location = System::Drawing::Point(338, 278);
+			this->buttonNadaj->Location = System::Drawing::Point(338, 560);
 			this->buttonNadaj->Name = L"buttonNadaj";
 			this->buttonNadaj->Size = System::Drawing::Size(310, 41);
-			this->buttonNadaj->TabIndex = 2;
+			this->buttonNadaj->TabIndex = 3;
 			this->buttonNadaj->Text = L"Nadaj Paczkę";
 			this->buttonNadaj->UseVisualStyleBackColor = false;
 			this->buttonNadaj->Click += gcnew System::EventHandler(this, &Formularz_paczki::buttonNadaj_Click);
-			// 
+
 			// buttonAnuluj
-			// 
-			this->buttonAnuluj->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)));
+			this->buttonAnuluj->BackColor = System::Drawing::Color::FromArgb(50, 50, 50);
 			this->buttonAnuluj->DialogResult = System::Windows::Forms::DialogResult::Cancel;
 			this->buttonAnuluj->FlatAppearance->BorderSize = 0;
 			this->buttonAnuluj->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->buttonAnuluj->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F));
 			this->buttonAnuluj->ForeColor = System::Drawing::Color::White;
-			this->buttonAnuluj->Location = System::Drawing::Point(12, 278);
+			this->buttonAnuluj->Location = System::Drawing::Point(12, 560);
 			this->buttonAnuluj->Name = L"buttonAnuluj";
 			this->buttonAnuluj->Size = System::Drawing::Size(310, 41);
-			this->buttonAnuluj->TabIndex = 3;
+			this->buttonAnuluj->TabIndex = 4;
 			this->buttonAnuluj->Text = L"Anuluj";
 			this->buttonAnuluj->UseVisualStyleBackColor = false;
 			this->buttonAnuluj->Click += gcnew System::EventHandler(this, &Formularz_paczki::buttonAnuluj_Click);
-			// 
+
 			// Formularz_paczki
-			// 
 			this->AcceptButton = this->buttonNadaj;
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(30)), static_cast<System::Int32>(static_cast<System::Byte>(30)), static_cast<System::Int32>(static_cast<System::Byte>(30)));
+			this->BackColor = System::Drawing::Color::FromArgb(30, 30, 30);
 			this->CancelButton = this->buttonAnuluj;
-			this->ClientSize = System::Drawing::Size(664, 341);
+			this->ClientSize = System::Drawing::Size(664, 615); // Zwiększony rozmiar formularza
 			this->Controls->Add(this->buttonAnuluj);
 			this->Controls->Add(this->buttonNadaj);
+			this->Controls->Add(this->groupPaczka);
 			this->Controls->Add(this->groupOdbiorca);
 			this->Controls->Add(this->groupNadawca);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
@@ -451,6 +419,8 @@ namespace PSiO {
 			this->groupNadawca->PerformLayout();
 			this->groupOdbiorca->ResumeLayout(false);
 			this->groupOdbiorca->PerformLayout();
+			this->groupPaczka->ResumeLayout(false);
+			this->groupPaczka->PerformLayout();
 			this->ResumeLayout(false);
 		}
 #pragma endregion
@@ -460,35 +430,58 @@ namespace PSiO {
 		}
 
 		System::Void buttonNadaj_Click(System::Object^ sender, System::EventArgs^ e) {
-			// Walidacja
+			// Walidacja podstawowych pól (można rozszerzyć)
 			if (String::IsNullOrWhiteSpace(textNadawcaImie->Text) || String::IsNullOrWhiteSpace(textOdbiorcaImie->Text) ||
 				String::IsNullOrWhiteSpace(textNadawcaNazwisko->Text) || String::IsNullOrWhiteSpace(textOdbiorcaNazwisko->Text) ||
 				String::IsNullOrWhiteSpace(textNadawcaMiasto->Text) || String::IsNullOrWhiteSpace(textOdbiorcaMiasto->Text) ||
-				String::IsNullOrWhiteSpace(textNadawcaKod->Text) || String::IsNullOrWhiteSpace(textOdbiorcaKod->Text)) {
-				MessageBox::Show("Wszystkie pola muszą być wypełnione.", "Błąd Walidacji", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				String::IsNullOrWhiteSpace(textNadawcaKod->Text) || String::IsNullOrWhiteSpace(textOdbiorcaKod->Text) ||
+				String::IsNullOrWhiteSpace(textNadawcaUlica->Text) || String::IsNullOrWhiteSpace(textOdbiorcaUlica->Text)) {
+				MessageBox::Show("Pola: imię, nazwisko, ulica, miasto i kod pocztowy muszą być wypełnione.", "Błąd Walidacji", MessageBoxButtons::OK, MessageBoxIcon::Error);
 				return;
 			}
 
-			// Tworzenie obiektów C++
+			// Tworzenie obiektu Nadawcy C++
 			Nadawca n;
 			n.imie = toStdString(textNadawcaImie->Text);
 			n.nazwisko = toStdString(textNadawcaNazwisko->Text);
+			n.telefon = toStdString(textNadawcaTelefon->Text);
+			n.email = toStdString(textNadawcaEmail->Text);
+			n.ulica = toStdString(textNadawcaUlica->Text);
 			n.miasto = toStdString(textNadawcaMiasto->Text);
+			n.wojewodztwo = toStdString(textNadawcaWojewodztwo->Text);
 			n.kodPocztowy = toStdString(textNadawcaKod->Text);
+			n.kraj = toStdString(textNadawcaKraj->Text);
 
+			// Tworzenie obiektu Odbiorcy C++
 			Odbiorca o;
 			o.imie = toStdString(textOdbiorcaImie->Text);
 			o.nazwisko = toStdString(textOdbiorcaNazwisko->Text);
+			o.telefon = toStdString(textOdbiorcaTelefon->Text);
+			o.email = toStdString(textOdbiorcaEmail->Text);
+			o.ulica = toStdString(textOdbiorcaUlica->Text);
 			o.miasto = toStdString(textOdbiorcaMiasto->Text);
+			o.wojewodztwo = toStdString(textOdbiorcaWojewodztwo->Text);
 			o.kodPocztowy = toStdString(textOdbiorcaKod->Text);
+			o.kraj = toStdString(textOdbiorcaKraj->Text);
 
-			Paczka nowaPaczka(n, o);
+			// Odczytanie rozmiaru paczki
+			Paczka::RozmiarPaczki rozmiar;
+			if (radioSrednia->Checked) {
+				rozmiar = Paczka::RozmiarPaczki::SREDNIA;
+			}
+			else if (radioDuza->Checked) {
+				rozmiar = Paczka::RozmiarPaczki::DUZA;
+			}
+			else {
+				rozmiar = Paczka::RozmiarPaczki::MALA;
+			}
+
+			Paczka nowaPaczka(n, o, rozmiar);
 
 			// Zapis do pliku JSON
 			std::string stdFileName = toStdString(this->fileName);
 			json paczkiJson;
 
-			// Odczytaj istniejący plik
 			std::ifstream ifs(stdFileName);
 			if (ifs.is_open()) {
 				try {
@@ -496,29 +489,45 @@ namespace PSiO {
 					if (!paczkiJson.is_array()) paczkiJson = json::array();
 				}
 				catch (json::parse_error&) {
-					paczkiJson = json::array(); // Plik uszkodzony, zacznij od nowa
+					paczkiJson = json::array();
 				}
 				ifs.close();
 			}
 			else {
-				paczkiJson = json::array(); // Plik nie istnieje, utwórz nową tablicę
+				paczkiJson = json::array();
 			}
 
-			// Dodaj nową paczkę
+			// Konwersja rozmiaru na string dla JSON
+			std::string rozmiarStr = "MALA";
+			if (rozmiar == Paczka::RozmiarPaczki::SREDNIA) rozmiarStr = "SREDNIA";
+			else if (rozmiar == Paczka::RozmiarPaczki::DUZA) rozmiarStr = "DUZA";
+
+			// Dodaj nową paczkę z wszystkimi polami
 			json jPaczka;
 			jPaczka["numerPaczki"] = nowaPaczka.getNumerPaczki();
+			jPaczka["rozmiar"] = rozmiarStr;
 			jPaczka["nadawca"]["imie"] = n.imie;
 			jPaczka["nadawca"]["nazwisko"] = n.nazwisko;
+			jPaczka["nadawca"]["telefon"] = n.telefon;
+			jPaczka["nadawca"]["email"] = n.email;
+			jPaczka["nadawca"]["adres"]["ulica"] = n.ulica;
 			jPaczka["nadawca"]["adres"]["miasto"] = n.miasto;
+			jPaczka["nadawca"]["adres"]["wojewodztwo"] = n.wojewodztwo;
 			jPaczka["nadawca"]["adres"]["kodPocztowy"] = n.kodPocztowy;
+			jPaczka["nadawca"]["adres"]["kraj"] = n.kraj;
+
 			jPaczka["odbiorca"]["imie"] = o.imie;
 			jPaczka["odbiorca"]["nazwisko"] = o.nazwisko;
+			jPaczka["odbiorca"]["telefon"] = o.telefon;
+			jPaczka["odbiorca"]["email"] = o.email;
+			jPaczka["odbiorca"]["adres"]["ulica"] = o.ulica;
 			jPaczka["odbiorca"]["adres"]["miasto"] = o.miasto;
+			jPaczka["odbiorca"]["adres"]["wojewodztwo"] = o.wojewodztwo;
 			jPaczka["odbiorca"]["adres"]["kodPocztowy"] = o.kodPocztowy;
+			jPaczka["odbiorca"]["adres"]["kraj"] = o.kraj;
 
 			paczkiJson.push_back(jPaczka);
 
-			// Zapisz z powrotem do pliku
 			std::ofstream ofs(stdFileName);
 			ofs << std::setw(4) << paczkiJson << std::endl;
 			ofs.close();
@@ -526,16 +535,13 @@ namespace PSiO {
 			String^ numerPaczki = msclr::interop::marshal_as<String^>(nowaPaczka.getNumerPaczki());
 			MessageBox::Show("Paczka o numerze " + numerPaczki + " została pomyślnie nadana!", "Sukces", MessageBoxButtons::OK, MessageBoxIcon::Information);
 
-			// Pokaż animację
 			this->Hide();
 			AnimationForm^ animForm = gcnew AnimationForm();
 			animForm->ShowDialog();
 
-			// Po zamknięciu animacji, pokaż etykietę
 			EtykietaForm^ etykietaForm = gcnew EtykietaForm(numerPaczki);
 			etykietaForm->ShowDialog();
 
-			
 			this->Close();
 		}
 	};

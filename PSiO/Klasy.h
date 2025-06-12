@@ -2,28 +2,27 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <algorithm> // Required for std::sort
-#include "json.hpp" // Do obsługi formatu JSON
+#include <algorithm>
+#include "json.hpp"
 
 // --- Deklaracje klas ---
-class Paczka; // Deklaracja wyprzedzająca
+class Paczka;
 
 // --- Klasa Sortownia ---
 class Sortownia {
 public:
-    // Enum do wyboru kryterium sortowania
     enum class KryteriumSortowania {
         WG_MIASTA,
-        WG_KODU_POCZTOWEGO
+        WG_KODU_POCZTOWEGO,
+        WG_ADRESU_DORECZENIA // NOWE, ulepszone sortowanie
     };
 
-    // Metody publiczne
     void wczytajPaczkiZPliku(const std::string& nazwaPliku);
     void sortujPaczki(KryteriumSortowania kryterium);
     const std::vector<Paczka>& getPaczki() const;
 
 private:
-    std::vector<Paczka> paczki; // Wektor do przechowywania paczek
+    std::vector<Paczka> paczki;
 };
 
 
@@ -66,33 +65,32 @@ private:
     void klasaWirtualnaAdres() override {}
 public:
     Odbiorca() = default;
-
-    // Gettery potrzebne do sortowania
-    const std::string& getMiasto() const { return miasto; }
-    const std::string& getKodPocztowy() const { return kodPocztowy; }
 };
 
 // --- Klasa Paczka ---
 class Paczka {
+public:
+    // Enum dla rozmiaru paczki
+    enum class RozmiarPaczki { MALA, SREDNIA, DUZA };
+
 private:
     std::string numerPaczki;
     Nadawca nadawca;
     Odbiorca odbiorca;
+    RozmiarPaczki rozmiar; // Nowe pole
 
-    // Prywatna metoda do generowania unikalnego numeru paczki
     static std::string generateRandomPackageNumber();
 
 public:
-    // Konstruktor do tworzenia NOWEJ paczki (generuje nowy numer)
-    Paczka(const Nadawca& n, const Odbiorca& o);
-
-    // Konstruktor do wczytywania paczki Z PLIKU (używa istniejącego numeru)
-    Paczka(std::string num, const Nadawca& n, const Odbiorca& o);
+    // Zaktualizowane konstruktory
+    Paczka(const Nadawca& n, const Odbiorca& o, RozmiarPaczki r);
+    Paczka(std::string num, const Nadawca& n, const Odbiorca& o, RozmiarPaczki r);
 
     // Gettery
     const Nadawca& getNadawca() const { return nadawca; }
     const Odbiorca& getOdbiorca() const { return odbiorca; }
     std::string getNumerPaczki() const { return numerPaczki; }
+    RozmiarPaczki getRozmiar() const { return rozmiar; }
 
     void paczkaPrzyjeta() const;
 };

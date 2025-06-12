@@ -279,5 +279,54 @@
             "imie": "s",
             "nazwisko": "s"
         }
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "s",
+                "miasto": "s"
+            },
+            "imie": "s",
+            "nazwisko": "s"
+        },
+        "numerPaczki": "PKZ722917",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "s",
+                "miasto": "s"
+            },
+            "imie": "s",
+            "nazwisko": "s"
+        }
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "s",
+                "kraj": "s",
+                "miasto": "s",
+                "ulica": "s",
+                "wojewodztwo": "s"
+            },
+            "email": "s",
+            "imie": "s",
+            "nazwisko": "s",
+            "telefon": "s"
+        },
+        "numerPaczki": "PKZ331826",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "s",
+                "kraj": "s",
+                "miasto": "s",
+                "ulica": "s",
+                "wojewodztwo": "s"
+            },
+            "email": "s",
+            "imie": "s",
+            "nazwisko": "s",
+            "telefon": "s"
+        },
+        "rozmiar": "SREDNIA"
     }
 ]

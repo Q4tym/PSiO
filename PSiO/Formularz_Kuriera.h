@@ -46,6 +46,7 @@ namespace PSiO {
 		}
 
 	private:
+		System::Windows::Forms::Button^ buttonSortujAdres;
 		Sortownia* sortownia;
 		System::Windows::Forms::ListView^ listViewPaczki;
 		System::Windows::Forms::Button^ buttonSortujMiasto;
@@ -62,6 +63,7 @@ namespace PSiO {
 #pragma region Windows Form Designer generated code
 		void InitializeComponent(void)
 		{
+			this->buttonSortujAdres = (gcnew System::Windows::Forms::Button());
 			this->listViewPaczki = (gcnew System::Windows::Forms::ListView());
 			this->buttonSortujMiasto = (gcnew System::Windows::Forms::Button());
 			this->buttonSortujKod = (gcnew System::Windows::Forms::Button());
@@ -139,12 +141,24 @@ namespace PSiO {
 			this->buttonSortujKod->UseVisualStyleBackColor = false;
 			this->buttonSortujKod->Click += gcnew System::EventHandler(this, &Formularz_Kuriera::buttonSortujKod_Click);
 			//
+			// this->buttonSortujAdres->BackColor = System::Drawing::Color::FromArgb(40, 167, 69); // Zielony kolor
+			this->buttonSortujAdres->FlatAppearance->BorderSize = 0;
+			this->buttonSortujAdres->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->buttonSortujAdres->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F, System::Drawing::FontStyle::Bold));
+			this->buttonSortujAdres->ForeColor = System::Drawing::Color::White;
+			this->buttonSortujAdres->Location = System::Drawing::Point(430, 12); // Ustaw pozycję obok innych
+			this->buttonSortujAdres->Name = L"buttonSortujAdres";
+			this->buttonSortujAdres->Size = System::Drawing::Size(180, 32);
+			this->buttonSortujAdres->Text = L"Sortuj wg Trasy";
+			this->buttonSortujAdres->UseVisualStyleBackColor = false;
+			this->buttonSortujAdres->Click += gcnew System::EventHandler(this, &Formularz_Kuriera::buttonSortujAdres_Click);
+			// 
 			// labelInfo
 			//
 			this->labelInfo->AutoSize = true;
 			this->labelInfo->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F));
 			this->labelInfo->ForeColor = System::Drawing::Color::Gainsboro;
-			this->labelInfo->Location = System::Drawing::Point(450, 20);
+			this->labelInfo->Location = System::Drawing::Point(620, 20);
 			this->labelInfo->Name = L"labelInfo";
 			this->labelInfo->Text = L"Panel kuriera - lista paczek w systemie.";
 			//
@@ -215,6 +229,7 @@ namespace PSiO {
 			this->Controls->Add(this->buttonSortujKod);
 			this->Controls->Add(this->buttonSortujMiasto);
 			this->Controls->Add(this->listViewPaczki);
+			this->Controls->Add(this->buttonSortujAdres);
 			this->MinimumSize = System::Drawing::Size(800, 500);
 			this->Name = L"Formularz_Kuriera";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
@@ -228,6 +243,10 @@ namespace PSiO {
 #pragma endregion
 
 	private:
+		System::Void buttonSortujAdres_Click(System::Object^ sender, System::EventArgs^ e) {
+			sortownia->sortujPaczki(Sortownia::KryteriumSortowania::WG_ADRESU_DORECZENIA);
+			odswiezListePaczek(true);
+		}
 		System::Void buttonOdswiez_Click(System::Object^ sender, System::EventArgs^ e) {
 			odswiezListePaczek(false);
 		}
