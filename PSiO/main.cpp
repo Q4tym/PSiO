@@ -10,12 +10,9 @@ int main(array<String^>^ args) {
     Application::EnableVisualStyles();
     Application::SetCompatibleTextRenderingDefault(false);
 
-    //--[IMPROVEMENT: Splash Screen]--
-    // Poka¿ formularz ekranu startowego (splash screen)
     SplashScreen^ splash = gcnew SplashScreen();
-    splash->ShowDialog(); // U¿yj ShowDialog, aby zablokowaæ dalsze wykonanie do zamkniêcia
+    splash->ShowDialog();
 
-    // Po zamkniêciu splash screen, poka¿ g³ówny formularz
     MyForm^ mainForm = gcnew MyForm();
     Application::Run(mainForm);
 

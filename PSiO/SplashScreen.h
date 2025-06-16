@@ -35,21 +35,15 @@ namespace PSiO {
             this->labelTitle = (gcnew System::Windows::Forms::Label());
             this->labelLoading = (gcnew System::Windows::Forms::Label());
             this->SuspendLayout();
-            // 
-            // timer
-            // 
+
             this->timer->Interval = 30;
             this->timer->Tick += gcnew System::EventHandler(this, &SplashScreen::timer_Tick);
-            // 
-            // progressBar
-            // 
+
             this->progressBar->Location = System::Drawing::Point(37, 160);
             this->progressBar->Name = L"progressBar";
             this->progressBar->Size = System::Drawing::Size(426, 15);
             this->progressBar->Style = System::Windows::Forms::ProgressBarStyle::Continuous;
-            // 
-            // labelTitle
-            // 
+
             this->labelTitle->AutoSize = true;
             this->labelTitle->Font = (gcnew System::Drawing::Font(L"Segoe UI", 27.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(238)));
             this->labelTitle->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(122)), static_cast<System::Int32>(static_cast<System::Byte>(204)));
@@ -58,9 +52,7 @@ namespace PSiO {
             this->labelTitle->Size = System::Drawing::Size(349, 50);
             this->labelTitle->TabIndex = 1;
             this->labelTitle->Text = L"SYSTEM KURIERSKI";
-            // 
-            // labelLoading
-            // 
+
             this->labelLoading->AutoSize = true;
             this->labelLoading->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(238)));
             this->labelLoading->ForeColor = System::Drawing::Color::White;
@@ -69,9 +61,7 @@ namespace PSiO {
             this->labelLoading->Size = System::Drawing::Size(91, 17);
             this->labelLoading->TabIndex = 2;
             this->labelLoading->Text = L"£adowanie...";
-            // 
-            // SplashScreen
-            // 
+
             this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
             this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
             this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(48)));
