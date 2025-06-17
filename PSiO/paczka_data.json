@@ -20,5 +20,49 @@
             "nazwisko": "321312"
         },
         "rozmiar": "DUZA"
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "32131",
+                "miasto": "321321",
+                "ulica": "321321321"
+            },
+            "imie": "123",
+            "nazwisko": "21312"
+        },
+        "numerPaczki": "PKZ348468",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "32131",
+                "miasto": "3213",
+                "ulica": "2131"
+            },
+            "imie": "1231",
+            "nazwisko": "321"
+        },
+        "rozmiar": "DUZA"
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "111",
+                "miasto": "111",
+                "ulica": "111"
+            },
+            "imie": "111",
+            "nazwisko": "111"
+        },
+        "numerPaczki": "PKZ413866",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "111",
+                "miasto": "1",
+                "ulica": "1"
+            },
+            "imie": "1",
+            "nazwisko": "1"
+        },
+        "rozmiar": "DUZA"
     }
 ]

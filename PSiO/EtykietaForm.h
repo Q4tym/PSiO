@@ -15,12 +15,11 @@ namespace PSiO {
 
     public ref class EtykietaForm : public Form {
     public:
-        //--[IMPROVEMENT: Professional Label]--
-        // Konstruktor przyjmuje teraz ca³y obiekt Paczka, aby wyœwietliæ pe³ne dane.
-        EtykietaForm(const Paczka& paczka) {
+        EtykietaForm(const Paczka& paczka)
+            : numerPaczki(msclr::interop::marshal_as<String^>(paczka.getNumerPaczki()))
+        {
             this->InitializeComponent();
 
-            String^ numerPaczki = msclr::interop::marshal_as<String^>(paczka.getNumerPaczki());
             const Nadawca& nadawca = paczka.getNadawca();
             const Odbiorca& odbiorca = paczka.getOdbiorca();
 
@@ -39,6 +38,8 @@ namespace PSiO {
             // Ustaw numer paczki i wygeneruj kod kreskowy
             this->labelNumerPaczki->Text = numerPaczki;
             this->pictureBoxKodKreskowy->Image = generujKodKreskowy(numerPaczki);
+
+            ostatniPlikEtykiety = nullptr;
         }
 
     protected:
@@ -57,8 +58,13 @@ namespace PSiO {
         Label^ labelNumerPaczki;
         PictureBox^ pictureBoxKodKreskowy;
         Button^ buttonZamknij;
+        Button^ buttonDrukuj;
+        Button^ buttonZapisz;
         Panel^ panelSeparator;
+        System::Drawing::Printing::PrintDocument^ printDocument;
         System::ComponentModel::Container^ components;
+        String^ numerPaczki;
+        String^ ostatniPlikEtykiety;
 
         void InitializeComponent() {
             this->components = (gcnew System::ComponentModel::Container());
@@ -70,6 +76,8 @@ namespace PSiO {
             this->labelNumerPaczki = (gcnew System::Windows::Forms::Label());
             this->pictureBoxKodKreskowy = (gcnew System::Windows::Forms::PictureBox());
             this->buttonZamknij = (gcnew System::Windows::Forms::Button());
+            this->buttonDrukuj = (gcnew System::Windows::Forms::Button());
+            this->buttonZapisz = (gcnew System::Windows::Forms::Button());
             this->panelSeparator = (gcnew System::Windows::Forms::Panel());
             (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxKodKreskowy))->BeginInit();
             this->SuspendLayout();
@@ -145,7 +153,7 @@ namespace PSiO {
             // 
             // buttonZamknij
             // 
-            this->buttonZamknij->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(210)), static_cast<System::Int32>(static_cast<System::Byte>(210)), static_cast<System::Int32>(static_cast<System::Byte>(210)));
+            this->buttonZamknij->BackColor = System::Drawing::Color::FromArgb(210, 210, 210);
             this->buttonZamknij->FlatAppearance->BorderSize = 1;
             this->buttonZamknij->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
             this->buttonZamknij->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F, System::Drawing::FontStyle::Bold));
@@ -156,12 +164,38 @@ namespace PSiO {
             this->buttonZamknij->Text = L"Zamknij";
             this->buttonZamknij->Click += gcnew System::EventHandler(this, &EtykietaForm::buttonZamknij_Click);
             // 
+            // buttonDrukuj
+            // 
+            this->buttonDrukuj->BackColor = System::Drawing::Color::FromArgb(210, 210, 210);
+            this->buttonDrukuj->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+            this->buttonDrukuj->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F, System::Drawing::FontStyle::Bold));
+            this->buttonDrukuj->ForeColor = System::Drawing::Color::Black;
+            this->buttonDrukuj->Location = System::Drawing::Point(12, 410);
+            this->buttonDrukuj->Name = L"buttonDrukuj";
+            this->buttonDrukuj->Size = System::Drawing::Size(460, 35);
+            this->buttonDrukuj->Text = L"Drukuj";
+            this->buttonDrukuj->Click += gcnew System::EventHandler(this, &EtykietaForm::buttonDrukuj_Click);
+            // 
+            // buttonZapisz
+            // 
+            this->buttonZapisz->BackColor = System::Drawing::Color::FromArgb(210, 210, 210);
+            this->buttonZapisz->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+            this->buttonZapisz->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F, System::Drawing::FontStyle::Bold));
+            this->buttonZapisz->ForeColor = System::Drawing::Color::Black;
+            this->buttonZapisz->Location = System::Drawing::Point(12, 450);
+            this->buttonZapisz->Name = L"buttonZapisz";
+            this->buttonZapisz->Size = System::Drawing::Size(460, 35);
+            this->buttonZapisz->Text = L"Zapisz etykietê do pliku";
+            this->buttonZapisz->Click += gcnew System::EventHandler(this, &EtykietaForm::buttonZapisz_Click);
+            // 
             // EtykietaForm
             // 
             this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
             this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
             this->BackColor = System::Drawing::Color::White;
-            this->ClientSize = System::Drawing::Size(484, 421);
+            this->ClientSize = System::Drawing::Size(484, 500);
+            this->Controls->Add(this->buttonZapisz);
+            this->Controls->Add(this->buttonDrukuj);
             this->Controls->Add(this->buttonZamknij);
             this->Controls->Add(this->pictureBoxKodKreskowy);
             this->Controls->Add(this->labelNumerPaczki);
@@ -182,9 +216,6 @@ namespace PSiO {
             this->PerformLayout();
         }
 
-        //--[IMPROVEMENT: Better Barcode]--
-        // Ulepszona metoda generowania kodu kreskowego. Chocia¿ to wci¹¿ symulacja,
-        // u¿ywa zdefiniowanych szerokoœci dla cyfr, co daje bardziej regularny wzór.
         Bitmap^ generujKodKreskowy(String^ tekst) {
             const int width = 460;
             const int height = 90;
@@ -215,6 +246,39 @@ namespace PSiO {
 
         System::Void buttonZamknij_Click(System::Object^ sender, System::EventArgs^ e) {
             this->Close();
+        }
+
+        System::Void buttonZapisz_Click(System::Object^ sender, System::EventArgs^ e) {
+            // Zapisz etykietê do pliku PNG o nazwie numeru paczki
+            String^ fileName = numerPaczki + ".png";
+            Bitmap^ bmp = gcnew Bitmap(this->ClientSize.Width, this->ClientSize.Height);
+            this->DrawToBitmap(bmp, System::Drawing::Rectangle(0, 0, bmp->Width, bmp->Height));
+            bmp->Save(fileName, Imaging::ImageFormat::Png);
+            ostatniPlikEtykiety = fileName;
+            MessageBox::Show("Etykieta zosta³a zapisana do pliku:\n" + fileName, "Zapisano", MessageBoxButtons::OK, MessageBoxIcon::Information);
+            delete bmp;
+        }
+
+        System::Void buttonDrukuj_Click(System::Object^ sender, System::EventArgs^ e) {
+            if (String::IsNullOrEmpty(ostatniPlikEtykiety) || !System::IO::File::Exists(ostatniPlikEtykiety)) {
+                MessageBox::Show("Najpierw zapisz etykietê do pliku!", "Brak pliku", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+                return;
+            }
+            printDocument = gcnew System::Drawing::Printing::PrintDocument();
+            printDocument->PrintPage += gcnew System::Drawing::Printing::PrintPageEventHandler(this, &EtykietaForm::printDocument_PrintPage);
+            System::Windows::Forms::PrintDialog^ dlg = gcnew System::Windows::Forms::PrintDialog();
+            dlg->Document = printDocument;
+            if (dlg->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
+                printDocument->Print();
+            }
+        }
+
+        void printDocument_PrintPage(System::Object^ sender, System::Drawing::Printing::PrintPageEventArgs^ e) {
+            if (!String::IsNullOrEmpty(ostatniPlikEtykiety) && System::IO::File::Exists(ostatniPlikEtykiety)) {
+                Bitmap^ bmp = gcnew Bitmap(ostatniPlikEtykiety);
+                e->Graphics->DrawImage(bmp, 0, 0);
+                delete bmp;
+            }
         }
     };
 }
