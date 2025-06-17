@@ -1,3 +1,1 @@
 [2025-06-16 09:55:29] Paczka #PKZ814660 | Rozmiar: Mala | Odbiorca: s s | Adres: s, s s
-[2025-06-17 21:55:17] Paczka #PKZ444206 | Odbiorca: s s | Adres: s, s s
-[2025-06-17 22:00:38] Paczka #PKZ268813 | Odbiorca: Adrzej Kowalski | Adres: sa68, 58-400 Walbrzych
