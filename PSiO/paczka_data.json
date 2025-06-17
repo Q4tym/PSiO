@@ -64,5 +64,27 @@
             "nazwisko": "1"
         },
         "rozmiar": "DUZA"
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "0",
+                "miasto": "0",
+                "ulica": "0"
+            },
+            "imie": "0",
+            "nazwisko": "0"
+        },
+        "numerPaczki": "PKZ687807",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "00",
+                "miasto": "0",
+                "ulica": "0"
+            },
+            "imie": "0",
+            "nazwisko": "0"
+        },
+        "rozmiar": "DUZA"
     }
 ]
