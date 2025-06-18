@@ -2,68 +2,461 @@
     {
         "nadawca": {
             "adres": {
-<<<<<<<<< Temporary merge branch 1
-                "kodPocztowy": "3213",
-                "miasto": "321321321",
-                "ulica": "321312"
+                "kodPocztowy": "00-001",
+                "miasto": "Warszawa",
+                "ulica": "Marszalkowska 1"
             },
-            "imie": "Hubert",
-            "nazwisko": "Bergolec"
+            "imie": "Jan",
+            "nazwisko": "Kowalski"
         },
-        "numerPaczki": "PKZ596743",
+        "numerPaczki": "PKZ123456",
         "odbiorca": {
             "adres": {
-                "kodPocztowy": "321321",
-                "miasto": "231321",
-                "ulica": "1231"
+                "kodPocztowy": "31-002",
+                "miasto": "Krakow",
+                "ulica": "Rynek Glowny 5"
             },
-            "imie": "321312",
-            "nazwisko": "321312"
+            "imie": "Anna",
+            "nazwisko": "Nowak"
         },
-        "rozmiar": "DUZA"
+        "rozmiar": "MALA",
+        "status": "W sortowni"
     },
     {
         "nadawca": {
             "adres": {
-                "kodPocztowy": "32131",
-                "miasto": "321321",
-                "ulica": "321321321"
+                "kodPocztowy": "50-001",
+                "miasto": "Wroclaw",
+                "ulica": "Rynkowa 12"
             },
-            "imie": "123",
-            "nazwisko": "21312"
+            "imie": "Piotr",
+            "nazwisko": "Wisniewski"
         },
-        "numerPaczki": "PKZ348468",
+        "numerPaczki": "PKZ789012",
         "odbiorca": {
             "adres": {
-                "kodPocztowy": "32131",
-                "miasto": "3213",
-                "ulica": "2131"
+                "kodPocztowy": "80-001",
+                "miasto": "Gdansk",
+                "ulica": "Dluga 8"
             },
-            "imie": "1231",
-            "nazwisko": "321"
+            "imie": "Marta",
+            "nazwisko": "Lewandowska"
         },
-        "rozmiar": "DUZA"
+        "rozmiar": "SREDNIA",
+        "status": "W sortowni"
     },
     {
         "nadawca": {
             "adres": {
-                "kodPocztowy": "111",
-                "miasto": "111",
-                "ulica": "111"
+                "kodPocztowy": "90-001",
+                "miasto": "Lodz",
+                "ulica": "Piotrkowska 15"
             },
-            "imie": "111",
-            "nazwisko": "111"
+            "imie": "Krzysztof",
+            "nazwisko": "Dabrowski"
         },
-        "numerPaczki": "PKZ413866",
+        "numerPaczki": "PKZ345678",
         "odbiorca": {
             "adres": {
-                "kodPocztowy": "111",
-                "miasto": "1",
-                "ulica": "1"
+                "kodPocztowy": "40-001",
+                "miasto": "Katowice",
+                "ulica": "Mikolowska 20"
             },
-            "imie": "1",
-            "nazwisko": "1"
+            "imie": "Ewa",
+            "nazwisko": "Wojcik"
         },
-        "rozmiar": "DUZA"
+        "rozmiar": "DUZA",
+        "status": "W sortowni"
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "60-001",
+                "miasto": "Poznan",
+                "ulica": "Swiety Marcin 10"
+            },
+            "imie": "Adam",
+            "nazwisko": "Kaminski"
+        },
+        "numerPaczki": "PKZ901234",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "70-001",
+                "miasto": "Szczecin",
+                "ulica": "Walowa 3"
+            },
+            "imie": "Magdalena",
+            "nazwisko": "Kaczmarek"
+        },
+        "rozmiar": "MALA",
+        "status": "W sortowni"
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "30-001",
+                "miasto": "Kielce",
+                "ulica": "Sienkiewicza 7"
+            },
+            "imie": "Tomasz",
+            "nazwisko": "Zielinski"
+        },
+        "numerPaczki": "PKZ567890",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "20-001",
+                "miasto": "Lublin",
+                "ulica": "Krakowskie Przedmiescie 12"
+            },
+            "imie": "Alicja",
+            "nazwisko": "Szymanska"
+        },
+        "rozmiar": "SREDNIA",
+        "status": "W sortowni"
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "10-001",
+                "miasto": "Olsztyn",
+                "ulica": "Staromiejska 5"
+            },
+            "imie": "Marcin",
+            "nazwisko": "Wozniak"
+        },
+        "numerPaczki": "PKZ123789",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "15-001",
+                "miasto": "Bialystok",
+                "ulica": "Lipowa 10"
+            },
+            "imie": "Karolina",
+            "nazwisko": "Kozlowska"
+        },
+        "rozmiar": "DUZA",
+        "status": "W sortowni"
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "25-001",
+                "miasto": "Radom",
+                "ulica": "Zeromskiego 8"
+            },
+            "imie": "Pawel",
+            "nazwisko": "Jankowski"
+        },
+        "numerPaczki": "PKZ456123",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "35-001",
+                "miasto": "Rzeszow",
+                "ulica": "3 Maja 15"
+            },
+            "imie": "Monika",
+            "nazwisko": "Mazur"
+        },
+        "rozmiar": "MALA",
+        "status": "W sortowni"
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "45-001",
+                "miasto": "Opole",
+                "ulica": "Krakowska 20"
+            },
+            "imie": "Grzegorz",
+            "nazwisko": "Kwiatkowski"
+        },
+        "numerPaczki": "PKZ789456",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "55-001",
+                "miasto": "Gliwice",
+                "ulica": "Zwyciestwa 5"
+            },
+            "imie": "Natalia",
+            "nazwisko": "Grabowska"
+        },
+        "rozmiar": "SREDNIA",
+        "status": "W sortowni"
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "65-001",
+                "miasto": "Zielona Gora",
+                "ulica": "Podgorna 12"
+            },
+            "imie": "Lukasz",
+            "nazwisko": "Krawczyk"
+        },
+        "numerPaczki": "PKZ321654",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "75-001",
+                "miasto": "Koszalin",
+                "ulica": "Zwyciestwa 10"
+            },
+            "imie": "Iwona",
+            "nazwisko": "Pawlak"
+        },
+        "rozmiar": "DUZA",
+        "status": "W sortowni"
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "85-001",
+                "miasto": "Bydgoszcz",
+                "ulica": "Gdanska 25"
+            },
+            "imie": "Michal",
+            "nazwisko": "Michalski"
+        },
+        "numerPaczki": "PKZ654321",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "95-001",
+                "miasto": "Czestochowa",
+                "ulica": "Aleja NMP 30"
+            },
+            "imie": "Barbara",
+            "nazwisko": "Witkowska"
+        },
+        "rozmiar": "MALA",
+        "status": "W sortowni"
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "01-001",
+                "miasto": "Legnica",
+                "ulica": "Piastowska 7"
+            },
+            "imie": "Robert",
+            "nazwisko": "Olszewski"
+        },
+        "numerPaczki": "PKZ987123",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "05-001",
+                "miasto": "Siedlce",
+                "ulica": "Pilsudskiego 10"
+            },
+            "imie": "Katarzyna",
+            "nazwisko": "Walczak"
+        },
+        "rozmiar": "SREDNIA",
+        "status": "W sortowni"
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "02-002",
+                "miasto": "Tarnow",
+                "ulica": "Krakowska 15"
+            },
+            "imie": "Dariusz",
+            "nazwisko": "Adamczyk"
+        },
+        "numerPaczki": "PKZ123987",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "03-003",
+                "miasto": "Plock",
+                "ulica": "Tumska 5"
+            },
+            "imie": "Joanna",
+            "nazwisko": "Sikora"
+        },
+        "rozmiar": "DUZA",
+        "status": "W doreczeniu"
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "04-004",
+                "miasto": "Elblag",
+                "ulica": "Stary Rynek 2"
+            },
+            "imie": "Artur",
+            "nazwisko": "Jaworski"
+        },
+        "numerPaczki": "PKZ456789",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "06-006",
+                "miasto": "Gorzow Wielkopolski",
+                "ulica": "Chrobrego 10"
+            },
+            "imie": "Patrycja",
+            "nazwisko": "Zajac"
+        },
+        "rozmiar": "MALA",
+        "status": "W doreczeniu"
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "07-007",
+                "miasto": "Walbrzych",
+                "ulica": "Slowackiego 8"
+            },
+            "imie": "Sebastian",
+            "nazwisko": "Malinowski"
+        },
+        "numerPaczki": "PKZ789123",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "08-008",
+                "miasto": "Wloclawek",
+                "ulica": "Brzozowa 12"
+            },
+            "imie": "Dominika",
+            "nazwisko": "Baran"
+        },
+        "rozmiar": "SREDNIA",
+        "status": "Dostarczono"
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "09-009",
+                "miasto": "Tychy",
+                "ulica": "Pokoju 5"
+            },
+            "imie": "Kamil",
+            "nazwisko": "Lis"
+        },
+        "numerPaczki": "PKZ321987",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "10-010",
+                "miasto": "Dabrowa Gornicza",
+                "ulica": "Kosciuszki 20"
+            },
+            "imie": "Sylwia",
+            "nazwisko": "Makowska"
+        },
+        "rozmiar": "DUZA",
+        "status": "W sortowni"
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "11-011",
+                "miasto": "Pruszkow",
+                "ulica": "Kolejowa 3"
+            },
+            "imie": "Rafal",
+            "nazwisko": "Wrobel"
+        },
+        "numerPaczki": "PKZ654987",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "12-012",
+                "miasto": "Ostrowiec Swietokrzyski",
+                "ulica": "Sandomierska 10"
+            },
+            "imie": "Agnieszka",
+            "nazwisko": "Krupa"
+        },
+        "rozmiar": "MALA",
+        "status": "W sortowni"
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "13-013",
+                "miasto": "Siemianowice Slaskie",
+                "ulica": "Mickiewicza 5"
+            },
+            "imie": "Adrian",
+            "nazwisko": "Michalak"
+        },
+        "numerPaczki": "PKZ987654",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "14-014",
+                "miasto": "Stalowa Wola",
+                "ulica": "Kwiatkowskiego 8"
+            },
+            "imie": "Weronika",
+            "nazwisko": "Kowalczyk"
+        },
+        "rozmiar": "SREDNIA",
+        "status": "W sortowni"
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "15-015",
+                "miasto": "Pabianice",
+                "ulica": "Warszawska 12"
+            },
+            "imie": "Bartosz",
+            "nazwisko": "Dudek"
+        },
+        "numerPaczki": "PKZ1234567",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "16-016",
+                "miasto": "Zamosc",
+                "ulica": "Rynek Wielki 3"
+            },
+            "imie": "Paulina",
+            "nazwisko": "Sobczak"
+        },
+        "rozmiar": "DUZA",
+        "status": "W sortowni"
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "17-017",
+                "miasto": "Lomza",
+                "ulica": "Dworna 5"
+            },
+            "imie": "Damian",
+            "nazwisko": "Wlodarczyk"
+        },
+        "numerPaczki": "PKZ7654321",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "18-018",
+                "miasto": "Elk",
+                "ulica": "Wojska Polskiego 10"
+            },
+            "imie": "Marzena",
+            "nazwisko": "Borkowska"
+        },
+        "rozmiar": "MALA",
+        "status": "W sortowni"
+    },
+    {
+        "nadawca": {
+            "adres": {
+                "kodPocztowy": "19-019",
+                "miasto": "Swidnica",
+                "ulica": "Rynek 2"
+            },
+            "imie": "Tadeusz",
+            "nazwisko": "Sokolowski"
+        },
+        "numerPaczki": "PKZ2345678",
+        "odbiorca": {
+            "adres": {
+                "kodPocztowy": "20-020",
+                "miasto": "Przemysl",
+                "ulica": "Grodzka 5"
+            },
+            "imie": "Dorota",
+            "nazwisko": "Czarnecka"
+        },
+        "rozmiar": "SREDNIA",
+        "status": "W sortowni"
     }
 ]
