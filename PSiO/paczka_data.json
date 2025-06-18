@@ -21,32 +21,10 @@
             "nazwisko": "321312"
         },
         "rozmiar": "DUZA"
-=========
-                "kodPocztowy": "00-901",
-                "miasto": "Warszawa",
-                "ulica": "ul. Wiejska 4/6/8"
-            },
-            "imie": "Lech",
-            "nazwisko": "Walesa"
-        },
-        "numerPaczki": "PKZ975310",
-        "odbiorca": {
-            "adres": {
-                "kodPocztowy": "00-071",
-                "miasto": "Warszawa",
-                "ulica": "pl. Pilsudskiego 1"
-            },
-            "imie": "Jozef",
-            "nazwisko": "Pilsudski"
-        },
-        "rozmiar": "SREDNIA",
-        "status": "W sortowni"
->>>>>>>>> Temporary merge branch 2
     },
     {
         "nadawca": {
             "adres": {
-<<<<<<<<< Temporary merge branch 1
                 "kodPocztowy": "32131",
                 "miasto": "321321",
                 "ulica": "321321321"
@@ -65,32 +43,10 @@
             "nazwisko": "321"
         },
         "rozmiar": "DUZA"
-=========
-                "kodPocztowy": "70-300",
-                "miasto": "Szczecin",
-                "ulica": "al. Wojska Polskiego 100"
-            },
-            "imie": "Monika",
-            "nazwisko": "Wisniewska"
-        },
-        "numerPaczki": "PKZ912345",
-        "odbiorca": {
-            "adres": {
-                "kodPocztowy": "02-500",
-                "miasto": "Warszawa",
-                "ulica": "ul. Pulawska 25"
-            },
-            "imie": "Krzysztof",
-            "nazwisko": "Dabrowski"
-        },
-        "rozmiar": "DUZA",
-        "status": "W doreczeniu"
->>>>>>>>> Temporary merge branch 2
     },
     {
         "nadawca": {
             "adres": {
-<<<<<<<<< Temporary merge branch 1
                 "kodPocztowy": "111",
                 "miasto": "111",
                 "ulica": "111"
