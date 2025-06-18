@@ -17,7 +17,10 @@ namespace PSiO {
 	using namespace System::Drawing;
 	using namespace System::Windows::Forms::DataVisualization::Charting;
 
+<<<<<<<<< Temporary merge branch 1
+=========
 	// Funkcja pomocnicza do sortowania mapy wg wartości (dla statystyk)
+>>>>>>>>> Temporary merge branch 2
 	inline bool compareMapPairValues(const std::pair<std::string, int>& a, const std::pair<std::string, int>& b) {
 		return a.second > b.second;
 	}
@@ -30,13 +33,38 @@ namespace PSiO {
 			sortownia = new Sortownia();
 		}
 	protected:
+<<<<<<<<< Temporary merge branch 1
+		~Formularz_Kuriera()
+		{
+			if (components)
+			{
+				delete components;
+			}
+=========
 		~Formularz_Kuriera() {
 			if (components) { delete components; }
+>>>>>>>>> Temporary merge branch 2
 			delete sortownia;
 		}
 
 	private: // DEKLARACJE ZMIENNYCH CZŁONKOWSKICH
 		Sortownia* sortownia;
+<<<<<<<<< Temporary merge branch 1
+		ListView^ listViewPaczki;
+		Button^ buttonSortujMiasto;
+		Button^ buttonSortujKod;
+		Button^ buttonSortujAdres;
+		Button^ buttonOdswiez;
+		Button^ buttonPodgladEtykiety;
+		Label^ labelInfo;
+		GroupBox^ groupBoxStatystyki;
+		Label^ labelStatLiczbaPaczek;
+		Label^ labelStatMiasto;
+		Label^ labelLiczbaPaczekVal;
+		Label^ labelMiastoVal;
+		ImageList^ imageListPaczki;
+		Chart^ chartStatystyki;
+=========
 		System::Windows::Forms::ListView^ listViewPaczki;
 		System::Windows::Forms::Button^ buttonSortujMiasto, ^ buttonSortujKod, ^ buttonSortujAdres, ^ buttonOdswiez;
 		System::Windows::Forms::Label^ labelInfo, ^ labelStatLiczbaPaczek, ^ labelStatMiasto, ^ labelLiczbaPaczekVal, ^ labelMiastoVal, ^ labelSzukaj;
@@ -46,6 +74,7 @@ namespace PSiO {
 		System::Windows::Forms::TextBox^ textSzukaj;
 		System::Windows::Forms::ContextMenuStrip^ contextMenuPaczka;
 		System::Windows::Forms::ToolStripMenuItem^ statusWDoreczeniu, ^ statusDostarczono, ^ statusWSortowni;
+>>>>>>>>> Temporary merge branch 2
 		System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
@@ -193,6 +222,65 @@ namespace PSiO {
 			this->buttonOdswiez->UseVisualStyleBackColor = false;
 			this->buttonOdswiez->Click += gcnew System::EventHandler(this, &Formularz_Kuriera::buttonOdswiez_Click);
 			// 
+<<<<<<<<< Temporary merge branch 1
+			// buttonSortujMiasto
+			// 
+			this->buttonSortujMiasto->BackColor = System::Drawing::Color::FromArgb(50, 50, 50);
+			this->buttonSortujMiasto->FlatAppearance->BorderSize = 0;
+			this->buttonSortujMiasto->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->buttonSortujMiasto->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F));
+			this->buttonSortujMiasto->ForeColor = System::Drawing::Color::White;
+			this->buttonSortujMiasto->Location = System::Drawing::Point(118, 12);
+			this->buttonSortujMiasto->Name = L"buttonSortujMiasto";
+			this->buttonSortujMiasto->Size = System::Drawing::Size(130, 32);
+			this->buttonSortujMiasto->Text = L"Sortuj wg Miasta";
+			this->buttonSortujMiasto->UseVisualStyleBackColor = false;
+			this->buttonSortujMiasto->Click += gcnew System::EventHandler(this, &Formularz_Kuriera::buttonSortujMiasto_Click);
+			// 
+			// buttonSortujKod
+			// 
+			this->buttonSortujKod->BackColor = System::Drawing::Color::FromArgb(50, 50, 50);
+			this->buttonSortujKod->FlatAppearance->BorderSize = 0;
+			this->buttonSortujKod->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->buttonSortujKod->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F));
+			this->buttonSortujKod->ForeColor = System::Drawing::Color::White;
+			this->buttonSortujKod->Location = System::Drawing::Point(254, 12);
+			this->buttonSortujKod->Name = L"buttonSortujKod";
+			this->buttonSortujKod->Size = System::Drawing::Size(140, 32);
+			this->buttonSortujKod->Text = L"Sortuj wg Kodu";
+			this->buttonSortujKod->UseVisualStyleBackColor = false;
+			this->buttonSortujKod->Click += gcnew System::EventHandler(this, &Formularz_Kuriera::buttonSortujKod_Click);
+			//
+			// buttonSortujAdres
+			//
+			this->buttonSortujAdres->BackColor = System::Drawing::Color::FromArgb(40, 167, 69);
+			this->buttonSortujAdres->FlatAppearance->BorderSize = 0;
+			this->buttonSortujAdres->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->buttonSortujAdres->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F, System::Drawing::FontStyle::Bold));
+			this->buttonSortujAdres->ForeColor = System::Drawing::Color::White;
+			this->buttonSortujAdres->Location = System::Drawing::Point(400, 12);
+			this->buttonSortujAdres->Name = L"buttonSortujAdres";
+			this->buttonSortujAdres->Size = System::Drawing::Size(192, 32);
+			this->buttonSortujAdres->Text = L"Sortowanie Zaawansowane";
+			this->buttonSortujAdres->UseVisualStyleBackColor = false;
+			this->buttonSortujAdres->Click += gcnew System::EventHandler(this, &Formularz_Kuriera::buttonSortujAdres_Click);
+			// 
+			// buttonPodgladEtykiety
+			// 
+			this->buttonPodgladEtykiety->BackColor = System::Drawing::Color::FromArgb(0, 122, 204);
+			this->buttonPodgladEtykiety->FlatAppearance->BorderSize = 0;
+			this->buttonPodgladEtykiety->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->buttonPodgladEtykiety->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F, System::Drawing::FontStyle::Bold));
+			this->buttonPodgladEtykiety->ForeColor = System::Drawing::Color::White;
+			this->buttonPodgladEtykiety->Location = System::Drawing::Point(12, 380);
+			this->buttonPodgladEtykiety->Name = L"buttonPodgladEtykiety";
+			this->buttonPodgladEtykiety->Size = System::Drawing::Size(580, 32);
+			this->buttonPodgladEtykiety->Text = L"Podgląd etykiety";
+			this->buttonPodgladEtykiety->UseVisualStyleBackColor = false;
+			this->buttonPodgladEtykiety->Click += gcnew System::EventHandler(this, &Formularz_Kuriera::buttonPodgladEtykiety_Click);
+			// 
+=========
+>>>>>>>>> Temporary merge branch 2
 			// labelInfo
 			// 
 			this->labelInfo->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
@@ -214,8 +302,13 @@ namespace PSiO {
 			this->groupBoxStatystyki->Controls->Add(this->labelStatMiasto);
 			this->groupBoxStatystyki->Controls->Add(this->labelStatLiczbaPaczek);
 			this->groupBoxStatystyki->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F, System::Drawing::FontStyle::Bold));
+<<<<<<<<< Temporary merge branch 1
+			this->groupBoxStatystyki->ForeColor = System::Drawing::Color::FromArgb(0, 122, 204);
+			this->groupBoxStatystyki->Location = System::Drawing::Point(12, 416);
+=========
 			this->groupBoxStatystyki->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(122)), static_cast<System::Int32>(static_cast<System::Byte>(204)));
 			this->groupBoxStatystyki->Location = System::Drawing::Point(12, 423);
+>>>>>>>>> Temporary merge branch 2
 			this->groupBoxStatystyki->Name = L"groupBoxStatystyki";
 			this->groupBoxStatystyki->Size = System::Drawing::Size(860, 66);
 			this->groupBoxStatystyki->TabIndex = 7;
@@ -332,10 +425,16 @@ namespace PSiO {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+<<<<<<<<< Temporary merge branch 1
+			this->BackColor = System::Drawing::Color::FromArgb(30, 30, 30);
+			this->ClientSize = System::Drawing::Size(884, 511);
+			this->Controls->Add(this->buttonPodgladEtykiety);
+=========
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(30)), static_cast<System::Int32>(static_cast<System::Byte>(30)), static_cast<System::Int32>(static_cast<System::Byte>(30)));
 			this->ClientSize = System::Drawing::Size(884, 501);
 			this->Controls->Add(this->labelSzukaj);
 			this->Controls->Add(this->textSzukaj);
+>>>>>>>>> Temporary merge branch 2
 			this->Controls->Add(this->chartStatystyki);
 			this->Controls->Add(this->groupBoxStatystyki);
 			this->Controls->Add(this->labelInfo);
@@ -344,7 +443,11 @@ namespace PSiO {
 			this->Controls->Add(this->buttonSortujMiasto);
 			this->Controls->Add(this->buttonSortujAdres);
 			this->Controls->Add(this->listViewPaczki);
+<<<<<<<<< Temporary merge branch 1
+			this->MinimumSize = System::Drawing::Size(900, 550);
+=========
 			this->MinimumSize = System::Drawing::Size(900, 540);
+>>>>>>>>> Temporary merge branch 2
 			this->Name = L"Formularz_Kuriera";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Panel Kuriera";
@@ -359,6 +462,9 @@ namespace PSiO {
 		}
 #pragma endregion
 
+<<<<<<<<< Temporary merge branch 1
+	private:
+=========
 	private: // IMPLEMENTACJE METOD (EVENT HANDLERÓW I POMOCNICZYCH)
 		System::Void Formularz_Kuriera_Load(System::Object^ sender, System::EventArgs^ e) {
 			utworzIkony();
@@ -370,14 +476,6 @@ namespace PSiO {
 			listViewPaczki->Columns->Add("Status", 110);
 			odswiezListePaczek();
 		}
-
-		System::Void textSzukaj_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-			wypelnijListePaczek(true);
-		}
-
-		System::Void statusWSortowni_Click(System::Object^ sender, System::EventArgs^ e) { zmienStatusPaczki(Paczka::StatusPaczki::W_SORTOWNI); }
-		System::Void statusWDoreczeniu_Click(System::Object^ sender, System::EventArgs^ e) { zmienStatusPaczki(Paczka::StatusPaczki::W_DORECZENIU); }
-		System::Void statusDostarczono_Click(System::Object^ sender, System::EventArgs^ e) { zmienStatusPaczki(Paczka::StatusPaczki::DOSTARCZONO); }
 
 		void zmienStatusPaczki(Paczka::StatusPaczki nowyStatus) {
 			if (listViewPaczki->SelectedItems->Count > 0) {
@@ -491,6 +589,7 @@ namespace PSiO {
 				count++;
 			}
 		}
+>>>>>>>>> Temporary merge branch 2
 		void utworzIkony() {
 			Bitmap^ bmpMala = gcnew Bitmap(16, 16);
 			Graphics^ g = Graphics::FromImage(bmpMala);
@@ -511,5 +610,116 @@ namespace PSiO {
 			imageListPaczki->Images->Add(bmpDuza);
 			delete g;
 		}
+<<<<<<<<< Temporary merge branch 1
+
+		System::Void buttonSortujAdres_Click(System::Object^ sender, System::EventArgs^ e) {
+			sortownia->sortujPaczki(Sortownia::KryteriumSortowania::WG_ADRESU_DORECZENIA);
+			odswiezListePaczek(true);
+		}
+		System::Void buttonOdswiez_Click(System::Object^ sender, System::EventArgs^ e) {
+			odswiezListePaczek(false);
+		}
+
+		System::Void buttonSortujMiasto_Click(System::Object^ sender, System::EventArgs^ e) {
+			sortownia->sortujPaczki(Sortownia::KryteriumSortowania::WG_MIASTA);
+			odswiezListePaczek(true);
+		}
+
+		System::Void buttonSortujKod_Click(System::Object^ sender, System::EventArgs^ e) {
+			sortownia->sortujPaczki(Sortownia::KryteriumSortowania::WG_KODU_POCZTOWEGO);
+			odswiezListePaczek(true);
+		}
+
+		void odswiezListePaczek(bool posortowane) {
+			try {
+				if (imageListPaczki->Images->Count == 0) {
+					utworzIkony();
+				}
+
+				listViewPaczki->Items->Clear();
+				if (!posortowane) {
+					sortownia->wczytajPaczkiZPliku("paczka_data.json");
+				}
+				const auto& paczki = sortownia->getPaczki();
+				for (const auto& paczka : paczki) {
+					String^ numerPaczki = msclr::interop::marshal_as<String^>(paczka.getNumerPaczki());
+					String^ miasto = msclr::interop::marshal_as<String^>(paczka.getOdbiorca().miasto);
+					String^ kod = msclr::interop::marshal_as<String^>(paczka.getOdbiorca().kodPocztowy);
+					String^ status = "W sortowni";
+
+					ListViewItem^ item = gcnew ListViewItem(""); // Pusty tekst dla pierwszej kolumny z ikoną
+					item->SubItems->Add(numerPaczki);
+					item->SubItems->Add(miasto);
+					item->SubItems->Add(kod);
+					item->SubItems->Add(status);
+
+					switch (paczka.getRozmiar()) {
+					case Paczka::RozmiarPaczki::MALA: item->ImageIndex = 0; break;
+					case Paczka::RozmiarPaczki::SREDNIA: item->ImageIndex = 1; break;
+					case Paczka::RozmiarPaczki::DUZA: item->ImageIndex = 2; break;
+					}
+					listViewPaczki->Items->Add(item);
+				}
+				this->labelInfo->Text = String::Format("Wczytano {0} paczek.", paczki.size());
+				aktualizujStatystyki();
+			}
+			catch (const std::exception& e) {
+				System::String^ errorMessage = msclr::interop::marshal_as<System::String^>(e.what());
+				MessageBox::Show("Wystąpił błąd podczas wczytywania paczek: " + errorMessage, "Błąd Pliku", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			}
+		}
+
+		void aktualizujStatystyki() {
+			const auto& paczki = sortownia->getPaczki();
+			labelLiczbaPaczekVal->Text = paczki.size().ToString();
+
+			chartStatystyki->Series["Miasta"]->Points->Clear();
+
+			if (paczki.empty()) {
+				labelMiastoVal->Text = "Brak";
+				return;
+			}
+			std::map<std::string, int> licznikiMiast;
+			for (const auto& paczka : paczki) {
+				if (!paczka.getOdbiorca().miasto.empty()) {
+					licznikiMiast[paczka.getOdbiorca().miasto]++;
+				}
+			}
+
+			if (licznikiMiast.empty()) {
+				labelMiastoVal->Text = "Brak";
+				return;
+			}
+
+			auto maxElement = std::max_element(licznikiMiast.begin(), licznikiMiast.end(), compareMapPairValues);
+			labelMiastoVal->Text = gcnew String(maxElement->first.c_str());
+
+			std::vector<std::pair<std::string, int>> sortedCities(licznikiMiast.begin(), licznikiMiast.end());
+			std::sort(sortedCities.begin(), sortedCities.end(), compareMapPairValues);
+
+			int count = 0;
+			for (const auto& pair : sortedCities) {
+				if (count >= 5) break;
+				String^ miasto = gcnew String(pair.first.c_str());
+				chartStatystyki->Series["Miasta"]->Points->AddXY(miasto, pair.second);
+				count++;
+			}
+		}
+
+		System::Void buttonPodgladEtykiety_Click(System::Object^ sender, System::EventArgs^ e) {
+			int idx = -1;
+			if (listViewPaczki->SelectedItems->Count > 0)
+				idx = listViewPaczki->SelectedItems[0]->Index;
+			const auto& paczki = sortownia->getPaczki();
+			if (idx < 0 || idx >= static_cast<int>(paczki.size())) {
+				MessageBox::Show("Wybierz paczkę z listy!", "Brak wyboru", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				return;
+			}
+			const Paczka& paczka = paczki[idx];
+			PSiO::EtykietaForm^ etykieta = gcnew PSiO::EtykietaForm(paczka);
+			etykieta->ShowDialog();
+		}
+=========
+>>>>>>>>> Temporary merge branch 2
 	};
 }
