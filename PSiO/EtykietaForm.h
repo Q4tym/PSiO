@@ -42,21 +42,6 @@ namespace PSiO {
             ostatniPlikEtykiety = nullptr;
         }
 
-        // Publiczna metoda do zapisu etykiety do pliku PNG bez pokazywania okna
-        void ZapiszEtykieteDoPliku() {
-            String^ fileName = numerPaczki + ".png";
-            // Ukryj okno na czas renderowania (nie jest wyœwietlane, ale na wszelki wypadek)
-            this->Visible = false;
-            Bitmap^ bmp = gcnew Bitmap(this->ClientSize.Width, this->ClientSize.Height);
-            this->DrawToBitmap(bmp, System::Drawing::Rectangle(0, 0, bmp->Width, bmp->Height));
-            bmp->Save(fileName, Imaging::ImageFormat::Png);
-            ostatniPlikEtykiety = fileName;
-            delete bmp;
-        }
-
-        // Getter do numeru paczki (przydatny przy automatyzacji)
-        String^ GetNumerPaczki() { return numerPaczki; }
-
     protected:
         ~EtykietaForm() {
             if (components) {
@@ -264,8 +249,14 @@ namespace PSiO {
         }
 
         System::Void buttonZapisz_Click(System::Object^ sender, System::EventArgs^ e) {
-            ZapiszEtykieteDoPliku();
-            MessageBox::Show("Etykieta zosta³a zapisana do pliku:\n" + numerPaczki + ".png", "Zapisano", MessageBoxButtons::OK, MessageBoxIcon::Information);
+            // Zapisz etykietê do pliku PNG o nazwie numeru paczki
+            String^ fileName = numerPaczki + ".png";
+            Bitmap^ bmp = gcnew Bitmap(this->ClientSize.Width, this->ClientSize.Height);
+            this->DrawToBitmap(bmp, System::Drawing::Rectangle(0, 0, bmp->Width, bmp->Height));
+            bmp->Save(fileName, Imaging::ImageFormat::Png);
+            ostatniPlikEtykiety = fileName;
+            MessageBox::Show("Etykieta zosta³a zapisana do pliku:\n" + fileName, "Zapisano", MessageBoxButtons::OK, MessageBoxIcon::Information);
+            delete bmp;
         }
 
         System::Void buttonDrukuj_Click(System::Object^ sender, System::EventArgs^ e) {

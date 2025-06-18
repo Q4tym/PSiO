@@ -3,8 +3,3 @@
 [2025-06-17 19:57:20] Paczka #PKZ596743 | Rozmiar: Duza | Odbiorca: 321312 321312 | Adres: 1231, 321321 231321
 [2025-06-17 20:00:12] Paczka #PKZ348468 | Rozmiar: Duza | Odbiorca: 1231 321 | Adres: 2131, 32131 3213
 [2025-06-17 20:05:24] Paczka #PKZ413866 | Rozmiar: Duza | Odbiorca: 1 1 | Adres: 1, 111 1
-[2025-06-17 20:11:48] Paczka #PKZ687807 | Rozmiar: Duza | Odbiorca: 0 0 | Adres: 0, 00 0
-=========
-[2025-06-17 21:55:17] Paczka #PKZ444206 | Odbiorca: s s | Adres: s, s s
-[2025-06-17 22:00:38] Paczka #PKZ268813 | Odbiorca: Adrzej Kowalski | Adres: sa68, 58-400 Walbrzych
->>>>>>>>> Temporary merge branch 2

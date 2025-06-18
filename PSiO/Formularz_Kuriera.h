@@ -4,9 +4,11 @@
 #include <map>
 #include <string>
 #include <algorithm>
-#include <vector>
+#include <vector> // Potrzebne do sortowania mapy
 #include <msclr/marshal_cppstd.h>
 
+//--[IMPROVEMENT: Charting]--
+// Należy dodać referencję do System.Windows.Forms.DataVisualization w ustawieniach projektu
 #using <System.Windows.Forms.DataVisualization.dll>
 
 namespace PSiO {
@@ -17,33 +19,27 @@ namespace PSiO {
 	using namespace System::Drawing;
 	using namespace System::Windows::Forms::DataVisualization::Charting;
 
-<<<<<<<<< Temporary merge branch 1
-=========
-	// Funkcja pomocnicza do sortowania mapy wg wartości (dla statystyk)
->>>>>>>>> Temporary merge branch 2
+
 	inline bool compareMapPairValues(const std::pair<std::string, int>& a, const std::pair<std::string, int>& b) {
-		return a.second > b.second;
+		return a.second > b.second; // Sortowanie malejąco
 	}
+
 
 	public ref class Formularz_Kuriera : public System::Windows::Forms::Form
 	{
 	public:
 		Formularz_Kuriera(void) {
 			InitializeComponent();
+			//--[REQUIREMENT: Dynamic memory allocation]--
 			sortownia = new Sortownia();
 		}
 	protected:
-<<<<<<<<< Temporary merge branch 1
 		~Formularz_Kuriera()
 		{
 			if (components)
 			{
 				delete components;
 			}
-=========
-		~Formularz_Kuriera() {
-			if (components) { delete components; }
->>>>>>>>> Temporary merge branch 2
 			delete sortownia;
 		}
 
@@ -55,7 +51,6 @@ namespace PSiO {
 		Button^ buttonSortujKod;
 		Button^ buttonSortujAdres;
 		Button^ buttonOdswiez;
-		Button^ buttonPodgladEtykiety;
 		Label^ labelInfo;
 		GroupBox^ groupBoxStatystyki;
 		Label^ labelStatLiczbaPaczek;
@@ -64,17 +59,6 @@ namespace PSiO {
 		Label^ labelMiastoVal;
 		ImageList^ imageListPaczki;
 		Chart^ chartStatystyki;
-=========
-		System::Windows::Forms::ListView^ listViewPaczki;
-		System::Windows::Forms::Button^ buttonSortujMiasto, ^ buttonSortujKod, ^ buttonSortujAdres, ^ buttonOdswiez;
-		System::Windows::Forms::Label^ labelInfo, ^ labelStatLiczbaPaczek, ^ labelStatMiasto, ^ labelLiczbaPaczekVal, ^ labelMiastoVal, ^ labelSzukaj;
-		System::Windows::Forms::GroupBox^ groupBoxStatystyki;
-		System::Windows::Forms::ImageList^ imageListPaczki;
-		System::Windows::Forms::DataVisualization::Charting::Chart^ chartStatystyki;
-		System::Windows::Forms::TextBox^ textSzukaj;
-		System::Windows::Forms::ContextMenuStrip^ contextMenuPaczka;
-		System::Windows::Forms::ToolStripMenuItem^ statusWDoreczeniu, ^ statusDostarczono, ^ statusWSortowni;
->>>>>>>>> Temporary merge branch 2
 		System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
@@ -279,8 +263,6 @@ namespace PSiO {
 			this->buttonPodgladEtykiety->UseVisualStyleBackColor = false;
 			this->buttonPodgladEtykiety->Click += gcnew System::EventHandler(this, &Formularz_Kuriera::buttonPodgladEtykiety_Click);
 			// 
-=========
->>>>>>>>> Temporary merge branch 2
 			// labelInfo
 			// 
 			this->labelInfo->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
@@ -305,10 +287,6 @@ namespace PSiO {
 <<<<<<<<< Temporary merge branch 1
 			this->groupBoxStatystyki->ForeColor = System::Drawing::Color::FromArgb(0, 122, 204);
 			this->groupBoxStatystyki->Location = System::Drawing::Point(12, 416);
-=========
-			this->groupBoxStatystyki->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(122)), static_cast<System::Int32>(static_cast<System::Byte>(204)));
-			this->groupBoxStatystyki->Location = System::Drawing::Point(12, 423);
->>>>>>>>> Temporary merge branch 2
 			this->groupBoxStatystyki->Name = L"groupBoxStatystyki";
 			this->groupBoxStatystyki->Size = System::Drawing::Size(860, 66);
 			this->groupBoxStatystyki->TabIndex = 7;
@@ -429,12 +407,6 @@ namespace PSiO {
 			this->BackColor = System::Drawing::Color::FromArgb(30, 30, 30);
 			this->ClientSize = System::Drawing::Size(884, 511);
 			this->Controls->Add(this->buttonPodgladEtykiety);
-=========
-			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(30)), static_cast<System::Int32>(static_cast<System::Byte>(30)), static_cast<System::Int32>(static_cast<System::Byte>(30)));
-			this->ClientSize = System::Drawing::Size(884, 501);
-			this->Controls->Add(this->labelSzukaj);
-			this->Controls->Add(this->textSzukaj);
->>>>>>>>> Temporary merge branch 2
 			this->Controls->Add(this->chartStatystyki);
 			this->Controls->Add(this->groupBoxStatystyki);
 			this->Controls->Add(this->labelInfo);
@@ -443,11 +415,7 @@ namespace PSiO {
 			this->Controls->Add(this->buttonSortujMiasto);
 			this->Controls->Add(this->buttonSortujAdres);
 			this->Controls->Add(this->listViewPaczki);
-<<<<<<<<< Temporary merge branch 1
 			this->MinimumSize = System::Drawing::Size(900, 550);
-=========
-			this->MinimumSize = System::Drawing::Size(900, 540);
->>>>>>>>> Temporary merge branch 2
 			this->Name = L"Formularz_Kuriera";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Panel Kuriera";
@@ -464,132 +432,6 @@ namespace PSiO {
 
 <<<<<<<<< Temporary merge branch 1
 	private:
-=========
-	private: // IMPLEMENTACJE METOD (EVENT HANDLERÓW I POMOCNICZYCH)
-		System::Void Formularz_Kuriera_Load(System::Object^ sender, System::EventArgs^ e) {
-			utworzIkony();
-			// Ustawienie kolumn dla ListView
-			listViewPaczki->Columns->Add("Rozm.", 50);
-			listViewPaczki->Columns->Add("Numer Paczki", 140);
-			listViewPaczki->Columns->Add("Miasto Odbiorcy", 120);
-			listViewPaczki->Columns->Add("Kod Pocztowy", 90);
-			listViewPaczki->Columns->Add("Status", 110);
-			odswiezListePaczek();
-		}
-
-		void zmienStatusPaczki(Paczka::StatusPaczki nowyStatus) {
-			if (listViewPaczki->SelectedItems->Count > 0) {
-				ListViewItem^ selectedItem = listViewPaczki->SelectedItems[0];
-				String^ numerPaczki = selectedItem->SubItems[1]->Text;
-				std::string stdNumerPaczki = msclr::interop::marshal_as<std::string>(numerPaczki);
-
-				auto& paczki = sortownia->getPaczki();
-				for (auto it = paczki.begin(); it != paczki.end(); ++it) {
-					if (it->getNumerPaczki() == stdNumerPaczki) {
-						it->setStatus(nowyStatus);
-						sortownia->zapiszPaczkiDoPliku("paczka_data.json");
-						int scrollPosition = listViewPaczki->TopItem ? listViewPaczki->TopItem->Index : 0;
-						wypelnijListePaczek(true);
-						if (scrollPosition < listViewPaczki->Items->Count) {
-							listViewPaczki->TopItem = listViewPaczki->Items[scrollPosition];
-						}
-						break;
-					}
-				}
-			}
-		}
-
-		System::Void buttonOdswiez_Click(System::Object^ sender, System::EventArgs^ e) { odswiezListePaczek(); }
-		System::Void buttonSortujMiasto_Click(System::Object^ sender, System::EventArgs^ e) { sortownia->sortujPaczki(Sortownia::KryteriumSortowania::WG_MIASTA); wypelnijListePaczek(true); }
-		System::Void buttonSortujKod_Click(System::Object^ sender, System::EventArgs^ e) { sortownia->sortujPaczki(Sortownia::KryteriumSortowania::WG_KODU_POCZTOWEGO); wypelnijListePaczek(true); }
-		System::Void buttonSortujAdres_Click(System::Object^ sender, System::EventArgs^ e) { sortownia->sortujPaczki(Sortownia::KryteriumSortowania::WG_ADRESU_DORECZENIA); wypelnijListePaczek(true); }
-
-		void odswiezListePaczek() {
-			try {
-				textSzukaj->Clear();
-				sortownia->wczytajPaczkiZPliku("paczka_data.json");
-				wypelnijListePaczek(false);
-			}
-			catch (const std::exception& e) {
-				System::String^ errorMessage = msclr::interop::marshal_as<System::String^>(e.what());
-				MessageBox::Show("Błąd podczas wczytywania paczek: " + errorMessage, "Błąd Pliku", MessageBoxButtons::OK, MessageBoxIcon::Error);
-			}
-		}
-
-		void wypelnijListePaczek(bool uzyjFiltru) {
-			listViewPaczki->BeginUpdate();
-			listViewPaczki->Items->Clear();
-
-			String^ filtr = textSzukaj->Text->ToLower();
-			const auto& paczki = sortownia->getPaczki();
-
-			for (const auto& paczka : paczki) {
-				String^ numer = msclr::interop::marshal_as<String^>(paczka.getNumerPaczki());
-				String^ miasto = msclr::interop::marshal_as<String^>(paczka.getOdbiorca().miasto);
-				String^ kod = msclr::interop::marshal_as<String^>(paczka.getOdbiorca().kodPocztowy);
-
-				if (uzyjFiltru && !String::IsNullOrEmpty(filtr)) {
-					if (!numer->ToLower()->Contains(filtr) &&
-						!miasto->ToLower()->Contains(filtr) &&
-						!kod->ToLower()->Contains(filtr)) {
-						continue;
-					}
-				}
-
-				String^ statusStr = msclr::interop::marshal_as<String^>(statusToString(paczka.getStatus()));
-				ListViewItem^ item = gcnew ListViewItem("");
-				item->SubItems->Add(numer);
-				item->SubItems->Add(miasto);
-				item->SubItems->Add(kod);
-				item->SubItems->Add(statusStr);
-
-				switch (paczka.getRozmiar()) {
-				case Paczka::RozmiarPaczki::MALA: item->ImageIndex = 0; break;
-				case Paczka::RozmiarPaczki::SREDNIA: item->ImageIndex = 1; break;
-				case Paczka::RozmiarPaczki::DUZA: item->ImageIndex = 2; break;
-				}
-				listViewPaczki->Items->Add(item);
-			}
-			aktualizujStatystyki();
-			listViewPaczki->EndUpdate();
-		}
-
-		void aktualizujStatystyki() {
-			labelLiczbaPaczekVal->Text = sortownia->getPaczki().size().ToString();
-			chartStatystyki->Series["Miasta"]->Points->Clear();
-			if (sortownia->getPaczki().empty()) {
-				labelMiastoVal->Text = "Brak";
-				return;
-			}
-			std::map<std::string, int> licznikiMiast;
-			for (const auto& paczka : sortownia->getPaczki()) {
-				if (!paczka.getOdbiorca().miasto.empty()) {
-					licznikiMiast[paczka.getOdbiorca().miasto]++;
-				}
-			}
-			if (licznikiMiast.empty()) {
-				labelMiastoVal->Text = "Brak";
-				return;
-			}
-
-			std::pair<std::string, int> maxPair = *licznikiMiast.begin();
-			for (const auto& pair : licznikiMiast) {
-				if (pair.second > maxPair.second) {
-					maxPair = pair;
-				}
-			}
-			labelMiastoVal->Text = gcnew String(maxPair.first.c_str());
-
-			std::vector<std::pair<std::string, int>> sortedCities(licznikiMiast.begin(), licznikiMiast.end());
-			std::sort(sortedCities.begin(), sortedCities.end(), compareMapPairValues);
-			int count = 0;
-			for (const auto& pair : sortedCities) {
-				if (count >= 5) break;
-				chartStatystyki->Series["Miasta"]->Points->AddXY(gcnew String(pair.first.c_str()), pair.second);
-				count++;
-			}
-		}
->>>>>>>>> Temporary merge branch 2
 		void utworzIkony() {
 			Bitmap^ bmpMala = gcnew Bitmap(16, 16);
 			Graphics^ g = Graphics::FromImage(bmpMala);
@@ -691,12 +533,16 @@ namespace PSiO {
 				return;
 			}
 
+			//--[REQUIREMENT: STL Algorithm]--
+			// Znajdź miasto z największą liczbą paczek
 			auto maxElement = std::max_element(licznikiMiast.begin(), licznikiMiast.end(), compareMapPairValues);
 			labelMiastoVal->Text = gcnew String(maxElement->first.c_str());
 
+			// Konwertuj mapę do wektora, aby ją posortować i wziąć TOP 5
 			std::vector<std::pair<std::string, int>> sortedCities(licznikiMiast.begin(), licznikiMiast.end());
 			std::sort(sortedCities.begin(), sortedCities.end(), compareMapPairValues);
 
+			// Wypełnij wykres danymi
 			int count = 0;
 			for (const auto& pair : sortedCities) {
 				if (count >= 5) break;
@@ -704,20 +550,6 @@ namespace PSiO {
 				chartStatystyki->Series["Miasta"]->Points->AddXY(miasto, pair.second);
 				count++;
 			}
-		}
-
-		System::Void buttonPodgladEtykiety_Click(System::Object^ sender, System::EventArgs^ e) {
-			int idx = -1;
-			if (listViewPaczki->SelectedItems->Count > 0)
-				idx = listViewPaczki->SelectedItems[0]->Index;
-			const auto& paczki = sortownia->getPaczki();
-			if (idx < 0 || idx >= static_cast<int>(paczki.size())) {
-				MessageBox::Show("Wybierz paczkę z listy!", "Brak wyboru", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-				return;
-			}
-			const Paczka& paczka = paczki[idx];
-			PSiO::EtykietaForm^ etykieta = gcnew PSiO::EtykietaForm(paczka);
-			etykieta->ShowDialog();
 		}
 =========
 >>>>>>>>> Temporary merge branch 2
