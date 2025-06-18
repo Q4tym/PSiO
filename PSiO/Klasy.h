@@ -82,7 +82,7 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Paczka& p);
 };
 
-// POPRAWKA: Deklaracje funkcji pomocniczych przeniesione tutaj
+
 Paczka::RozmiarPaczki stringToRozmiar(const std::string& s);
 std::string rozmiarToString(Paczka::RozmiarPaczki r);
 Paczka::StatusPaczki stringToStatus(const std::string& s);

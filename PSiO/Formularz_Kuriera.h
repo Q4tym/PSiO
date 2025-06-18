@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "Klasy.h"
+#include "EtykietaForm.h"
 #include <map>
 #include <string>
 #include <algorithm>
@@ -17,7 +18,6 @@ namespace PSiO {
 	using namespace System::Drawing;
 	using namespace System::Windows::Forms::DataVisualization::Charting;
 
-	// Funkcja pomocnicza do sortowania mapy wg wartości (dla statystyk)
 	inline bool compareMapPairValues(const std::pair<std::string, int>& a, const std::pair<std::string, int>& b) {
 		return a.second > b.second;
 	}
@@ -28,6 +28,7 @@ namespace PSiO {
 		Formularz_Kuriera(void) {
 			InitializeComponent();
 			sortownia = new Sortownia();
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &Formularz_Kuriera::Formularz_Kuriera_FormClosing);
 		}
 	protected:
 		~Formularz_Kuriera() {
@@ -35,10 +36,10 @@ namespace PSiO {
 			delete sortownia;
 		}
 
-	private: // DEKLARACJE ZMIENNYCH CZŁONKOWSKICH
+	private:
 		Sortownia* sortownia;
 		System::Windows::Forms::ListView^ listViewPaczki;
-		System::Windows::Forms::Button^ buttonSortujMiasto, ^ buttonSortujKod, ^ buttonSortujAdres, ^ buttonOdswiez;
+		System::Windows::Forms::Button^ buttonSortujMiasto, ^ buttonSortujKod, ^ buttonSortujAdres, ^ buttonOdswiez, ^ buttonGenerujEtykiete;
 		System::Windows::Forms::Label^ labelInfo, ^ labelStatLiczbaPaczek, ^ labelStatMiasto, ^ labelLiczbaPaczekVal, ^ labelMiastoVal, ^ labelSzukaj;
 		System::Windows::Forms::GroupBox^ groupBoxStatystyki;
 		System::Windows::Forms::ImageList^ imageListPaczki;
@@ -66,6 +67,7 @@ namespace PSiO {
 			this->buttonSortujMiasto = (gcnew System::Windows::Forms::Button());
 			this->buttonSortujKod = (gcnew System::Windows::Forms::Button());
 			this->buttonOdswiez = (gcnew System::Windows::Forms::Button());
+			this->buttonGenerujEtykiete = (gcnew System::Windows::Forms::Button());
 			this->labelInfo = (gcnew System::Windows::Forms::Label());
 			this->groupBoxStatystyki = (gcnew System::Windows::Forms::GroupBox());
 			this->labelMiastoVal = (gcnew System::Windows::Forms::Label());
@@ -79,9 +81,7 @@ namespace PSiO {
 			this->groupBoxStatystyki->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chartStatystyki))->BeginInit();
 			this->SuspendLayout();
-			// 
-			// buttonSortujAdres
-			// 
+
 			this->buttonSortujAdres->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(40)), static_cast<System::Int32>(static_cast<System::Byte>(167)), static_cast<System::Int32>(static_cast<System::Byte>(69)));
 			this->buttonSortujAdres->FlatAppearance->BorderSize = 0;
 			this->buttonSortujAdres->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
@@ -94,9 +94,7 @@ namespace PSiO {
 			this->buttonSortujAdres->Text = L"Sortowanie Zaawansowane";
 			this->buttonSortujAdres->UseVisualStyleBackColor = false;
 			this->buttonSortujAdres->Click += gcnew System::EventHandler(this, &Formularz_Kuriera::buttonSortujAdres_Click);
-			// 
-			// listViewPaczki
-			// 
+
 			this->listViewPaczki->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left));
 			this->listViewPaczki->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(48)));
@@ -114,42 +112,30 @@ namespace PSiO {
 			this->listViewPaczki->UseCompatibleStateImageBehavior = false;
 			this->listViewPaczki->View = System::Windows::Forms::View::Details;
 			this->listViewPaczki->ContextMenuStrip = this->contextMenuPaczka;
-			// 
-			// imageListPaczki
-			// 
+
 			this->imageListPaczki->ColorDepth = System::Windows::Forms::ColorDepth::Depth32Bit;
 			this->imageListPaczki->ImageSize = System::Drawing::Size(16, 16);
 			this->imageListPaczki->TransparentColor = System::Drawing::Color::Transparent;
-			// 
-			// contextMenuPaczka
-			// 
+
 			this->contextMenuPaczka->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) { this->statusWSortowni, this->statusWDoreczeniu, this->statusDostarczono });
 			this->contextMenuPaczka->Name = L"contextMenuPaczka";
 			this->contextMenuPaczka->Size = System::Drawing::Size(225, 70);
-			// 
-			// statusWSortowni
-			// 
+
 			this->statusWSortowni->Name = L"statusWSortowni";
 			this->statusWSortowni->Size = System::Drawing::Size(224, 22);
 			this->statusWSortowni->Text = L"Zmień status na \'W sortowni\'";
 			this->statusWSortowni->Click += gcnew System::EventHandler(this, &Formularz_Kuriera::statusWSortowni_Click);
-			// 
-			// statusWDoreczeniu
-			// 
+
 			this->statusWDoreczeniu->Name = L"statusWDoreczeniu";
 			this->statusWDoreczeniu->Size = System::Drawing::Size(224, 22);
 			this->statusWDoreczeniu->Text = L"Zmień status na \'W doręczeniu\'";
 			this->statusWDoreczeniu->Click += gcnew System::EventHandler(this, &Formularz_Kuriera::statusWDoreczeniu_Click);
-			// 
-			// statusDostarczono
-			// 
+
 			this->statusDostarczono->Name = L"statusDostarczono";
 			this->statusDostarczono->Size = System::Drawing::Size(224, 22);
 			this->statusDostarczono->Text = L"Zmień status na \'Dostarczono\'";
 			this->statusDostarczono->Click += gcnew System::EventHandler(this, &Formularz_Kuriera::statusDostarczono_Click);
-			// 
-			// buttonSortujMiasto
-			// 
+
 			this->buttonSortujMiasto->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)));
 			this->buttonSortujMiasto->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->buttonSortujMiasto->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
@@ -162,9 +148,7 @@ namespace PSiO {
 			this->buttonSortujMiasto->Text = L"Sortuj wg Miasta";
 			this->buttonSortujMiasto->UseVisualStyleBackColor = false;
 			this->buttonSortujMiasto->Click += gcnew System::EventHandler(this, &Formularz_Kuriera::buttonSortujMiasto_Click);
-			// 
-			// buttonSortujKod
-			// 
+
 			this->buttonSortujKod->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)), static_cast<System::Int32>(static_cast<System::Byte>(50)));
 			this->buttonSortujKod->FlatAppearance->BorderColor = System::Drawing::Color::Gray;
 			this->buttonSortujKod->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
@@ -177,9 +161,7 @@ namespace PSiO {
 			this->buttonSortujKod->Text = L"Sortuj wg Kodu";
 			this->buttonSortujKod->UseVisualStyleBackColor = false;
 			this->buttonSortujKod->Click += gcnew System::EventHandler(this, &Formularz_Kuriera::buttonSortujKod_Click);
-			// 
-			// buttonOdswiez
-			// 
+
 			this->buttonOdswiez->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(122)), static_cast<System::Int32>(static_cast<System::Byte>(204)));
 			this->buttonOdswiez->FlatAppearance->BorderSize = 0;
 			this->buttonOdswiez->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
@@ -192,9 +174,18 @@ namespace PSiO {
 			this->buttonOdswiez->Text = L"Odśwież";
 			this->buttonOdswiez->UseVisualStyleBackColor = false;
 			this->buttonOdswiez->Click += gcnew System::EventHandler(this, &Formularz_Kuriera::buttonOdswiez_Click);
-			// 
-			// labelInfo
-			// 
+
+			this->buttonGenerujEtykiete->BackColor = System::Drawing::Color::FromArgb(210, 210, 210);
+			this->buttonGenerujEtykiete->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->buttonGenerujEtykiete->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F, System::Drawing::FontStyle::Bold));
+			this->buttonGenerujEtykiete->ForeColor = System::Drawing::Color::Black;
+			this->buttonGenerujEtykiete->Location = System::Drawing::Point(600, 12);
+			this->buttonGenerujEtykiete->Name = L"buttonGenerujEtykiete";
+			this->buttonGenerujEtykiete->Size = System::Drawing::Size(140, 32);
+			this->buttonGenerujEtykiete->Text = L"Generuj etykietę";
+			this->buttonGenerujEtykiete->UseVisualStyleBackColor = false;
+			this->buttonGenerujEtykiete->Click += gcnew System::EventHandler(this, &Formularz_Kuriera::buttonGenerujEtykiete_Click);
+
 			this->labelInfo->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->labelInfo->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F));
 			this->labelInfo->ForeColor = System::Drawing::Color::Gainsboro;
@@ -204,9 +195,7 @@ namespace PSiO {
 			this->labelInfo->TabIndex = 4;
 			this->labelInfo->Text = L"Panel kuriera";
 			this->labelInfo->TextAlign = System::Drawing::ContentAlignment::MiddleRight;
-			// 
-			// groupBoxStatystyki
-			// 
+
 			this->groupBoxStatystyki->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->groupBoxStatystyki->Controls->Add(this->labelMiastoVal);
@@ -221,9 +210,7 @@ namespace PSiO {
 			this->groupBoxStatystyki->TabIndex = 7;
 			this->groupBoxStatystyki->TabStop = false;
 			this->groupBoxStatystyki->Text = L"Podstawowe Statystyki";
-			// 
-			// labelMiastoVal
-			// 
+
 			this->labelMiastoVal->AutoSize = true;
 			this->labelMiastoVal->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F, System::Drawing::FontStyle::Bold));
 			this->labelMiastoVal->ForeColor = System::Drawing::Color::White;
@@ -232,9 +219,7 @@ namespace PSiO {
 			this->labelMiastoVal->Size = System::Drawing::Size(36, 17);
 			this->labelMiastoVal->TabIndex = 3;
 			this->labelMiastoVal->Text = L"Brak";
-			// 
-			// labelLiczbaPaczekVal
-			// 
+
 			this->labelLiczbaPaczekVal->AutoSize = true;
 			this->labelLiczbaPaczekVal->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F, System::Drawing::FontStyle::Bold));
 			this->labelLiczbaPaczekVal->ForeColor = System::Drawing::Color::White;
@@ -243,9 +228,7 @@ namespace PSiO {
 			this->labelLiczbaPaczekVal->Size = System::Drawing::Size(15, 17);
 			this->labelLiczbaPaczekVal->TabIndex = 2;
 			this->labelLiczbaPaczekVal->Text = L"0";
-			// 
-			// labelStatMiasto
-			// 
+
 			this->labelStatMiasto->AutoSize = true;
 			this->labelStatMiasto->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F));
 			this->labelStatMiasto->ForeColor = System::Drawing::Color::Gainsboro;
@@ -254,9 +237,7 @@ namespace PSiO {
 			this->labelStatMiasto->Size = System::Drawing::Size(193, 17);
 			this->labelStatMiasto->TabIndex = 1;
 			this->labelStatMiasto->Text = L"Miasto z największą l. paczek:";
-			// 
-			// labelStatLiczbaPaczek
-			// 
+
 			this->labelStatLiczbaPaczek->AutoSize = true;
 			this->labelStatLiczbaPaczek->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F));
 			this->labelStatLiczbaPaczek->ForeColor = System::Drawing::Color::Gainsboro;
@@ -265,9 +246,7 @@ namespace PSiO {
 			this->labelStatLiczbaPaczek->Size = System::Drawing::Size(147, 17);
 			this->labelStatLiczbaPaczek->TabIndex = 0;
 			this->labelStatLiczbaPaczek->Text = L"Całkowita liczba paczek:";
-			// 
-			// chartStatystyki
-			// 
+
 			this->chartStatystyki->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->chartStatystyki->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(45)), static_cast<System::Int32>(static_cast<System::Byte>(48)));
@@ -301,9 +280,7 @@ namespace PSiO {
 			title1->Name = L"Title1";
 			title1->Text = L"TOP 5 Miast docelowych";
 			this->chartStatystyki->Titles->Add(title1);
-			// 
-			// textSzukaj
-			// 
+
 			this->textSzukaj->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->textSzukaj->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(60)), static_cast<System::Int32>(static_cast<System::Byte>(60)), static_cast<System::Int32>(static_cast<System::Byte>(60)));
@@ -315,9 +292,7 @@ namespace PSiO {
 			this->textSzukaj->Size = System::Drawing::Size(580, 25);
 			this->textSzukaj->TabIndex = 6;
 			this->textSzukaj->TextChanged += gcnew System::EventHandler(this, &Formularz_Kuriera::textSzukaj_TextChanged);
-			// 
-			// labelSzukaj
-			// 
+
 			this->labelSzukaj->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
 			this->labelSzukaj->AutoSize = true;
 			this->labelSzukaj->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F));
@@ -327,13 +302,12 @@ namespace PSiO {
 			this->labelSzukaj->Size = System::Drawing::Size(180, 17);
 			this->labelSzukaj->TabIndex = 8;
 			this->labelSzukaj->Text = L"🔎 Wyszukaj (Nr, Miasto, Kod):";
-			// 
-			// Formularz_Kuriera
-			// 
+
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(30)), static_cast<System::Int32>(static_cast<System::Byte>(30)), static_cast<System::Int32>(static_cast<System::Byte>(30)));
 			this->ClientSize = System::Drawing::Size(884, 501);
+			this->Controls->Add(this->buttonGenerujEtykiete);
 			this->Controls->Add(this->labelSzukaj);
 			this->Controls->Add(this->textSzukaj);
 			this->Controls->Add(this->chartStatystyki);
@@ -355,14 +329,12 @@ namespace PSiO {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chartStatystyki))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
-
 		}
 #pragma endregion
 
-	private: // IMPLEMENTACJE METOD (EVENT HANDLERÓW I POMOCNICZYCH)
+	private:
 		System::Void Formularz_Kuriera_Load(System::Object^ sender, System::EventArgs^ e) {
 			utworzIkony();
-			// Ustawienie kolumn dla ListView
 			listViewPaczki->Columns->Add("Rozm.", 50);
 			listViewPaczki->Columns->Add("Numer Paczki", 140);
 			listViewPaczki->Columns->Add("Miasto Odbiorcy", 120);
@@ -405,6 +377,25 @@ namespace PSiO {
 		System::Void buttonSortujMiasto_Click(System::Object^ sender, System::EventArgs^ e) { sortownia->sortujPaczki(Sortownia::KryteriumSortowania::WG_MIASTA); wypelnijListePaczek(true); }
 		System::Void buttonSortujKod_Click(System::Object^ sender, System::EventArgs^ e) { sortownia->sortujPaczki(Sortownia::KryteriumSortowania::WG_KODU_POCZTOWEGO); wypelnijListePaczek(true); }
 		System::Void buttonSortujAdres_Click(System::Object^ sender, System::EventArgs^ e) { sortownia->sortujPaczki(Sortownia::KryteriumSortowania::WG_ADRESU_DORECZENIA); wypelnijListePaczek(true); }
+
+		System::Void buttonGenerujEtykiete_Click(System::Object^ sender, System::EventArgs^ e) {
+			if (listViewPaczki->SelectedItems->Count == 0) {
+				MessageBox::Show("Wybierz paczkę z listy.", "Brak wyboru", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				return;
+			}
+			String^ numerPaczki = listViewPaczki->SelectedItems[0]->SubItems[1]->Text;
+			std::string stdNumerPaczki = msclr::interop::marshal_as<std::string>(numerPaczki);
+			for (const auto& paczka : sortownia->getPaczki()) {
+				if (paczka.getNumerPaczki() == stdNumerPaczki) {
+					PSiO::EtykietaForm^ etykieta = gcnew PSiO::EtykietaForm(paczka);
+					etykieta->ShowDialog();
+					break;
+				}
+			}
+		}
+
+		System::Void Formularz_Kuriera_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+		}
 
 		void odswiezListePaczek() {
 			try {
